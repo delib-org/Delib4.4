@@ -1,8 +1,13 @@
-import React from 'react'
+import {FC} from 'react'
+import { OptionProps } from '../model/optionModel'
 
-const OptionBar = () => {
+interface OptionBarProps{
+  option:OptionProps
+}
+
+const OptionBar:FC<OptionBarProps> = ({option}) => {
   return (
-    <div>OptionBar</div>
+    <div className='optionsBar__bars__bar' style={{height:`${option.votes*10}vh`}}>{option.votes}</div>
   )
 }
 

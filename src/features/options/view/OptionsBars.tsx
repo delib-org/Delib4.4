@@ -5,15 +5,17 @@ import AddOption from "./AddOption";
 import OptionBar from "./OptionBar";
 import OptionBtn from "./OptionBtn";
 interface OptionsBarsProps {
-  counsilId:string;
+  counsilId: string;
 }
 
-const OptionsBars: FC<OptionsBarsProps> = ({counsilId }) => {
+const OptionsBars: FC<OptionsBarsProps> = ({ counsilId }) => {
   const [showAddOption, setShowAddOption] = useState<boolean>(false);
-  const options = useAppSelector(state=>state.options.options.filter(option=>option.counsilId === counsilId))
+  const options = useAppSelector((state) =>
+    state.options.options.filter((option) => option.counsilId === counsilId)
+  );
 
-  function handleAddOption(){
-    console.log(showAddOption)
+  function handleAddOption() {
+    console.log(showAddOption);
     setShowAddOption(true);
   }
 
@@ -21,12 +23,21 @@ const OptionsBars: FC<OptionsBarsProps> = ({counsilId }) => {
     <div className="optionsBar">
       <h3>OptionsBars</h3>
       <button onClick={handleAddOption}>ADD OPTION</button>
-      <div className="optionsBar__btns">
-      {options.map((option: OptionProps) => (
-        <OptionBtn key={`${option.optionId}-btn`} option={option}/>
-      ))}
+      <div className="wrapper">
+        <div className="optionsBar__bars">
+          {options.map(option=><OptionBar key={`${option.optionId}-bar`} option={option}/>)}
+        </div>
+        <div className="optionsBar__btns">
+          {options.map((option: OptionProps) => (
+            <OptionBtn key={`${option.optionId}-btn`} option={option} />
+          ))}
+        </div>
       </div>
-      <AddOption counsilId={counsilId} showAddOption={showAddOption} setShowAddOption={setShowAddOption}/>
+      <AddOption
+        counsilId={counsilId}
+        showAddOption={showAddOption}
+        setShowAddOption={setShowAddOption}
+      />
     </div>
   );
 };
