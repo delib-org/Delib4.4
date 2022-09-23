@@ -1,5 +1,5 @@
 import { doc, onSnapshot } from "firebase/firestore";
-import { DB } from "../../../control/firebase/config";
+import { DB } from "../../control/firebase/config";
 
 export function listenToCounsil(
   councilId: string,
