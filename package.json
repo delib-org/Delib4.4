@@ -19,6 +19,7 @@
     "react-redux": "^8.0.2",
     "react-router-dom": "^6.4.1",
     "react-scripts": "5.0.1",
+    "sass": "^1.55.0",
     "sort-by": "^1.2.0",
     "typescript": "^4.8.3",
     "uuid": "^9.0.0",
@@ -41,8 +42,8 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "eml":"firebase emulators:start",
-    "fun":"cd functions && npm run build:watch"
+    "eml": "firebase emulators:start",
+    "fun": "cd functions && npm run build:watch"
   },
   "eslintConfig": {
     "extends": [

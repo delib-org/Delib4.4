@@ -1,5 +1,5 @@
 export interface User{
-    sub:string;
+    uid:string;
     photoURL:string|null;
     isAnonymous:boolean;
     emailVerified:boolean

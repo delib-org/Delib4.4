@@ -2,6 +2,8 @@ import { FC, useState } from "react";
 import { useAppSelector } from "../../../model/hooks";
 import { OptionProps } from "../model/optionModel";
 import AddOption from "./AddOption";
+import OptionBar from "./OptionBar";
+import OptionBtn from "./OptionBtn";
 interface OptionsBarsProps {
   counsilId:string;
 }
@@ -16,12 +18,14 @@ const OptionsBars: FC<OptionsBarsProps> = ({counsilId }) => {
   }
 
   return (
-    <div>
+    <div className="optionsBar">
       <h3>OptionsBars</h3>
       <button onClick={handleAddOption}>ADD OPTION</button>
+      <div className="optionsBar__btns">
       {options.map((option: OptionProps) => (
-        <p>{option.title}</p>
+        <OptionBtn key={`${option.optionId}-btn`} option={option}/>
       ))}
+      </div>
       <AddOption counsilId={counsilId} showAddOption={showAddOption} setShowAddOption={setShowAddOption}/>
     </div>
   );
