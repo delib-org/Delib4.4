@@ -14,6 +14,7 @@ import Login from "./view/pages/login/Login";
 import Feed from "./features/feed/Feed";
 import Main from "./features/main/Main";
 import App from "./App";
+import AddCouncil from "./features/counsils/view/AddCouncil";
 
 const router = createBrowserRouter([
   {
@@ -24,12 +25,15 @@ const router = createBrowserRouter([
       {
         path: "/main",
         element: <Main />,
-        children: [{ path: "", element: <Feed /> }],
+        children: [
+          { path: "", element: <Feed /> },
+          { path: "add-council", element: <AddCouncil /> },
+        ],
       },
       {
-        path:'',
-        element:<Login/>
-      }
+        path: "",
+        element: <Login />,
+      },
     ],
   },
 ]);
