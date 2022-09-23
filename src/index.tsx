@@ -7,23 +7,30 @@ import { Provider } from "react-redux";
 import * as serviceWorkerRegistration from "./serviceWorkerRegistration";
 import reportWebVitals from "./reportWebVitals";
 
-import { createBrowserRouter, RouterProvider, Route } from "react-router-dom";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
 import Page404 from "./view/pages/Page404";
 import Login from "./view/pages/login/Login";
 import Feed from "./features/feed/Feed";
 import Main from "./features/main/Main";
+import App from "./App";
 
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <Login />,
+    element: <App />,
     errorElement: <Page404 />,
-  },
-  {
-    path: "/main",
-    element: <Main />,
-    children: [{ path: "", element: <Feed /> }],
+    children: [
+      {
+        path: "/main",
+        element: <Main />,
+        children: [{ path: "", element: <Feed /> }],
+      },
+      {
+        path:'',
+        element:<Login/>
+      }
+    ],
   },
 ]);
 

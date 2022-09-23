@@ -1,26 +1,27 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { useEffect } from "react";
 
-
+import "./App.css";
+import { Outlet, useLocation } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { setLastNavigation, setUser } from "./features/user/userSlice";
+import { listenToAuth, signInAnonym } from "./features/signin/signin";
 
 function App() {
+  const dispatch = useDispatch();
+  const location = useLocation();
+
+  function registerUser(user: any) {
+    dispatch(setUser(user));
+  }
+  useEffect(() => {
+    listenToAuth(registerUser);
+    dispatch(setLastNavigation(location.pathname));
+    signInAnonym();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Outlet />
     </div>
   );
 }
