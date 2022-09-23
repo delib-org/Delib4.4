@@ -1,9 +1,9 @@
-import { OptionsView } from "../options/optionsModel";
+import { OptionsView } from "../options/model/optionModel";
 import { User } from "../user/userModel";
 
 export interface Counsil {
   title: string;
-  councilId:string;
+  counsilId:string;
   description:string;
   defaultOptionsView:OptionsView;
   creator:User

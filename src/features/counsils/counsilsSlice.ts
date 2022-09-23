@@ -22,17 +22,20 @@ export const councilsSlice = createSlice({
         state.councils = [...state.councils, action.payload];
       }
     },
-    updateCouncil:(state,action:PayloadAction<Counsil>)=>{
+    updateCounsil: (state, action: PayloadAction<Counsil>) => {
       if (action.payload) {
-        state.councils =  updateArray(state.councils,action.payload,'councilId')
+        state.councils = updateArray(
+          state.councils,
+          action.payload,
+          "councilId"
+        );
       }
-    }
+    },
   },
 });
 
-export const { addCouncil,updateCouncil } = councilsSlice.actions;
+export const { addCouncil, updateCounsil } = councilsSlice.actions;
 
 export const selectCouncils = (state: RootState) => state.councils.councils;
-
 
 export default councilsSlice.reducer;
