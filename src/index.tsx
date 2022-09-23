@@ -15,6 +15,7 @@ import Feed from "./features/feed/Feed";
 import Main from "./features/main/Main";
 import App from "./App";
 import AddCouncil from "./features/counsils/view/AddCouncil";
+import CouncilPage from "./features/council/Council";
 
 const router = createBrowserRouter([
   {
@@ -29,6 +30,10 @@ const router = createBrowserRouter([
           { path: "", element: <Feed /> },
           { path: "add-council", element: <AddCouncil /> },
         ],
+      },
+      {
+        path: "/counsil/:councilId",
+        element: <CouncilPage />,
       },
       {
         path: "",
