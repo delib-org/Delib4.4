@@ -19,6 +19,8 @@ const AddCouncil = () => {
       const council: Council = { title, councilId };
       dispatch(addCouncil(council));
       addCouncilToDB(council);
+
+      ev.target.reset();
     } catch (error) {
       console.error(error);
     }
