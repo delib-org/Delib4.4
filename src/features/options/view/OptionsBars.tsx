@@ -1,13 +1,14 @@
 import { FC, useState } from "react";
+import { useAppSelector } from "../../../model/hooks";
 import { OptionProps } from "../model/optionModel";
 import AddOption from "./AddOption";
 interface OptionsBarsProps {
-  options: OptionProps[];
   counsilId:string;
 }
 
-const OptionsBars: FC<OptionsBarsProps> = ({counsilId, options }) => {
+const OptionsBars: FC<OptionsBarsProps> = ({counsilId }) => {
   const [showAddOption, setShowAddOption] = useState<boolean>(false);
+  const options = useAppSelector(state=>state.options.options.filter(option=>option.counsilId === counsilId))
 
   function handleAddOption(){
     console.log(showAddOption)

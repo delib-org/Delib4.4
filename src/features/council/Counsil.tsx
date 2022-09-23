@@ -56,7 +56,7 @@ const CouncilPage = () => {
       switch (type) {
         case OptionsView.BARS:
           if (counsilId)
-            return <OptionsBars options={[]} counsilId={counsilId} />;
+            return <OptionsBars counsilId={counsilId} />;
           else return null;
         default:
           return null;
