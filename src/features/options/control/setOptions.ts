@@ -1,10 +1,13 @@
-import { doc } from "firebase/firestore";
+import { doc, setDoc } from "firebase/firestore";
 import { DB } from "../../../control/firebase/config";
+import { Collections } from "../../../control/firebase/dbModel";
 import { OptionProps } from "../model/optionModel";
 
-export function addOptionToDB(option:OptionProps){
+export async function addOptionToDB(option:OptionProps){
     try {
-        const optionRef = doc(DB,'counsils',option.counsilId)
+        console.log(Collections.COUNSILS,option.counsilId, Collections.OPTIONS,option.optionId)
+        const optionRef = doc(DB,Collections.COUNSILS,option.counsilId, Collections.OPTIONS,option.optionId);
+        await setDoc(optionRef,option);
     } catch (error) {
         console.error(error)
     }

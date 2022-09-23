@@ -5,5 +5,4 @@ export interface User{
     emailVerified:boolean
     email:string|null;
     displayName:string|null;
-
 }
