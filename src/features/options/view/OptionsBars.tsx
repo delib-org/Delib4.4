@@ -23,15 +23,14 @@ const OptionsBars: FC<OptionsBarsProps> = ({ counsilId }) => {
     <div className="optionsBar">
       <h3>OptionsBars</h3>
       <button onClick={handleAddOption}>ADD OPTION</button>
-      <div className="wrapper">
-        <div className="optionsBar__bars">
-          {options.map(option=><OptionBar key={`${option.optionId}-bar`} option={option}/>)}
-        </div>
-        <div className="optionsBar__btns">
-          {options.map((option: OptionProps) => (
-            <OptionBtn key={`${option.optionId}-btn`} option={option} />
-          ))}
-        </div>
+      <div className="optionsBar__grid" style={{gridTemplateColumns:`repeat(${options.length},1fr)`}}>
+        {options.map((option) => (
+          <OptionBar key={`${option.optionId}-bar`} option={option} />
+        ))}
+
+        {options.map((option: OptionProps) => (
+          <OptionBtn key={`${option.optionId}-btn`} option={option} />
+        ))}
       </div>
       <AddOption
         counsilId={counsilId}

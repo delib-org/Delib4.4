@@ -3,10 +3,33 @@ $padding:20px;
 
 @import '../../features/options/view/optionsBar.scss';
 @import '../../features/counsils/view/counsilCard.scss';
+@import '../../features/council/counsil.scss';
+@import '../../features/options/view/optionsBar.scss';
 @import 'cards';
 
+
+//fonts
+@import url('https://fonts.googleapis.com/css2?family=Assistant:wght@200;300;400;500;600;700;800&display=swap');
+
+body,html{
+    margin: 0px;
+    font-family: 'Assistant', sans-serif;
+}
+.page{
+    display: flex;
+    flex-direction: column;
+    header{
+        background-color: rgb(178, 178, 248);
+    }
+    main{
+        flex:auto;
+        background-color: rgb(235, 235, 235);
+    }
+}
 .wrapper{
-    margin: auto;
+    position: relative;
+    transform: translateX(-50%);
+    left: 50vw;
     display: flex;
     flex-direction: column;
     max-width: 75ch;

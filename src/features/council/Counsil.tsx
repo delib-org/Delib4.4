@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../../model/hooks";
 import { updateCounsil } from "../counsils/control/counsilsSlice";
 import { listenToCounsil } from "./getCounsil";
@@ -13,6 +13,7 @@ import {
   listenToVotedOption,
 } from "../options/control/getOptions";
 import { selectUser } from "../user/userSlice";
+import Description from "../../view/components/Description";
 
 let unsubscribeCounsil: Function = () => {};
 let unsubscribeOptions: Function = () => {};
@@ -71,12 +72,19 @@ const CounsilPage = () => {
   }, [counsilId, user]);
 
   return (
-    <div>
-      <h1>Counsil: {counsil?.title}</h1>
-      <h3>Description: {counsil?.description}</h3>
-      <div className="wrapper">
-        {counsilId ? switchType(OptionsView.BARS) : null}
-      </div>
+    <div className="page counsil">
+      <header>
+        <Link to="/main">Back</Link>
+        <h1>Counsil: {counsil?.title}</h1>
+        {counsil?<Description description={counsil.description} />:null}
+       
+      </header>
+      <main>
+        <div className="wrapper">
+          {counsilId ? switchType(OptionsView.BARS) : null}
+        </div>
+      </main>
+      <footer></footer>
     </div>
   );
 

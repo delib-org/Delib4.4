@@ -25,3 +25,13 @@ export function updateArray(
     return currentArray;
   }
 }
+
+export function fromTextToParagraph(text:string):string[]{
+  try {
+    const paragraph = text.split("\n");
+    return paragraph;
+  } catch (error) {
+    console.error(error);
+    return [text]
+  }
+}
