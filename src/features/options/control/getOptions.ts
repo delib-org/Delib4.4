@@ -1,11 +1,9 @@
 import { collection, doc, onSnapshot } from "firebase/firestore";
+import { useState } from "react";
 import { DB } from "../../../control/firebase/config";
 import { Collections } from "../../../control/firebase/dbModel";
 import { useAppDispatch, useAppSelector } from "../../../model/hooks";
-import {
-  updateUserVote,
-  updateVotingOptionsListenrs,
-} from "./optionsSlice";
+import { updateUserVote, updateVotingOptionsListenrs } from "./optionsSlice";
 
 export function listenToOptionsOfCounsil(
   councilId: string,
@@ -29,40 +27,29 @@ export function listenToOptionsOfCounsil(
   }
 }
 
-export function useListenToVotedOption(
+export function listenToVotedOption(
   counsilId: string | undefined,
-  userId: string | undefined
-) {
-  const councilId2:string = counsilId?counsilId:''
-  const dispatch = useAppDispatch();
-  const isListening = useAppSelector(state=>state.options.optionsVoteListenr.includes(councilId2));
+  userId: string | undefined,
+  setState: Function
+): Function {
   console.log("useListenToVotedOption");
   try {
-    if (userId && counsilId) {
-      
-      if (!isListening) {
-        dispatch(updateVotingOptionsListenrs({ counsilId, on: true }));
-        const userVoteRef = doc(
-          DB,
-          Collections.COUNSILS,
-          counsilId,
-          Collections.VOTES,
-          userId
-        );
+    if (!userId || !counsilId) throw new Error("No user or no counsil");
+    const userVoteRef = doc(
+      DB,
+      Collections.COUNSILS,
+      counsilId,
+      Collections.VOTES,
+      userId
+    );
 
-        return onSnapshot(userVoteRef, (userVoteDB) => {
-          if (userVoteDB.exists()) {
-            const votedOption = userVoteDB.data().vote
-              ? userVoteDB.data().vote
-              : "";
-            dispatch(updateUserVote({ optionId: votedOption, counsilId }));
-          }
-        });
-       
-      } else {
-        dispatch(updateVotingOptionsListenrs({ counsilId, on: false }));
+    return onSnapshot(userVoteRef, (userVoteDB) => {
+      if (userVoteDB.exists()) {
+        const votedOption = userVoteDB.data().vote;
+        setState(votedOption);
       }
-    }
+    });
+
   } catch (error) {
     console.error(error);
     return () => {};

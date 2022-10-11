@@ -35,33 +35,15 @@ export const optionsSlice = createSlice({
         state.options = updateArray(state.options, action.payload, "optionId");
       }
     },
-    updateUserVote: (state, action: PayloadAction<UserOptionVote>) => {
+    updateUserVote: (state, action: PayloadAction<{optionId:string, counsilId:string}>) => {
       try {
-        const userVote = action.payload;
+        const {optionId,counsilId} = action.payload;
 
-        if (userVote.optionId === "") {
-          //in case that the user removed voting
-          const counsilVotedOptions = state.options.filter(
-            (option) =>
-              option.counsilId === userVote.counsilId && option.userVotedOption
-          );
+        const counsilsOptions = state.options.filter(option=>option.counsilId === counsilId);
 
-          counsilVotedOptions.forEach((option) => {
-            const index = state.options.findIndex(
-              (option2) => option2.optionId === option.optionId
-            );
-            state.options[index].userVotedOption = false;
-          });
-        } else {
-          // user voted for an option
-          const index = state.options.findIndex(
-            (option) => option.optionId === userVote.optionId
-          );
-          if (index === -1)
-            throw new Error(`Couldn't find option ${userVote.optionId}`);
+        const option = counsilsOptions.find(option=>option.optionId === optionId);
 
-          state.options[index].userVotedOption = true;
-        }
+
       } catch (error) {
         console.error(error);
       }

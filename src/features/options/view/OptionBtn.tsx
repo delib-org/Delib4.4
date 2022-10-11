@@ -1,7 +1,8 @@
 import React, { FC } from "react";
-import { useAppSelector } from "../../../model/hooks";
+import { useAppDispatch, useAppSelector } from "../../../model/hooks";
 import { setVote } from "../../selections/votes/setVote";
 import { selectUser } from "../../user/userSlice";
+import { updateUserVote } from "../control/optionsSlice";
 import { OptionProps } from "../model/optionModel";
 
 interface OptionBtnProps {
@@ -9,12 +10,14 @@ interface OptionBtnProps {
 }
 
 const OptionBtn: FC<OptionBtnProps> = ({ option }) => {
+  const dispatch = useAppDispatch();
   const user = useAppSelector(selectUser);
   
   function handleVote() {
     try {
       if (!user) throw new Error("voting user is missing on vote");
       setVote(option.counsilId, option.optionId, user);
+      // dispatch(updateUserVote({optionId:option.optionId}))
     } catch (error) {
       console.error(error);
     }
