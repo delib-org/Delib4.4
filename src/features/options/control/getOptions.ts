@@ -32,7 +32,7 @@ export function listenToVotedOption(
   userId: string | undefined,
   setState: Function
 ): Function {
-  console.log("useListenToVotedOption");
+  console.log("listenToVotedOption");
   try {
     if (!userId || !counsilId) throw new Error("No user or no counsil");
     const userVoteRef = doc(
@@ -45,8 +45,8 @@ export function listenToVotedOption(
 
     return onSnapshot(userVoteRef, (userVoteDB) => {
       if (userVoteDB.exists()) {
-        const votedOption = userVoteDB.data().vote;
-        setState(votedOption);
+        const votedOptionId:string = userVoteDB.data().vote;
+        setState(votedOptionId);
       }
     });
 

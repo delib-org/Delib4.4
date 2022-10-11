@@ -7,10 +7,10 @@ import { Counsil } from "./councilModel";
 
 import OptionsBars from "../options/view/OptionsBars";
 import { OptionProps, OptionsView } from "../options/model/optionModel";
-import { updateOption } from "../options/control/optionsSlice";
+import { updateOption, updateUserVote } from "../options/control/optionsSlice";
 import {
   listenToOptionsOfCounsil,
-  listenToVotedOption
+  listenToVotedOption,
 } from "../options/control/getOptions";
 import { selectUser } from "../user/userSlice";
 
@@ -38,27 +38,31 @@ const CounsilPage = () => {
   function handleUpdateOptions(option: OptionProps) {
     dispatch(updateOption(option));
   }
-  function handleUpdateOptionVote(votedOptionId:string) {
-
+  function handleUpdateOptionVote(votedOptionId: string) {
+    try {
+      if (!counsilId) throw new Error("Missing counsilId");
+      dispatch(updateUserVote({ counsilId, optionId: votedOptionId }));
+    } catch (error) {
+      console.error(error);
+    }
   }
 
   useEffect(() => {
     if (counsilId && user) {
-      console.log('++subscribeCounsil')
+      console.log("++subscribeCounsil");
       unsubscribeCounsil = listenToCounsil(counsilId, handleupdateCounsil);
       unsubscribeOptions = listenToOptionsOfCounsil(
         counsilId,
         handleUpdateOptions
       );
-      if (isListentingToVote)
-        unsubscribeVote = listenToVotedOption(
-          counsilId,
-          user.uid,
-          handleUpdateOptionVote
-        );
+      unsubscribeVote = listenToVotedOption(
+        counsilId,
+        user.uid,
+        handleUpdateOptionVote
+      );
     }
     return () => {
-      console.log('unsubscribeCounsil')
+      console.log("unsubscribeCounsil");
       unsubscribeCounsil();
       unsubscribeOptions();
       unsubscribeVote();
@@ -85,7 +89,9 @@ const CounsilPage = () => {
         default:
           return null;
       }
-    } catch (error) {}
+    } catch (error) {
+      console.error(error);
+    }
   }
 };
 

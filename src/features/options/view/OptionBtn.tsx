@@ -24,7 +24,7 @@ const OptionBtn: FC<OptionBtnProps> = ({ option }) => {
   }
   
   return (
-    <div className="optionsBar__btns__btn" onClick={handleVote}>
+    <div className={option.userVotedOption?"optionsBar__btns__btn optionsBar__btns__btn--select":"optionsBar__btns__btn"} onClick={handleVote}>
       {option.title}
     </div>
   );

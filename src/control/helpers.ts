@@ -14,7 +14,10 @@ export function updateArray(
       (item) => item[updateByProperty] === newItem[updateByProperty]
     );
     if (index === -1) arrayTemp.push(newItem);
-    else arrayTemp[index] = newItem;
+    else {
+      arrayTemp[index] = {...arrayTemp[index],...newItem};
+    
+    }
 
     return arrayTemp;
   } catch (error) {

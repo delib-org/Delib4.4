@@ -16,11 +16,16 @@
         display: flex;
         justify-content: space-between;
         &__btn{
+            transition: all 200ms;
             padding: 20px;
             border-radius: 10px;
             background-color: rgb(229, 229, 229);
             cursor: pointer;
             user-select: none;
+
+            &--select{
+                background-color: rgb(168, 168, 168);
+            }
         }
     }
 }
