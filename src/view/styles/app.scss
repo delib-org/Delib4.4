@@ -5,8 +5,10 @@ $padding:20px;
 @import '../../features/counsils/view/counsilCard.scss';
 @import '../../features/council/counsil.scss';
 @import '../../features/options/view/optionsBar.scss';
+@import 'btns';
 @import 'cards';
-
+@import 'modal';
+@import 'input';
 
 //fonts
 @import url('https://fonts.googleapis.com/css2?family=Assistant:wght@200;300;400;500;600;700;800&display=swap');

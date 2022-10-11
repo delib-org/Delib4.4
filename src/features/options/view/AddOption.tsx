@@ -9,19 +9,19 @@ import { OptionProps } from "../model/optionModel";
 
 interface AddOptionProps {
   showAddOption: boolean;
-  setShowAddOption: Function;
+  handleShowAddOption: Function;
   counsilId: string;
 }
 
 const AddOption: FC<AddOptionProps> = ({
   counsilId,
   showAddOption,
-  setShowAddOption,
+  handleShowAddOption,
 }) => {
   const dispatch = useAppDispatch();
-  const user:User|null = useAppSelector(selectUser);
+  const user: User | null = useAppSelector(selectUser);
 
-  function handAddOption(ev: any) {
+  function handAddOptionForm(ev: any) {
     try {
       ev.preventDefault();
       let { title, description } = ev.target.elements;
@@ -41,8 +41,7 @@ const AddOption: FC<AddOptionProps> = ({
         creator: user,
       };
 
-      
-      setShowAddOption(false);
+      handleShowAddOption(false);
       dispatch(addOption(newOption));
       addOptionToDB(newOption);
     } catch (error) {
@@ -51,8 +50,8 @@ const AddOption: FC<AddOptionProps> = ({
   }
   if (showAddOption) {
     return (
-      <div>
-        <form onSubmit={handAddOption}>
+      <div className="modal">
+        <form onSubmit={handAddOptionForm} className="modal__box">
           <input
             type="text"
             name="title"
@@ -60,7 +59,10 @@ const AddOption: FC<AddOptionProps> = ({
             placeholder="option title"
           />
           <textarea name="description" placeholder="Description"></textarea>
-          <button>ADD Option</button>
+          <div className="btns">
+          <div className="btn btn--cancel" onClick={()=>handleShowAddOption(false)}>CANCEL</div>
+            <button>ADD OPTION</button>
+          </div>
         </form>
       </div>
     );

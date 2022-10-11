@@ -6,26 +6,25 @@ import OptionBar from "./OptionBar";
 import OptionBtn from "./OptionBtn";
 interface OptionsBarsProps {
   counsilId: string;
+  handleShowAddOption:Function;
 }
 
-const OptionsBars: FC<OptionsBarsProps> = ({ counsilId }) => {
-  const [showAddOption, setShowAddOption] = useState<boolean>(false);
+const OptionsBars: FC<OptionsBarsProps> = ({ counsilId,handleShowAddOption }) => {
+
   const options = useAppSelector((state) =>
     state.options.options.filter((option) => option.counsilId === counsilId)
   );
   // const maxVotes = Math.max(...options.map(o => o.votes));
   const maxVotes:number = options.reduce((prv,cur)=>prv + cur.votes, 0);
 
-  function handleAddOption() {
-    console.log(showAddOption);
-    setShowAddOption(true);
-  }
+  
 
   return (
     <div className="optionsBar">
       <h3>OptionsBars</h3>
-      <div>Total Votes:{maxVotes}</div>
-      <button onClick={handleAddOption}>ADD OPTION</button>
+      <p>Total Votes:{maxVotes}</p>
+      <div className="fav" onClick={()=>handleShowAddOption(true)}>+</div>
+      {options.length===0?<div className="btns"><button onClick={()=>handleShowAddOption(true)}>ADD OPTION</button></div>:null}
       <div className="optionsBar__grid" style={{gridTemplateColumns:`repeat(${options.length},1fr)`}}>
         {options.map((option) => (
           <OptionBar key={`${option.optionId}-bar`} option={option} maxVotes={maxVotes}/>
@@ -35,11 +34,7 @@ const OptionsBars: FC<OptionsBarsProps> = ({ counsilId }) => {
           <OptionBtn key={`${option.optionId}-btn`} option={option} />
         ))}
       </div>
-      <AddOption
-        counsilId={counsilId}
-        showAddOption={showAddOption}
-        setShowAddOption={setShowAddOption}
-      />
+    
     </div>
   );
 };

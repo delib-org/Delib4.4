@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../../model/hooks";
 import { updateCounsil } from "../counsils/control/counsilsSlice";
@@ -14,24 +14,26 @@ import {
 } from "../options/control/getOptions";
 import { selectUser } from "../user/userSlice";
 import Description from "../../view/components/Description";
+import AddOption from "../options/view/AddOption";
 
 let unsubscribeCounsil: Function = () => {};
 let unsubscribeOptions: Function = () => {};
 let unsubscribeVote: Function = () => {};
 
 const CounsilPage = () => {
+  const [showAddOption, setShowAddOption] = useState<boolean>(false);
   const user = useAppSelector(selectUser);
   const dispatch = useAppDispatch();
   const { counsilId } = useParams();
   const counsil = useAppSelector((state) =>
     state.councils.councils.find((cnsl) => cnsl.counsilId === counsilId)
   );
-  const isListentingToVote: boolean =
-    useAppSelector((state) =>
-      state.options.optionsVoteListenr.findIndex(
-        (el: string) => el === counsilId
-      )
-    ) !== -1;
+  // const isListentingToVote: boolean =
+  //   useAppSelector((state) =>
+  //     state.options.optionsVoteListenr.findIndex(
+  //       (el: string) => el === counsilId
+  //     )
+  //   ) !== -1;
 
   function handleupdateCounsil(cnsl: Counsil) {
     dispatch(updateCounsil(cnsl));
@@ -46,6 +48,9 @@ const CounsilPage = () => {
     } catch (error) {
       console.error(error);
     }
+  }
+  function handleShowAddOption(showModal:boolean) {
+    setShowAddOption(showModal);
   }
 
   useEffect(() => {
@@ -84,6 +89,7 @@ const CounsilPage = () => {
           {counsilId ? switchType(OptionsView.BARS) : null}
         </div>
       </main>
+      {counsilId?<AddOption counsilId={counsilId} showAddOption={showAddOption} handleShowAddOption={handleShowAddOption}/>:null}
       <footer></footer>
     </div>
   );
@@ -92,7 +98,7 @@ const CounsilPage = () => {
     try {
       switch (type) {
         case OptionsView.BARS:
-          if (counsilId) return <OptionsBars counsilId={counsilId} />;
+          if (counsilId) return <OptionsBars counsilId={counsilId} handleShowAddOption={handleShowAddOption} />;
           else return null;
         default:
           return null;
