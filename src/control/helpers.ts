@@ -39,7 +39,6 @@ export function fromTextToParagraph(text:string):string[]{
 export function randomizeArray(array:Array<any>):Array<any> {
  
   const newArray = [...array];
-  console.log(newArray)
   let currentIndex = newArray.length,  randomIndex;
 
   // While there remain elements to shuffle.

@@ -5,7 +5,7 @@ import { User } from "../../user/userModel";
 
 export async function setVote(councilId: string, optionId: string, user: User) {
   try {
-    console.log(user);
+  
     const voteRef = doc(
       DB,
       Collections.COUNSILS,
