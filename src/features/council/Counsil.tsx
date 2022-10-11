@@ -1,24 +1,28 @@
 import { useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../../model/hooks";
-import { updateCounsil } from "../counsils/counsilsSlice";
+import { updateCounsil } from "../counsils/control/counsilsSlice";
 import { listenToCounsil } from "./getCounsil";
 import { Counsil } from "./councilModel";
 
 import OptionsBars from "../options/view/OptionsBars";
 import { OptionProps, OptionsView } from "../options/model/optionModel";
 import { updateOption } from "../options/control/optionsSlice";
-import { listenToOptionsOfCounsil } from "../options/control/getOptions";
+import { listenToOptionsOfCounsil, useListenToVotedOption } from "../options/control/getOptions";
+import { selectUser } from "../user/userSlice";
 
 let unsubscribeCounsil: Function = () => {};
 let unsubscribeOptions:Function = ()=>{};
 
-const CouncilPage = () => {
+
+const CounsilPage = () => {
+ const user = useAppSelector(selectUser);
   const dispatch = useAppDispatch();
   const { counsilId } = useParams();
   const counsil = useAppSelector((state) =>
     state.councils.councils.find((cnsl) => cnsl.counsilId === counsilId)
   );
+  
 
   function handleupdateCounsil(cnsl: Counsil) {
     dispatch(updateCounsil(cnsl));
@@ -27,16 +31,19 @@ const CouncilPage = () => {
     dispatch(updateOption(option))
   }
 
+  // useListenToVotedOption(counsilId, user?.uid)
+
   useEffect(() => {
-    console.log("counsilId", counsilId);
-    if (counsilId) {
-      console.log("listenToCounsil");
+   
+    if (counsilId && user) {
+    
       unsubscribeCounsil = listenToCounsil(counsilId, handleupdateCounsil);
       unsubscribeOptions = listenToOptionsOfCounsil(counsilId, handleUpdateOptions)
     }
     return () => {
       unsubscribeCounsil();
-      unsubscribeOptions()
+      unsubscribeOptions();
+   
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [counsilId]);
@@ -65,4 +72,4 @@ const CouncilPage = () => {
   }
 };
 
-export default CouncilPage;
+export default CounsilPage;

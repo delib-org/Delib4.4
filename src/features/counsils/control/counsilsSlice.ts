@@ -1,9 +1,9 @@
 import { createSlice } from "@reduxjs/toolkit";
 import type { PayloadAction } from "@reduxjs/toolkit";
 
-import { RootState } from "../../model/store";
-import { Counsil } from "../council/councilModel";
-import { updateArray } from "../../control/helpers";
+import { RootState } from "../../../model/store";
+import { Counsil } from "../../council/councilModel";
+import { updateArray } from "../../../control/helpers";
 
 export interface UserState {
   councils: Array<Counsil>;
@@ -27,7 +27,7 @@ export const councilsSlice = createSlice({
         state.councils = updateArray(
           state.councils,
           action.payload,
-          "councilId"
+          "counsilId"
         );
       }
     },
@@ -36,6 +36,9 @@ export const councilsSlice = createSlice({
 
 export const { addCouncil, updateCounsil } = councilsSlice.actions;
 
-export const selectCouncils = (state: RootState) => state.councils.councils;
+export const selectCouncils = (state: RootState) => {
+  const counsils = [...state.councils.councils]
+  return counsils.sort((a,b)=> b.lastAction - a.lastAction);
+}
 
 export default councilsSlice.reducer;

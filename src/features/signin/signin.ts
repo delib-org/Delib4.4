@@ -13,7 +13,7 @@ export function signInAnonym() {
 export function listenToAuth(dispatch: Function) {
   onAuthStateChanged(auth, (user) => {
     if (user) {
-      console.log(user);
+    
       const { uid, photoURL, isAnonymous, emailVerified, email, displayName } =
         user;
       dispatch({

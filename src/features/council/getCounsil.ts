@@ -9,7 +9,6 @@ export function listenToCounsil(
     const counsilRef = doc(DB, "counsils", councilId);
     return onSnapshot(counsilRef, (counsilDB) => {
       if (counsilDB.exists()) {
-        console.log(counsilDB.exists());
         setState(counsilDB.data());
       }
     });

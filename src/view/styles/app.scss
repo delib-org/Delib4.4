@@ -1,1 +1,14 @@
+$white:white;
+$padding:20px;
+
 @import '../../features/options/view/optionsBar.scss';
+@import '../../features/counsils/view/counsilCard.scss';
+@import 'cards';
+
+.wrapper{
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+    max-width: 75ch;
+    gap:10px;
+}

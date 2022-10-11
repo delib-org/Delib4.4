@@ -8,8 +8,14 @@ export interface OptionProps {
   counsilId: string;
   votes:number;
   creator:User
+  userVotedOption?:boolean
 }
 
 export enum OptionsView{
   BARS = 'bars'
+}
+
+export interface OptionsOfCounsilListener{
+  counsilId:string,
+  on:boolean
 }

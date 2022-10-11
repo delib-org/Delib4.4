@@ -1,7 +1,7 @@
 import { configureStore } from "@reduxjs/toolkit";
 
 import userReducer from "../features/user/userSlice";
-import councilsReducer from "../features/counsils/counsilsSlice";
+import councilsReducer from "../features/counsils/control/counsilsSlice";
 import optionsReducer from "../features/options/control/optionsSlice";
 
 export const store = configureStore({

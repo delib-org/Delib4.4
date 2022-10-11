@@ -7,4 +7,5 @@ export interface Counsil {
   description:string;
   defaultOptionsView:OptionsView;
   creator:User
+  lastAction:number
 }

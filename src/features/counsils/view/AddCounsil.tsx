@@ -1,6 +1,6 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { addCouncil } from "../counsilsSlice";
+import { addCouncil } from "../control/counsilsSlice";
 import { v4 as uuidv4 } from "uuid";
 import { addCouncilToDB } from "../../council/setCounsilsDB";
 import { Counsil } from "../../council/councilModel";
@@ -29,7 +29,7 @@ const AddCouncil = () => {
       if(!user) throw new Error('Couldnt start a coucul withour coucnil creator');
       const creator:User = user;
      
-      const council: Counsil = { title, counsilId,description,defaultOptionsView, creator };
+      const council: Counsil = { title, counsilId,description,defaultOptionsView, creator, lastAction:new Date().getTime()};
       dispatch(addCouncil(council));
       addCouncilToDB(council);
       

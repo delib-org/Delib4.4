@@ -15,7 +15,8 @@ import Feed from "./features/feed/Feed";
 import Main from "./features/main/Main";
 import App from "./App";
 import AddCouncil from "./features/counsils/view/AddCounsil";
-import CouncilPage from "./features/council/Counsil";
+import CounsilPage from "./features/council/Counsil";
+import Counsils from "./features/counsils/view/Counsils";
 
 const router = createBrowserRouter([
   {
@@ -27,13 +28,13 @@ const router = createBrowserRouter([
         path: "/main",
         element: <Main />,
         children: [
-          { path: "", element: <Feed /> },
+          { path: "", element: <Counsils /> },
           { path: "add-counsil", element: <AddCouncil /> },
         ],
       },
       {
         path: "/counsil/:counsilId",
-        element: <CouncilPage />,
+        element: <CounsilPage />,
       },
       {
         path: "",

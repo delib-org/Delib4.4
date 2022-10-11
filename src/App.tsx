@@ -15,7 +15,8 @@ function App() {
   }
   useEffect(() => {
     listenToAuth(registerUser);
-    dispatch(setLastNavigation(location.pathname));
+    console.log(location.pathname)
+    dispatch(setLastNavigation(location.pathname.toString()));
     signInAnonym();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
