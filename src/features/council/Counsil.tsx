@@ -76,6 +76,8 @@ const CounsilPage = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [counsilId, user]);
 
+
+
   return (
     <div className="page counsil">
       <header>

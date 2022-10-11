@@ -8,7 +8,8 @@ export interface OptionProps {
   counsilId: string;
   votes:number;
   creator:User
-  userVotedOption?:boolean
+  userVotedOption?:boolean,
+  lastVoted?:number
 }
 
 export enum OptionsView{
@@ -18,4 +19,10 @@ export enum OptionsView{
 export interface OptionsOfCounsilListener{
   counsilId:string,
   on:boolean
+}
+
+export enum Order{
+  RANDOM = 'random',
+  NEW = 'lastVoted',
+  VOTED = 'votes'
 }

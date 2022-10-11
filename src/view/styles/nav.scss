@@ -1,0 +1,16 @@
+.bottomNav {
+  display: flex;
+  width: 100%;
+  background-color: rgb(255, 255, 255);
+  &__btn {
+    flex: 1;
+    padding: $padding;
+    color: $notSelected;
+    cursor: pointer;
+    user-select: none;
+    &--selected {
+      color: $selected;
+      font-weight: 700;
+    }
+  }
+}
