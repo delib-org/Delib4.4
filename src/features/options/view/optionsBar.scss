@@ -1,23 +1,30 @@
 .optionsBar {
-  background-color: pink;
+  flex: auto;
+  display: flex;
+  flex-direction: column;
 
   &__grid {
     display: grid;
     width: 100%;
-    margin-bottom: 20px;
+    margin: 20px 0px;
     gap: 10px;
-    
-    
-   
+    flex: auto;
+    grid-template-rows: auto 60px;
   }
 
   &__bar {
-    height: 100px;
-    width: 100px;
-    background-color: teal;
+    width: 80%;
+
+    background: rgb(144,140,254);
+background: linear-gradient(90deg, rgba(144,140,254,1) 0%, rgba(49,41,252,1) 48%, rgba(173,157,255,1) 100%);
+    border-radius: 50px 50px 0px 0px;
     color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     transition: all 300ms;
     align-self: flex-end;
+    justify-self: center;
   }
 
   &__btn {
