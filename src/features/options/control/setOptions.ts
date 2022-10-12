@@ -5,7 +5,7 @@ import { OptionProps } from "../model/optionModel";
 
 export async function addOptionToDB(option:OptionProps){
     try {
-        console.log(Collections.COUNSILS,option.counsilId, Collections.OPTIONS,option.optionId)
+        
         const optionRef = doc(DB,Collections.COUNSILS,option.counsilId, Collections.OPTIONS,option.optionId);
         await setDoc(optionRef,option);
     } catch (error) {

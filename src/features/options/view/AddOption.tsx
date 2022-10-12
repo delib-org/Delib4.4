@@ -33,6 +33,7 @@ const AddOption: FC<AddOptionProps> = ({
         throw new Error("To create new option, a user must be present");
 
       const newOption: OptionProps = {
+        created:new Date().getTime(),
         title,
         description,
         optionId,

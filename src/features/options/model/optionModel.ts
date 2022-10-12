@@ -2,6 +2,7 @@ import { User } from "../../user/userModel";
 
 
 export interface OptionProps {
+  created: number;
   title: string;
   description: string;
   optionId: string;

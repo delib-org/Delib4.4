@@ -20,7 +20,7 @@ const OptionsBars: FC<OptionsBarsProps> = ({
   const options = useAppSelector((state) =>
     state.options.options.filter((option) => option.counsilId === counsilId)
   );
-  console.log('run')
+
 
   const orderdOptions:OptionProps[] = sortOptions(options, orderBy);
 
@@ -41,7 +41,7 @@ const OptionsBars: FC<OptionsBarsProps> = ({
       case Order.NEW:
         return options.sort(
           (b: OptionProps, a: OptionProps) =>
-            (a.lastVoted || 0) - (b.lastVoted || 0)
+            (a.created || 0) - (b.created || 0)
         );
 
       case Order.VOTED:
