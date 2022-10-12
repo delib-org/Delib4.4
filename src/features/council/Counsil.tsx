@@ -82,7 +82,7 @@ const CounsilPage = () => {
     <div className="page counsil">
       <header>
         <Link to="/main">Back</Link>
-        <h1>Counsil: {counsil?.title}</h1>
+        <h1>{counsil?.title}</h1>
         {counsil?<Description description={counsil.description} />:null}
        
       </header>
