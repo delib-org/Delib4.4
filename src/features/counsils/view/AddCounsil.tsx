@@ -9,6 +9,7 @@ import { selectUser } from "../../user/userSlice";
 import { User } from "../../user/userModel";
 import { useNavigate } from "react-router-dom";
 import { OptionsView } from "../../options/model/optionModel";
+import { getColor } from "../../../control/helpers";
 
 const AddCouncil = () => {
   const dispatch = useDispatch();
@@ -29,7 +30,7 @@ const AddCouncil = () => {
       if(!user) throw new Error('Couldnt start a coucul withour coucnil creator');
       const creator:User = user;
      
-      const council: Counsil = { title, counsilId,description,defaultOptionsView, creator, lastAction:new Date().getTime()};
+      const council: Counsil = { title, counsilId,description,defaultOptionsView, creator, lastAction:new Date().getTime(), color:getColor()};
       dispatch(addCouncil(council));
       addCouncilToDB(council);
       

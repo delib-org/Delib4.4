@@ -1,5 +1,6 @@
 import { uuidv4 } from "@firebase/util";
 import { FC } from "react";
+import { getColor } from "../../../control/helpers";
 import { useAppDispatch, useAppSelector } from "../../../model/hooks";
 import { User } from "../../user/userModel";
 import { selectUser } from "../../user/userSlice";
@@ -40,6 +41,7 @@ const AddOption: FC<AddOptionProps> = ({
         counsilId,
         votes: 0,
         creator: user,
+        color:getColor()
       };
 
       handleShowAddOption(false);

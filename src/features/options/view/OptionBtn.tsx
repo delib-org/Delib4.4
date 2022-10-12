@@ -1,4 +1,5 @@
 import React, { FC } from "react";
+import { getColor } from "../../../control/helpers";
 import { useAppSelector } from "../../../model/hooks";
 import { setVote } from "../../selections/votes/setVote";
 import { selectUser } from "../../user/userSlice";
@@ -23,7 +24,7 @@ const OptionBtn: FC<OptionBtnProps> = ({ option }) => {
   }
   
   return (
-    <div className={option.userVotedOption?"optionsBar__btn optionsBar__btn--select":"optionsBar__btn"} onClick={handleVote}>
+    <div className={option.userVotedOption?"optionsBar__btn optionsBar__btn--select":"optionsBar__btn"} onClick={handleVote} style={{background:option.color||getColor()}}>
       {option.title}
     </div>
   );

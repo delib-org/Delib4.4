@@ -9,8 +9,9 @@ export interface OptionProps {
   counsilId: string;
   votes:number;
   creator:User
-  userVotedOption?:boolean,
-  lastVoted?:number
+  userVotedOption?:boolean;
+  lastVoted?:number;
+  color:string;
 }
 
 export enum OptionsView{

@@ -6,6 +6,7 @@ export interface Counsil {
   counsilId:string;
   description:string;
   defaultOptionsView:OptionsView;
-  creator:User
-  lastAction:number
+  creator:User;
+  color:string;
+  lastAction:number;
 }

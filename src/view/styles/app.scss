@@ -1,42 +1,63 @@
-$white:white;
-$padding:20px;
-$notSelected:rgb(146, 146, 146);
-$selected:gray;
+$padding: 20px;
+$notSelected: rgb(146, 146, 146);
 
-@import '../../features/options/view/optionsBar.scss';
-@import '../../features/counsils/view/counsilCard.scss';
-@import '../../features/council/counsil.scss';
-@import '../../features/options/view/optionsBar.scss';
-@import 'btns';
-@import 'cards';
-@import 'modal';
-@import 'input';
-@import 'nav';
+// colors
+$inputColor: #efeefe;
+$selected: gray;
+$background:white;
+$cardBackground: white;
+$h1:rgba(0, 0, 0, 0.8);
+$h2:rgba(0, 0, 0, 0.75);
+$text:rgba(0, 0, 0, 0.7);
+
+@import "../../features/options/view/optionsBar.scss";
+@import "../../features/counsils/view/counsilCard.scss";
+@import "../../features/council/counsil.scss";
+@import "../../features/options/view/optionsBar.scss";
+@import "btns";
+@import "cards";
+@import "modal";
+@import "input";
+@import "nav";
 
 //fonts
-@import url('https://fonts.googleapis.com/css2?family=Assistant:wght@200;300;400;500;600;700;800&display=swap');
+// @import url("https://fonts.googleapis.com/css2?family=Assistant:wght@200;300;400;500;600;700;800&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap');
 
-body,html{
-    margin: 0px;
-    font-family: 'Assistant', sans-serif;
+body,
+html {
+  margin: 0px;
+//   font-family: "Assistant", sans-serif;
+  font-family: 'Quicksand', sans-serif;
+
 }
-.page{
-    display: flex;
-    flex-direction: column;
-    header{
-        background-color: rgb(178, 178, 248);
-    }
-    main{
-        flex:auto;
-        background-color: rgb(235, 235, 235);
-    }
+h1{
+    color: $h1;
+    text-shadow: 2px 2px 4px #0000006c;
 }
-.wrapper{
-    position: relative;
-    transform: translateX(-50%);
-    left: 50vw;
-    display: flex;
-    flex-direction: column;
-    max-width: 75ch;
-    gap:10px;
+h2{
+    color: $h2;
+}
+p,span,div{
+color: $text;
+}
+.page {
+  display: flex;
+  flex-direction: column;
+  header {
+    background-color: $background;
+  }
+  main {
+    flex: auto;
+    background-color: $background;
+  }
+}
+.wrapper {
+  position: relative;
+  transform: translateX(-50%);
+  left: 50vw;
+  display: flex;
+  flex-direction: column;
+  max-width: 75ch;
+  gap: 10px;
 }

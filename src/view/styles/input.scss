@@ -4,6 +4,6 @@ input, textarea{
     border-radius: 10px;
     border:none;
     border-bottom: 1px solid gray;
-    background-color: rgb(243, 238, 228);
+    background-color: $inputColor;
     margin: 5px;
 }
