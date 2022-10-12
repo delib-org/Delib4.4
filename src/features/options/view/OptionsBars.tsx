@@ -1,8 +1,7 @@
 import { FC, useEffect, useState } from "react";
 import { randomizeArray } from "../../../control/helpers";
-import { useAppSelector } from "../../../model/hooks";
+import { useAppDispatch, useAppSelector } from "../../../model/hooks";
 import { OptionProps, Order } from "../model/optionModel";
-import AddOption from "./AddOption";
 import OptionBar from "./OptionBar";
 import OptionBtn from "./OptionBtn";
 import OptionInfo from "./OptionInfo";
@@ -11,18 +10,27 @@ interface OptionsBarsProps {
   handleShowAddOption: Function;
 }
 
+
 const OptionsBars: FC<OptionsBarsProps> = ({
   counsilId,
   handleShowAddOption,
 }) => {
   const [orderBy, setOrder] = useState<Order>(Order.RANDOM);
   const [doRandom, setDoRandom] = useState<boolean>(false);
-  const options = useAppSelector((state) =>
+  const [orderedOptions, setOrderedOptions] = useState<OptionProps[]>([]);
+  const options = sortOptions(useAppSelector((state) =>
     state.options.options.filter((option) => option.counsilId === counsilId)
-  );
+  ), orderBy);
+  console.log("run");
+  console.log(options)
 
+  // useEffect(() => {
 
-  const orderdOptions:OptionProps[] = sortOptions(options, orderBy);
+  //   if (options.length > 0) {
+  //     console.log('options changed?')
+  //     // setOrderedOptions(options);
+  //   }
+  // }, [options]);
 
   // const maxVotes = Math.max(...options.map(o => o.votes));
   const maxVotes: number = options.reduce((prv, cur) => prv + cur.votes, 0);
@@ -36,7 +44,10 @@ const OptionsBars: FC<OptionsBarsProps> = ({
     }
   }
 
-  function sortOptions(options: Array<OptionProps>, order: Order) {
+  function sortOptions(
+    options: Array<OptionProps>,
+    order: Order
+  ): OptionProps[] {
     switch (orderBy) {
       case Order.NEW:
         return options.sort(
@@ -50,16 +61,10 @@ const OptionsBars: FC<OptionsBarsProps> = ({
         );
 
       case Order.RANDOM:
-        if (doRandom) {
-          console.log('radnomize')
-          setDoRandom(false);
-          return randomizeArray(options);
-        } else {
-          return options;
-        }
+        return randomizeArray(options)
 
       default:
-        return orderdOptions;
+        return options;
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }
@@ -79,7 +84,7 @@ const OptionsBars: FC<OptionsBarsProps> = ({
       <div
         className="optionsBar__grid"
         style={{ gridTemplateColumns: `repeat(${options.length},1fr)` }}>
-        {orderdOptions.map((option) => (
+        {options.map((option) => (
           <OptionBar
             key={`${option.optionId}-bar`}
             option={option}
@@ -87,10 +92,10 @@ const OptionsBars: FC<OptionsBarsProps> = ({
           />
         ))}
 
-        {orderdOptions.map((option) => (
+        {options.map((option) => (
           <OptionInfo key={`${option.optionId}-info`} option={option} />
         ))}
-        {orderdOptions.map((option: OptionProps) => (
+        {options.map((option: OptionProps) => (
           <OptionBtn key={`${option.optionId}-btn`} option={option} />
         ))}
       </div>
@@ -119,7 +124,10 @@ const OptionsBars: FC<OptionsBarsProps> = ({
               ? "bottomNav__btn bottomNav__btn--selected"
               : "bottomNav__btn"
           }
-          onClick={() =>{ handleOrder(Order.RANDOM); setDoRandom(true)}}>
+          onClick={() => {
+            handleOrder(Order.RANDOM);
+            setDoRandom(true);
+          }}>
           Random
         </div>
       </div>

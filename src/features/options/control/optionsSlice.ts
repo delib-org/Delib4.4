@@ -4,7 +4,7 @@ import { enableMapSet } from "immer";
 
 // import { RootState } from "../../../../model/store";
 
-import { updateArray } from "../../../control/helpers";
+import { randomizeArray, updateArray } from "../../../control/helpers";
 import { OptionProps, OptionsOfCounsilListener } from "../model/optionModel";
 import { UserOptionVote } from "./optionsModel";
 import { RootState } from "../../../model/store";
@@ -78,6 +78,11 @@ export const optionsSlice = createSlice({
         state.optionsVoteListenr.filter((e) => e !== action.payload.counsilId);
       }
     },
+    randomizeOptions: (
+      state
+    ) => {
+     state.options = randomizeArray(state.options);
+    },
   },
 });
 
@@ -86,6 +91,7 @@ export const {
   addOption,
   updateOption,
   updateVotingOptionsListenrs,
+  randomizeOptions
 } = optionsSlice.actions;
 
 export default optionsSlice.reducer;
