@@ -11,7 +11,6 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
 import Page404 from "./view/pages/Page404";
 import Login from "./view/pages/login/Login";
-import Feed from "./features/feed/Feed";
 import Main from "./features/main/Main";
 import App from "./App";
 import AddCouncil from "./features/counsils/view/AddCounsil";

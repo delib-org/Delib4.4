@@ -2,12 +2,8 @@ import { createSlice } from "@reduxjs/toolkit";
 import type { PayloadAction } from "@reduxjs/toolkit";
 import { enableMapSet } from "immer";
 
-// import { RootState } from "../../../../model/store";
-
-import { randomizeArray, updateArray } from "../../../control/helpers";
+import { updateArray } from "../../../control/helpers";
 import { OptionProps, OptionsOfCounsilListener } from "../model/optionModel";
-import { UserOptionVote } from "./optionsModel";
-import { RootState } from "../../../model/store";
 
 enableMapSet();
 
@@ -77,12 +73,7 @@ export const optionsSlice = createSlice({
       } else {
         state.optionsVoteListenr.filter((e) => e !== action.payload.counsilId);
       }
-    },
-    randomizeOptions: (
-      state
-    ) => {
-     state.options = randomizeArray(state.options);
-    },
+    }
   },
 });
 
@@ -90,8 +81,7 @@ export const {
   updateUserVote,
   addOption,
   updateOption,
-  updateVotingOptionsListenrs,
-  randomizeOptions
+  updateVotingOptionsListenrs
 } = optionsSlice.actions;
 
 export default optionsSlice.reducer;

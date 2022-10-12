@@ -1,9 +1,6 @@
 import { collection, doc, onSnapshot } from "firebase/firestore";
-import { useState } from "react";
 import { DB } from "../../../control/firebase/config";
 import { Collections } from "../../../control/firebase/dbModel";
-import { useAppDispatch, useAppSelector } from "../../../model/hooks";
-import { updateUserVote, updateVotingOptionsListenrs } from "./optionsSlice";
 
 export function listenToOptionsOfCounsil(
   councilId: string,

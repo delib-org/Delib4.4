@@ -1,6 +1,6 @@
-import { FC, useEffect, useState } from "react";
+import { FC, useState } from "react";
 import { randomizeArray } from "../../../control/helpers";
-import { useAppDispatch, useAppSelector } from "../../../model/hooks";
+import { useAppSelector } from "../../../model/hooks";
 import { OptionProps, Order } from "../model/optionModel";
 import OptionBar from "./OptionBar";
 import OptionBtn from "./OptionBtn";
@@ -16,23 +16,11 @@ const OptionsBars: FC<OptionsBarsProps> = ({
   handleShowAddOption,
 }) => {
   const [orderBy, setOrder] = useState<Order>(Order.RANDOM);
-  const [doRandom, setDoRandom] = useState<boolean>(false);
-  const [orderedOptions, setOrderedOptions] = useState<OptionProps[]>([]);
+
   const options = sortOptions(useAppSelector((state) =>
     state.options.options.filter((option) => option.counsilId === counsilId)
   ), orderBy);
-  console.log("run");
-  console.log(options)
-
-  // useEffect(() => {
-
-  //   if (options.length > 0) {
-  //     console.log('options changed?')
-  //     // setOrderedOptions(options);
-  //   }
-  // }, [options]);
-
-  // const maxVotes = Math.max(...options.map(o => o.votes));
+ 
   const maxVotes: number = options.reduce((prv, cur) => prv + cur.votes, 0);
 
   function handleOrder(order: Order) {
@@ -126,7 +114,7 @@ const OptionsBars: FC<OptionsBarsProps> = ({
           }
           onClick={() => {
             handleOrder(Order.RANDOM);
-            setDoRandom(true);
+      
           }}>
           Random
         </div>

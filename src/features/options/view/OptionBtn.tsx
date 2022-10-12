@@ -1,8 +1,7 @@
 import React, { FC } from "react";
-import { useAppDispatch, useAppSelector } from "../../../model/hooks";
+import { useAppSelector } from "../../../model/hooks";
 import { setVote } from "../../selections/votes/setVote";
 import { selectUser } from "../../user/userSlice";
-import { updateUserVote } from "../control/optionsSlice";
 import { OptionProps } from "../model/optionModel";
 
 interface OptionBtnProps {
@@ -10,7 +9,7 @@ interface OptionBtnProps {
 }
 
 const OptionBtn: FC<OptionBtnProps> = ({ option }) => {
-  const dispatch = useAppDispatch();
+
   const user = useAppSelector(selectUser);
   
   function handleVote() {
