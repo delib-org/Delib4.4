@@ -1,18 +1,35 @@
-import React, { FC } from "react";
+import React, { FC, useRef, useEffect} from "react";
 import { getColor } from "../../../control/helpers";
 import { useAppSelector } from "../../../model/hooks";
 import { setVote } from "../../selections/votes/setVote";
 import { selectUser } from "../../user/userSlice";
 import { OptionProps } from "../model/optionModel";
+import { OptionsAnim } from "./OptionsBars";
 
 interface OptionBtnProps {
   option: OptionProps;
+  optionsAnim:OptionsAnim;
+  updateWidth:Function
 }
 
-const OptionBtn: FC<OptionBtnProps> = ({ option }) => {
+const OptionBtn: FC<OptionBtnProps> = ({ option,optionsAnim, updateWidth}) => {
 
   const user = useAppSelector(selectUser);
+  const ref = useRef<any>(null);
+ 
+
+  useEffect(() => {
+    console.log(ref.current.offsetWidth)
+    if(ref.current){
+    console.log('width:', ref.current.offsetWidth );
+    updateWidth(option.optionId,ref.current.offsetWidth,optionsAnim)
+  }
   
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [updateWidth,option.optionId, ref]);
+
+  
+
   function handleVote() {
     try {
       if (!user) throw new Error("voting user is missing on vote");
@@ -24,7 +41,7 @@ const OptionBtn: FC<OptionBtnProps> = ({ option }) => {
   }
   
   return (
-    <div className={option.userVotedOption?"optionsBar__btn optionsBar__btn--select":"optionsBar__btn"} onClick={handleVote} style={{background:option.color||getColor()}}>
+    <div ref={ref} className={option.userVotedOption?"optionsBar__btn optionsBar__btn--select":"optionsBar__btn"} onClick={handleVote} style={{background:option.color||getColor()}}>
       {option.title}
     </div>
   );

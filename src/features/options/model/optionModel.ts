@@ -12,6 +12,9 @@ export interface OptionProps {
   userVotedOption?:boolean;
   lastVoted?:number;
   color:string;
+  width?:number;
+  left?:number;
+  order?:number;
 }
 
 export enum OptionsView{

@@ -3,15 +3,23 @@
   display: flex;
   flex-direction: column;
 
-  &__grid {
-    display: grid;
+  &__wrapper {
+    display: flex;
     width: 100%;
     margin: 20px 0px;
     gap: 10px;
     flex: auto;
     grid-template-rows: auto 60px;
     overflow-x: auto;
-    overflow-y: hidden;
+    overflow-y: auto;
+  }
+
+  &__col{
+   position: relative;
+    display: flex;
+    flex-direction: column-reverse;
+   transition: all 300ms;
+    
   }
 
   &__info {
