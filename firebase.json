@@ -44,7 +44,7 @@
     }
   },
   "hosting": {
-    "site":"delib4",
+    "site": "delib4",
     "public": "build",
     "ignore": [
       "firebase.json",

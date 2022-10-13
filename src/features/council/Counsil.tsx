@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Link, useParams } from "react-router-dom";
+import { Link, useLocation, useParams } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../../model/hooks";
 import { updateCounsil } from "../counsils/control/counsilsSlice";
 import { listenToCounsil } from "./getCounsil";
@@ -21,6 +21,7 @@ let unsubscribeOptions: Function = () => {};
 let unsubscribeVote: Function = () => {};
 
 const CounsilPage = () => {
+  const location = useLocation();
   const [showAddOption, setShowAddOption] = useState<boolean>(false);
   const user = useAppSelector(selectUser);
   const dispatch = useAppDispatch();
@@ -28,6 +29,8 @@ const CounsilPage = () => {
   const counsil = useAppSelector((state) =>
     state.councils.councils.find((cnsl) => cnsl.counsilId === counsilId)
   );
+
+
   // const isListentingToVote: boolean =
   //   useAppSelector((state) =>
   //     state.options.optionsVoteListenr.findIndex(
@@ -57,7 +60,7 @@ const CounsilPage = () => {
     const shareData = {
       title: 'Delib',
       text: 'Share deliberation',
-      url: 'https://developer.mozilla.org'
+      url: window.location.href
     }
     console.log(shareData)
     navigator.share(shareData)
