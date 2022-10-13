@@ -5,21 +5,24 @@
 
   &__wrapper {
     display: flex;
+    justify-content: flex-start;
     width: 100%;
     margin: 20px 0px;
-    gap: 10px;
+    // gap: 10px;
     flex: auto;
-    grid-template-rows: auto 60px;
     overflow-x: auto;
-    overflow-y: auto;
+    // overflow-y: auto;
+    border: 1px dashed gray;
+    box-sizing: border-box;
   }
 
-  &__col{
-   position: relative;
+  &__col {
+    position: relative;
     display: flex;
     flex-direction: column-reverse;
-   transition: all 300ms;
-    
+    transition: all 300ms;
+    box-sizing: border-box;
+    flex: none;
   }
 
   &__info {
@@ -32,7 +35,7 @@
   }
 
   &__bar {
-    width: 80%;
+    width: 100%;
 
     background: rgb(144, 140, 254);
     background: linear-gradient(

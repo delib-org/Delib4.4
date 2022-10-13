@@ -4,11 +4,11 @@ $notSelected: rgb(146, 146, 146);
 // colors
 $inputColor: #efeefe;
 $selected: gray;
-$background:white;
+$background: white;
 $cardBackground: white;
-$h1:rgba(0, 0, 0, 0.8);
-$h2:rgba(0, 0, 0, 0.75);
-$text:rgba(0, 0, 0, 0.7);
+$h1: rgba(0, 0, 0, 0.8);
+$h2: rgba(0, 0, 0, 0.75);
+$text: rgba(0, 0, 0, 0.7);
 
 @import "../../features/options/view/optionsBar.scss";
 @import "../../features/counsils/view/counsilCard.scss";
@@ -22,30 +22,58 @@ $text:rgba(0, 0, 0, 0.7);
 
 //fonts
 // @import url("https://fonts.googleapis.com/css2?family=Assistant:wght@200;300;400;500;600;700;800&display=swap");
-@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap");
+// @import url('https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200');
+@import url("https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,200,1,0");
 
 body,
 html {
   margin: 0px;
-//   font-family: "Assistant", sans-serif;
-  font-family: 'Quicksand', sans-serif;
-
+  //   font-family: "Assistant", sans-serif;
+  font-family: "Quicksand", sans-serif;
 }
-h1{
-    color: $h1;
-    text-shadow: 2px 2px 4px #0000006c;
+h1 {
+  color: $h1;
+  text-shadow: 2px 2px 4px #0000006c;
 }
-h2{
-    color: $h2;
+h2 {
+  color: $h2;
 }
-p,span,div{
-color: $text;
+p,
+span,
+div {
+  color: $text;
 }
 .page {
   display: flex;
   flex-direction: column;
   header {
     background-color: $background;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    .headerBtn {
+      padding: 15px;
+      cursor: pointer;
+      user-select: none;
+    }
+    .headerBtn--circle {
+      padding: 10px;
+      cursor: pointer;
+      -webkit-user-select: none;
+      user-select: none;
+      margin: 5px;
+      width: 20px;
+      height: 20px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border: 1px solid $h1;
+      border-radius: 30px;
+    }
+    h1 {
+      margin: 0px;
+    }
   }
   main {
     flex: auto;

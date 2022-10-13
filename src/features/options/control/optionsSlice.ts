@@ -23,12 +23,16 @@ export const optionsSlice = createSlice({
   reducers: {
     addOption: (state, action: PayloadAction<OptionProps>) => {
       if (action.payload) {
-        state.options = [...state.options, action.payload];
+        const option = action.payload;
+        option.creationOrder = 0;
+        state.options = [...state.options, option];
       }
     },
     updateOption: (state, action: PayloadAction<OptionProps>) => {
       if (action.payload) {
-        state.options = updateArray(state.options, action.payload, "optionId");
+        const option = action.payload;
+        option.creationOrder = 0;
+        state.options = updateArray(state.options, option, "optionId");
       }
     },
     updateUserVote: (

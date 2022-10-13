@@ -49,8 +49,18 @@ const CounsilPage = () => {
       console.error(error);
     }
   }
-  function handleShowAddOption(showModal:boolean) {
+  function handleShowAddOption(showModal: boolean) {
     setShowAddOption(showModal);
+  }
+
+  function handleShare(){
+    const shareData = {
+      title: 'Delib',
+      text: 'Share deliberation',
+      url: 'https://developer.mozilla.org'
+    }
+    console.log(shareData)
+    navigator.share(shareData)
   }
 
   useEffect(() => {
@@ -76,22 +86,32 @@ const CounsilPage = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [counsilId, user]);
 
-
-
   return (
     <div className="page counsil">
       <header>
-        <Link to="/main">Back</Link>
+        <Link to="/main">
+          <div className="headerBtn">
+            <span className="material-symbols-outlined">arrow_back</span>
+          </div>
+        </Link>
         <h1>{counsil?.title}</h1>
-        {counsil?<Description description={counsil.description} />:null}
-       
+        <div className="headerBtn--circle" onClick={handleShare}>
+          <span className="material-symbols-outlined">share</span>
+        </div>
       </header>
+      <article>{counsil?.description}</article>
       <main>
         <div className="wrapper">
           {counsilId ? switchType(OptionsView.BARS) : null}
         </div>
       </main>
-      {counsilId?<AddOption counsilId={counsilId} showAddOption={showAddOption} handleShowAddOption={handleShowAddOption}/>:null}
+      {counsilId ? (
+        <AddOption
+          counsilId={counsilId}
+          showAddOption={showAddOption}
+          handleShowAddOption={handleShowAddOption}
+        />
+      ) : null}
       <footer></footer>
     </div>
   );
@@ -100,7 +120,13 @@ const CounsilPage = () => {
     try {
       switch (type) {
         case OptionsView.BARS:
-          if (counsilId) return <OptionsBars counsilId={counsilId} handleShowAddOption={handleShowAddOption} />;
+          if (counsilId)
+            return (
+              <OptionsBars
+                counsilId={counsilId}
+                handleShowAddOption={handleShowAddOption}
+              />
+            );
           else return null;
         default:
           return null;
