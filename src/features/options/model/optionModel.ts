@@ -15,6 +15,7 @@ export interface OptionProps {
   width?:number;
   left?:number;
   order?:number;
+  creationOrder?:number;
 }
 
 export enum OptionsView{

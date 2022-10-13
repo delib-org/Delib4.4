@@ -20,7 +20,7 @@ export interface OptionsAnim {
 }
 
 const optionsAnim: OptionsAnim = { totalWidth: 0, options: [] };
-
+const barWidth = 150
 const OptionsBars: FC<OptionsBarsProps> = ({
   counsilId,
   handleShowAddOption,
@@ -31,9 +31,10 @@ const OptionsBars: FC<OptionsBarsProps> = ({
   const options = sortOptions(
     useAppSelector((state) =>
       state.options.options.filter((option) => option.counsilId === counsilId)
-    ).sort((a,b)=>a.created - b.created),
+    ).sort((a, b) => a.created - b.created),
     orderBy
   );
+  options.forEach((option, i) => (options[i].creationOrder = i));
   console.log(options);
 
   const maxVotes: number = options.reduce((prv, cur) => prv + cur.votes, 0);
@@ -73,7 +74,7 @@ const OptionsBars: FC<OptionsBarsProps> = ({
     options: Array<OptionProps>,
     order: Order
   ): OptionProps[] {
-    let tempOptions = [];
+    let tempOptions:OptionProps[] = [];
     switch (orderBy) {
       case Order.NEW:
         tempOptions = [
@@ -82,6 +83,7 @@ const OptionsBars: FC<OptionsBarsProps> = ({
               (a.created || 0) - (b.created || 0)
           ),
         ];
+        tempOptions = setNewOrder(tempOptions);
         break;
       case Order.VOTED:
         tempOptions = [
@@ -89,23 +91,38 @@ const OptionsBars: FC<OptionsBarsProps> = ({
             (b: OptionProps, a: OptionProps) => a.votes - b.votes
           ),
         ];
+        tempOptions = setNewOrder(tempOptions);
         break;
       case Order.RANDOM:
         tempOptions = randomizeArray(options);
+        tempOptions = setNewOrder(tempOptions);
         break;
       default:
         tempOptions = [...options];
+        tempOptions = setNewOrder(tempOptions);
     }
-   
-    tempOptions = tempOptions.map((op,i)=>{
-      const option = Object.assign({},op);
-      option.order = i
-      option.left = i*200;
-     
+
+    tempOptions = tempOptions.map((op, i) => {
+      const option = Object.assign({}, op);
+      option.order = i;
+      option.left = i * 200;
+
       return option;
     });
-    console.log(tempOptions)
-    return tempOptions
+    console.log(tempOptions);
+    return tempOptions;
+
+    function setNewOrder(options:OptionProps[]):OptionProps[] {
+      options.forEach((option, i) => {
+        if ("creationOrder" in option &&
+          typeof option.creationOrder === "number") {
+          const difBetweenPlaces = (i - option.creationOrder) * barWidth;
+          options[i].left = difBetweenPlaces;
+
+        }
+      });
+      return options;
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }
 
@@ -124,7 +141,7 @@ const OptionsBars: FC<OptionsBarsProps> = ({
       <div
         className="optionsBar__wrapper"
         style={{
-          gridTemplateColumns: `repeat(${options.length},1fr)`
+          gridTemplateColumns: `repeat(${options.length},1fr)`,
         }}>
         {options.map((option) => (
           <OptionColumn
