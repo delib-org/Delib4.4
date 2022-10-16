@@ -5,6 +5,7 @@ import { Outlet, useLocation } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { setLastNavigation, setUser } from "./features/user/userSlice";
 import { listenToAuth, signInAnonym } from "./features/signin/signin";
+import { listentToMessages } from "./control/firebase/fbMessaging";
 
 function App() {
   const dispatch = useDispatch();
@@ -15,7 +16,7 @@ function App() {
   }
   useEffect(() => {
     listenToAuth(registerUser);
-  
+    listentToMessages();
     dispatch(setLastNavigation(location.pathname.toString()));
     signInAnonym();
     // eslint-disable-next-line react-hooks/exhaustive-deps

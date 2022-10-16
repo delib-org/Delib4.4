@@ -29,7 +29,7 @@ export function listenToVotedOption(
   userId: string | undefined,
   setState: Function
 ): Function {
-  console.log("listenToVotedOption");
+
   try {
     if (!userId || !counsilId) throw new Error("No user or no counsil");
     const userVoteRef = doc(

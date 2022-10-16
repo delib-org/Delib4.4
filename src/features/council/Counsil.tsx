@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Link, useLocation, useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../../model/hooks";
 import { updateCounsil } from "../counsils/control/counsilsSlice";
 import { listenToCounsil } from "./getCounsil";
@@ -13,15 +13,16 @@ import {
   listenToVotedOption,
 } from "../options/control/getOptions";
 import { selectUser } from "../user/userSlice";
-import Description from "../../view/components/Description";
 import AddOption from "../options/view/AddOption";
+import { setRegisterToPushNotifications } from "./setCounsilsDB";
 
 let unsubscribeCounsil: Function = () => {};
 let unsubscribeOptions: Function = () => {};
 let unsubscribeVote: Function = () => {};
+let token = false;
 
 const CounsilPage = () => {
-  const location = useLocation();
+
   const [showAddOption, setShowAddOption] = useState<boolean>(false);
   const user = useAppSelector(selectUser);
   const dispatch = useAppDispatch();
@@ -62,13 +63,12 @@ const CounsilPage = () => {
       text: 'Share deliberation',
       url: window.location.href
     }
-    console.log(shareData)
     navigator.share(shareData)
   }
 
   useEffect(() => {
     if (counsilId && user) {
-      console.log("++subscribeCounsil");
+   
       unsubscribeCounsil = listenToCounsil(counsilId, handleupdateCounsil);
       unsubscribeOptions = listenToOptionsOfCounsil(
         counsilId,
@@ -79,9 +79,17 @@ const CounsilPage = () => {
         user.uid,
         handleUpdateOptionVote
       );
+
+      if(token === false){
+        setRegisterToPushNotifications(counsilId,user.uid)
+        token = true;
+      }
     }
+
+   
+
     return () => {
-      console.log("unsubscribeCounsil");
+  
       unsubscribeCounsil();
       unsubscribeOptions();
       unsubscribeVote();

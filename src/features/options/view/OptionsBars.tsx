@@ -117,25 +117,18 @@ const OptionsBars: FC<OptionsBarsProps> = ({
     return tempOptions;
 
     function setNewOrder(options: OptionProps[]): OptionProps[] {
-      console.log("setNewOrder");
+
       options.forEach((option, i) => {
         if (
           option.hasOwnProperty("creationOrder") &&
           typeof option.creationOrder === "number"
         ) {
-          console.log(option.title, option.creationOrder, i);
           const difBetweenPlaces = (i - option.creationOrder) * barWidth;
-          console.log(
-            option.title,
-            option.creationOrder,
-            i,
-            i - option.creationOrder,
-            difBetweenPlaces
-          );
+
           options[i].left = difBetweenPlaces;
         }
       });
-      console.log(options);
+
       return options;
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
