@@ -1,7 +1,6 @@
 import { setDoc, doc } from "firebase/firestore";
 import { DB } from "../../control/firebase/config";
 import { Collections } from "../../control/firebase/dbModel";
-import { getToken2 } from "../messages/getMessaging";
 import { MessagingIntensity } from "../messages/messagingModel";
 import { Counsil } from "./councilModel";
 

@@ -2,6 +2,7 @@ import { uuidv4 } from "@firebase/util";
 import { FC } from "react";
 import { getColor } from "../../../control/helpers";
 import { useAppDispatch, useAppSelector } from "../../../model/hooks";
+import { Counsil } from "../../council/councilModel";
 import { User } from "../../user/userModel";
 import { selectUser } from "../../user/userSlice";
 import { addOption } from "../control/optionsSlice";
@@ -11,11 +12,11 @@ import { OptionProps } from "../model/optionModel";
 interface AddOptionProps {
   showAddOption: boolean;
   handleShowAddOption: Function;
-  counsilId: string;
+  counsil:Counsil
 }
 
 const AddOption: FC<AddOptionProps> = ({
-  counsilId,
+  counsil,
   showAddOption,
   handleShowAddOption,
 }) => {
@@ -27,18 +28,21 @@ const AddOption: FC<AddOptionProps> = ({
       ev.preventDefault();
       let { title, description } = ev.target.elements;
       title = title.value;
-      description = description.value;
+      description = description.value ||'';
       if (!title) throw new Error("No title in option");
       const optionId = uuidv4();
       if (!user)
         throw new Error("To create new option, a user must be present");
+
+        console.log(user)
 
       const newOption: OptionProps = {
         created:new Date().getTime(),
         title,
         description,
         optionId,
-        counsilId,
+        counsilId:counsil.counsilId,
+        counsilTitle:counsil.title,
         votes: 0,
         creator: user,
         color:getColor()

@@ -117,9 +117,9 @@ const CounsilPage = () => {
           {counsilId ? switchType(OptionsView.BARS) : null}
         </div>
       </main>
-      {counsilId ? (
+      {counsil ? (
         <AddOption
-          counsilId={counsilId}
+          counsil={counsil}
           showAddOption={showAddOption}
           handleShowAddOption={handleShowAddOption}
         />

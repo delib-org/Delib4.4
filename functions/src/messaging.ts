@@ -10,6 +10,7 @@ export const pushNotificationNewOption = functions.firestore
     const { counsilId } = context.params;
     // console.log(counsilId, optionId);
     // console.log(snap.data())
+    const {counsilTitle, title} = snap.data();
 
     //get all registerd high and medium;
 
@@ -39,15 +40,15 @@ export const pushNotificationNewOption = functions.firestore
       tokens.push(member.data().token)
     });
 
-    console.log(tokens)
+
+    const notificationTitle:string = counsilTitle?`On "${counsilTitle}"`: 'New Suggestion';
 
     const payload = {
         notification: {
-            title: `הצעה חדשה`,
-            body: `New option was created`,
+            title: notificationTitle,
+            body: `New suggestion: ${title}`,
             icon: 'https://delib4.web.app/192px.png',
             click_action: `https://delib4.web.app/counsil/${counsilId}`
-
         }
     }
 
