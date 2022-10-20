@@ -6,6 +6,7 @@ import { useDispatch } from "react-redux";
 import { setLastNavigation, setUser } from "./features/user/userSlice";
 import { listenToAuth, signInAnonym } from "./features/signin/signin";
 import { listentToMessages } from "./control/firebase/fbMessaging";
+import { requestPermission } from "./features/messages/messaging";
 
 function App() {
   const dispatch = useDispatch();
@@ -19,6 +20,7 @@ function App() {
     listentToMessages();
     dispatch(setLastNavigation(location.pathname.toString()));
     signInAnonym();
+    requestPermission();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   return (

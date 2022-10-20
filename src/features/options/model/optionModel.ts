@@ -7,6 +7,7 @@ export interface OptionProps {
   description: string;
   optionId: string;
   counsilId: string;
+  counsilTitle?:string;
   votes:number;
   creator:User
   userVotedOption?:boolean;

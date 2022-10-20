@@ -1,7 +1,8 @@
 import { setDoc, doc } from "firebase/firestore";
 import { DB } from "../../control/firebase/config";
 import { Collections } from "../../control/firebase/dbModel";
-import { getToken2 } from "../messages/setMessaging";
+import { getToken2 } from "../messages/getMessaging";
+import { MessagingIntensity } from "../messages/messagingModel";
 import { Counsil } from "./councilModel";
 
 export async function addCouncilToDB(counsil: Counsil): Promise<void> {
@@ -15,7 +16,9 @@ export async function addCouncilToDB(counsil: Counsil): Promise<void> {
 
 export async function setRegisterToPushNotifications(
   counsilId: string,
-  userId: string
+  userId: string,
+  messagingIntensity:MessagingIntensity,
+  token:string
 ): Promise<void> {
   try {
     const counsilNotificationRef = doc(
@@ -25,8 +28,8 @@ export async function setRegisterToPushNotifications(
       "members",
       userId
     );
-    const token = await getToken2();
-    await setDoc(counsilNotificationRef, { token });
+    
+    await setDoc(counsilNotificationRef, { token, messagingIntensity });
     console.log("set token for push notifications");
   } catch (error) {
     console.error(error);

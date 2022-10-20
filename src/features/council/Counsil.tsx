@@ -15,11 +15,12 @@ import {
 import { selectUser } from "../user/userSlice";
 import AddOption from "../options/view/AddOption";
 import { setRegisterToPushNotifications } from "./setCounsilsDB";
+import { MessagingIntensity } from "../messages/messagingModel";
 
 let unsubscribeCounsil: Function = () => {};
 let unsubscribeOptions: Function = () => {};
 let unsubscribeVote: Function = () => {};
-let token = false;
+let token = sessionStorage.getItem('token')||'';
 
 const CounsilPage = () => {
 
@@ -80,9 +81,9 @@ const CounsilPage = () => {
         handleUpdateOptionVote
       );
 
-      if(token === false){
-        setRegisterToPushNotifications(counsilId,user.uid)
-        token = true;
+      if(token.length>0){
+        setRegisterToPushNotifications(counsilId,user.uid, MessagingIntensity.HIGH, token)
+
       }
     }
 

@@ -1,10 +1,15 @@
 // import { runTransaction } from "firebase/firestore";
 import * as functions from "firebase-functions";
 import admin = require("firebase-admin");
+import {pushNotificationNewOption} from './messaging';
 import { get } from "lodash";
 // import { on } from "events";
 admin.initializeApp();
-const db = admin.firestore();
+export const db = admin.firestore();
+
+
+
+exports.pushNotificationNewOption = pushNotificationNewOption;
 
 // // Start writing Firebase Functions
 // // https://firebase.google.com/docs/functions/typescript
@@ -14,14 +19,6 @@ const db = admin.firestore();
 //   response.send("Hello from Firebase!");
 // });
 
-exports.makeUppercase = functions.firestore
-  .document("/messages/{documentId}")
-  .onCreate((snap, context) => {
-    const original = snap.data().original;
-    console.log("Uppercasing", context.params.documentId, original);
-    const uppercase = original.toUpperCase();
-    return snap.ref.set({ uppercase }, { merge: true });
-  });
 
 exports.updateVoteToOption = functions.firestore
   .document("/counsils/{counsilId}/votes/{userUid}")
