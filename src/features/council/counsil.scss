@@ -11,6 +11,13 @@
       padding: $padding;
     }
   }
+  article{
+    max-height: 100px;
+    overflow-y: auto;
+    padding: $padding;
+    text-align: left;
+  }
+
   main {
     display: flex;
     flex-direction: column;

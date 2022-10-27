@@ -11,7 +11,9 @@ export function listenToCounsil(
       if (counsilDB.exists()) {
         setState(counsilDB.data());
       }
-    });
+    },e=>{
+      console.info('Error at listenToCounsil')
+      console.error(e)});
   } catch (error) {
     return () => {};
   }

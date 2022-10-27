@@ -1,9 +1,8 @@
 import { initializeApp } from "firebase/app";
 import { getFirestore } from "firebase/firestore";
-// import {  connectFirestoreEmulator } from "firebase/firestore";
+// import { connectFirestoreEmulator } from "firebase/firestore";
 import { getMessaging, onMessage, getToken } from "firebase/messaging";
 import { getAuth } from "firebase/auth";
-
 
 // Your web app's Firebase configuration
 // firebase deploy --only hosting
@@ -37,6 +36,6 @@ getToken(messaging, {
     "BOXKnicJW5Cu3xwRG7buXf-JU8tS-AErJX_Ax7CsUwqZQvBvo2E-ECnE-uGvUKcgeL-1nT-cJw8qGo4dH-zrfGA",
 })
   .then((token: string) => {
-    sessionStorage.setItem('token',token)
+    sessionStorage.setItem("token", token);
   })
   .catch((e) => console.error(e));

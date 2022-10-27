@@ -14,7 +14,7 @@ import {
 } from "../options/control/getOptions";
 import { selectUser } from "../user/userSlice";
 import AddOption from "../options/view/AddOption";
-import { setRegisterToPushNotifications } from "./setCounsilsDB";
+import { registerToCounsil, setRegisterToPushNotifications } from "./setCounsilsDB";
 import { MessagingIntensity } from "../messages/messagingModel";
 
 let unsubscribeCounsil: Function = () => {};
@@ -61,7 +61,7 @@ const CounsilPage = () => {
   function handleShare(){
     const shareData = {
       title: 'Delib',
-      text: 'Share deliberation',
+      text: `Please join me on voting on the question "${counsil?.title}"`,
       url: window.location.href
     }
     navigator.share(shareData)
@@ -70,6 +70,7 @@ const CounsilPage = () => {
   useEffect(() => {
     if (counsilId && user) {
    
+      registerToCounsil({user, counsilId});
       unsubscribeCounsil = listenToCounsil(counsilId, handleupdateCounsil);
       unsubscribeOptions = listenToOptionsOfCounsil(
         counsilId,
@@ -106,7 +107,7 @@ const CounsilPage = () => {
             <span className="material-symbols-outlined">arrow_back</span>
           </div>
         </Link>
-        <h1>{counsil?.title}</h1>
+        <h1>{counsil?.title} v:4.0.01</h1>
         <div className="headerBtn--circle" onClick={handleShare}>
           <span className="material-symbols-outlined">share</span>
         </div>
