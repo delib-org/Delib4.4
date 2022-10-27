@@ -8,3 +8,5 @@ firestore-debug.log
 pubsub-debug.log
 
 build/.DS_Store
+
+build/
