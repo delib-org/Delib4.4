@@ -21,7 +21,7 @@ const OptionBtn: FC<OptionBtnProps> = ({ option,optionsAnim, updateWidth}) => {
   useEffect(() => {
     
     if(ref.current){
-   
+
     updateWidth(option.optionId,ref.current.offsetWidth,optionsAnim)
   }
   

@@ -47,22 +47,33 @@ export const optionsSlice = createSlice({
         );
 
         counsilsOptions.forEach((option) => {
-          option.userVotedOption = false;
-          state.options = updateArray(state.options, option, "optionId");
+          if(option.optionId !== optionId && option.userVotedOption){
+            //in case the this was the previous selected option
+            option.votes--
+            option.userVotedOption = false;
+            state.options = updateArray(state.options, option, "optionId");
+          } else if(option.optionId === optionId){
+            //in case that this is the new selected option
+            option.votes++;
+            option.userVotedOption = true;
+            state.options = updateArray(state.options, option, "optionId");
+          }
+         
+         
         });
 
-        if (optionId !== "") {
-          const option = counsilsOptions.find(
-            (option) => option.optionId === optionId
-          );
+        // if (optionId !== "") {
+        //   const option = counsilsOptions.find(
+        //     (option) => option.optionId === optionId
+        //   );
 
-          if (!option) throw new Error("Couldn't find option");
+        //   if (!option) throw new Error("Couldn't find option");
 
-          //toggle state of vote
-          option.userVotedOption = true;
+        //   //toggle state of vote
+        //   option.userVotedOption = true;
 
-          state.options = updateArray(state.options, option, "optionId");
-        }
+        //   state.options = updateArray(state.options, option, "optionId");
+        // }
       } catch (error) {
         console.error(error);
       }
