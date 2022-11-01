@@ -36,7 +36,7 @@ export function listenToVotedOption(
       DB,
       Collections.COUNSILS,
       counsilId,
-      Collections.VOTES,
+      Collections.MEMBERS,
       userId
     );
 

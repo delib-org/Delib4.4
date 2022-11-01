@@ -1,5 +1,6 @@
 export enum Collections{
     COUNSILS = 'counsils',
     OPTIONS = 'options',
-    VOTES = 'votes'
+    VOTES = 'votes',
+    MEMBERS = 'members'
 }
