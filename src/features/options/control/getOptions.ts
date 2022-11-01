@@ -36,7 +36,7 @@ export function listenToVotedOption(
       DB,
       Collections.COUNSILS,
       counsilId,
-      Collections.MEMBERS,
+      Collections.VOTES,
       userId
     );
 
@@ -44,6 +44,8 @@ export function listenToVotedOption(
       if (userVoteDB.exists()) {
         const votedOptionId:string = userVoteDB.data().vote;
         setState(votedOptionId);
+      } else{
+        setState('');
       }
     });
 

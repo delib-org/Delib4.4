@@ -107,7 +107,7 @@ const CounsilPage = () => {
             <span className="material-symbols-outlined">arrow_back</span>
           </div>
         </Link>
-        <h1>{counsil?.title} v:4.0.01</h1>
+        <h1>{counsil?.title} v:4.0.02</h1>
         <div className="headerBtn--circle" onClick={handleShare}>
           <span className="material-symbols-outlined">share</span>
         </div>
