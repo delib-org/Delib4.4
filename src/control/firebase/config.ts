@@ -1,6 +1,6 @@
 import { initializeApp } from "firebase/app";
 import { getFirestore } from "firebase/firestore";
-// import { connectFirestoreEmulator } from "firebase/firestore";
+import { connectFirestoreEmulator } from "firebase/firestore";
 import { getMessaging, onMessage, getToken } from "firebase/messaging";
 import { getAuth } from "firebase/auth";
 
@@ -24,7 +24,7 @@ export const DB = getFirestore(app);
 export const auth = getAuth(app);
 export const messaging = getMessaging(app);
 
-// connectFirestoreEmulator(DB, "localhost", 8080);
+connectFirestoreEmulator(DB, "localhost", 8080);
 
 onMessage(messaging, (payload) => {
   console.log("Message received. ", payload);

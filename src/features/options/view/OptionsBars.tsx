@@ -22,13 +22,15 @@ export interface OptionsAnim {
 
 const optionsAnim: OptionsAnim = { totalWidth: 0, options: [] };
 const barWidth = 120;
+let isStart = true;
+
 const OptionsBars: FC<OptionsBarsProps> = ({
   counsilId,
   handleShowAddOption,
 }) => {
   const [orderBy, setOrder] = useState<Order>(Order.RANDOM);
   // const [optionsAnim,setOptionsAnim] = useState<OptionsAnim>({totalWidth:0, options:[]});
-  const [width, setWidth] = useState<number>(0);
+  // const [width, setWidth] = useState<number>(0);
   const options = sortOptions(
     useAppSelector((state) =>
       state.options.options.filter((option) => option.counsilId === counsilId)
@@ -43,7 +45,7 @@ const OptionsBars: FC<OptionsBarsProps> = ({
       setOrder(order);
     } catch (error) {
       console.error(error);
-      setOrder(Order.RANDOM);
+      setOrder(Order.NEW);
     }
   }
 
@@ -99,8 +101,17 @@ const OptionsBars: FC<OptionsBarsProps> = ({
         tempOptions = setNewOrder(tempOptions);
         break;
       case Order.RANDOM:
-        tempOptions = randomizeArray(options);
-        tempOptions = setNewOrder(tempOptions);
+     
+        if (isStart && options.length>1) {
+          console.log("randomize", options.length);
+          tempOptions = randomizeArray(options);
+          tempOptions = setNewOrder(tempOptions);
+          isStart = false
+        } else {
+          console.log("dont randomize", options.length);
+          tempOptions = options;
+        }
+
         break;
       default:
         tempOptions = [...options];
@@ -117,7 +128,6 @@ const OptionsBars: FC<OptionsBarsProps> = ({
     return tempOptions;
 
     function setNewOrder(options: OptionProps[]): OptionProps[] {
-
       options.forEach((option, i) => {
         if (
           option.hasOwnProperty("creationOrder") &&

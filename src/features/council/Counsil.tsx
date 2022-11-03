@@ -14,24 +14,26 @@ import {
 } from "../options/control/getOptions";
 import { selectUser } from "../user/userSlice";
 import AddOption from "../options/view/AddOption";
-import { registerToCounsil, setRegisterToPushNotifications } from "./setCounsilsDB";
+import {
+  registerToCounsil,
+  setRegisterToPushNotifications,
+} from "./setCounsilsDB";
 import { MessagingIntensity } from "../messages/messagingModel";
 
 let unsubscribeCounsil: Function = () => {};
 let unsubscribeOptions: Function = () => {};
 let unsubscribeVote: Function = () => {};
-let token = sessionStorage.getItem('token')||'';
+let token = sessionStorage.getItem("token") || "";
 
 const CounsilPage = () => {
-
   const [showAddOption, setShowAddOption] = useState<boolean>(false);
+  const [showShareMessage, setShareMessage] = useState<boolean>(false);
   const user = useAppSelector(selectUser);
   const dispatch = useAppDispatch();
   const { counsilId } = useParams();
   const counsil = useAppSelector((state) =>
     state.councils.councils.find((cnsl) => cnsl.counsilId === counsilId)
   );
-
 
   // const isListentingToVote: boolean =
   //   useAppSelector((state) =>
@@ -58,19 +60,35 @@ const CounsilPage = () => {
     setShowAddOption(showModal);
   }
 
-  function handleShare(){
-    const shareData = {
-      title: 'Delib',
-      text: `Please join me on voting on the question "${counsil?.title}"`,
-      url: window.location.href
+  function handleShare() {
+    try {
+      const shareData = {
+        title: "Delib",
+        text: `Please join: "${counsil?.title}"`,
+        url: window.location.href,
+      };
+      if (navigator.share) {
+        navigator.share(shareData);
+      } else {
+        if (navigator.clipboard) {
+          navigator.clipboard.writeText(window.location.href);
+          setShareMessage(true);
+          // alert(
+          //   "Question address was copied to clipboard. share this link through any social media you want"
+          // );
+        } else {
+          alert("Copy page address and share it")
+        }
+      }
+    } catch (error) {
+      console.error(error);
     }
-    navigator.share(shareData)
+    
   }
 
   useEffect(() => {
     if (counsilId && user) {
-   
-      registerToCounsil({user, counsilId});
+      registerToCounsil({ user, counsilId });
       unsubscribeCounsil = listenToCounsil(counsilId, handleupdateCounsil);
       unsubscribeOptions = listenToOptionsOfCounsil(
         counsilId,
@@ -82,16 +100,17 @@ const CounsilPage = () => {
         handleUpdateOptionVote
       );
 
-      if(token.length>0){
-        setRegisterToPushNotifications(counsilId,user.uid, MessagingIntensity.HIGH, token)
-
+      if (token.length > 0) {
+        setRegisterToPushNotifications(
+          counsilId,
+          user.uid,
+          MessagingIntensity.HIGH,
+          token
+        );
       }
     }
 
-   
-
     return () => {
-  
       unsubscribeCounsil();
       unsubscribeOptions();
       unsubscribeVote();
@@ -107,10 +126,15 @@ const CounsilPage = () => {
             <span className="material-symbols-outlined">arrow_back</span>
           </div>
         </Link>
-        <h1>{counsil?.title} v:4.0.02</h1>
+        <h1>{counsil?.title}</h1>
         <div className="headerBtn--circle" onClick={handleShare}>
           <span className="material-symbols-outlined">share</span>
         </div>
+        {showShareMessage?<div className="shareMessage" onClick={()=>setShareMessage(false)}>
+          <p>The URL of the page was copied to the clipoard.</p>
+          <p> To share this link, plaese send the link to your friends</p>
+          <p><span className="material-symbols-outlined">close</span></p>
+        </div>:null}
       </header>
       <article>{counsil?.description}</article>
       <main>
