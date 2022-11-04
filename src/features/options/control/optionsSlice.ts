@@ -2,8 +2,12 @@ import { createSlice } from "@reduxjs/toolkit";
 import type { PayloadAction } from "@reduxjs/toolkit";
 import { enableMapSet } from "immer";
 
-import { updateArray } from "../../../control/helpers";
-import { OptionProps, OptionsOfCounsilListener } from "../model/optionModel";
+import { randomizeArray, updateArray } from "../../../control/helpers";
+import {
+  OptionProps,
+  OptionsOfCounsilListener,
+  Order,
+} from "../model/optionModel";
 
 enableMapSet();
 
@@ -47,33 +51,18 @@ export const optionsSlice = createSlice({
         );
 
         counsilsOptions.forEach((option) => {
-          if(option.optionId !== optionId && option.userVotedOption){
+          if (option.optionId !== optionId && option.userVotedOption) {
             //in case the this was the previous selected option
-            option.votes--
+            option.votes--;
             option.userVotedOption = false;
             state.options = updateArray(state.options, option, "optionId");
-          } else if(option.optionId === optionId){
+          } else if (option.optionId === optionId) {
             //in case that this is the new selected option
             option.votes++;
             option.userVotedOption = true;
             state.options = updateArray(state.options, option, "optionId");
           }
-         
-         
         });
-
-        // if (optionId !== "") {
-        //   const option = counsilsOptions.find(
-        //     (option) => option.optionId === optionId
-        //   );
-
-        //   if (!option) throw new Error("Couldn't find option");
-
-        //   //toggle state of vote
-        //   option.userVotedOption = true;
-
-        //   state.options = updateArray(state.options, option, "optionId");
-        // }
       } catch (error) {
         console.error(error);
       }
@@ -88,7 +77,30 @@ export const optionsSlice = createSlice({
       } else {
         state.optionsVoteListenr.filter((e) => e !== action.payload.counsilId);
       }
-    }
+    },
+    reorderCouncilOptions: (
+      state,
+      action: PayloadAction<{ counsilId: string; sortBy: Order }>
+    ) => {
+      try {
+        const { counsilId, sortBy } = action.payload;
+        if (!counsilId) throw new Error("no counsil id");
+        if (!sortBy) throw new Error("No sort by method");
+
+        const counsilsOptions = state.options.filter(
+          (opt) => opt.counsilId === counsilId
+        );
+
+        const counsilsOptionsOrderd = sortOptions(counsilsOptions, sortBy);
+        counsilsOptionsOrderd.forEach((option, i) => {
+          option.order = i;
+          console.log(option.title, option.votes, Math.floor(option.created/1000)-1667450000)
+          state.options = updateArray(state.options, option, "optionId");
+        });
+      } catch (error) {
+        console.error(error);
+      }
+    },
   },
 });
 
@@ -96,7 +108,30 @@ export const {
   updateUserVote,
   addOption,
   updateOption,
-  updateVotingOptionsListenrs
+  updateVotingOptionsListenrs,
+  reorderCouncilOptions,
 } = optionsSlice.actions;
 
+function sortOptions(options: OptionProps[], sortBy: Order): OptionProps[] {
+  try {
+    const _options = [...options];
+
+    switch (sortBy) {
+      case Order.NEW:
+        return _options.sort((a, b) => b.created - a.created);
+      case Order.VOTED:
+        return _options.sort((a, b) => b.votes - a.votes);
+      case Order.RANDOM:
+        return randomizeArray(_options);
+      default:
+        return _options;
+    }
+  } catch (error) {
+    console.error(error);
+    return options;
+  }
+}
+
 export default optionsSlice.reducer;
+
+

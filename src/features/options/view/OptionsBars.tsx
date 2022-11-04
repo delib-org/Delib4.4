@@ -1,7 +1,8 @@
 import { FC, useState } from "react";
 import { json } from "stream/consumers";
 import { randomizeArray } from "../../../control/helpers";
-import { useAppSelector } from "../../../model/hooks";
+import { useAppDispatch, useAppSelector } from "../../../model/hooks";
+import { reorderCouncilOptions } from "../control/optionsSlice";
 import { OptionProps, Order } from "../model/optionModel";
 import OptionBar from "./OptionBar";
 import OptionBtn from "./OptionBtn";
@@ -26,14 +27,13 @@ const OptionsBars: FC<OptionsBarsProps> = ({
   counsilId,
   handleShowAddOption,
 }) => {
+  const dispatch = useAppDispatch();
   const [orderBy, setOrder] = useState<Order>(Order.RANDOM);
   // const [optionsAnim,setOptionsAnim] = useState<OptionsAnim>({totalWidth:0, options:[]});
   const [width, setWidth] = useState<number>(0);
-  const options = sortOptions(
-    useAppSelector((state) =>
-      state.options.options.filter((option) => option.counsilId === counsilId)
-    ),
-    orderBy
+
+  const options = useAppSelector((state) =>
+    state.options.options.filter((option) => option.counsilId === counsilId)
   );
 
   const maxVotes: number = options.reduce((prv, cur) => prv + cur.votes, 0);
@@ -41,6 +41,7 @@ const OptionsBars: FC<OptionsBarsProps> = ({
   function handleOrder(order: Order) {
     try {
       setOrder(order);
+      dispatch(reorderCouncilOptions({ counsilId, sortBy: order }));
     } catch (error) {
       console.error(error);
       setOrder(Order.RANDOM);
@@ -117,7 +118,6 @@ const OptionsBars: FC<OptionsBarsProps> = ({
     return tempOptions;
 
     function setNewOrder(options: OptionProps[]): OptionProps[] {
-
       options.forEach((option, i) => {
         if (
           option.hasOwnProperty("creationOrder") &&
@@ -152,7 +152,7 @@ const OptionsBars: FC<OptionsBarsProps> = ({
           gridTemplateColumns: `repeat(${options.length},1fr)`,
         }}>
         {options
-          .sort((a, b) => b.created - a.created)
+          .sort((b, a) => a.created - b.created)
           .map((option) => (
             <OptionColumn
               key={`${option.optionId}-col`}

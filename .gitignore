@@ -10,3 +10,6 @@ pubsub-debug.log
 build/.DS_Store
 
 build/
+
+
+configFirebase.ts
