@@ -3,7 +3,7 @@ import { getColor } from "../../../control/helpers";
 import { useAppDispatch, useAppSelector } from "../../../model/hooks";
 import { setVote } from "../../selections/votes/setVote";
 import { selectUser } from "../../user/userSlice";
-import { reorderCouncilOptions } from "../control/optionsSlice";
+import { orderSelector, reorderCouncilOptions } from "../control/optionsSlice";
 import { OptionProps, Order } from "../model/optionModel";
 import { OptionsAnim } from "./OptionsBars";
 
@@ -11,15 +11,14 @@ interface OptionBtnProps {
   option: OptionProps;
   optionsAnim:OptionsAnim;
   updateWidth:Function;
-  order:Order
+ 
 }
 
-const OptionBtn: FC<OptionBtnProps> = ({ option,optionsAnim, updateWidth, order}) => {
+const OptionBtn: FC<OptionBtnProps> = ({ option,optionsAnim, updateWidth}) => {
 
-  const dispatch = useAppDispatch();
   const user = useAppSelector(selectUser);
   const ref = useRef<any>(null);
- 
+
 
   useEffect(() => {
     
@@ -38,8 +37,7 @@ const OptionBtn: FC<OptionBtnProps> = ({ option,optionsAnim, updateWidth, order}
       if (!user) throw new Error("voting user is missing on vote");
       setVote(option.counsilId, option.optionId, user);
 
-      if(order === Order.VOTED)
-      dispatch(reorderCouncilOptions({counsilId:option.counsilId,sortBy:order}));
+  
       
       // dispatch(updateUserVote({optionId:option.optionId}))
     } catch (error) {

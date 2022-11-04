@@ -10,14 +10,14 @@ interface OptionColumnProps{
     optionsAnim:OptionsAnim;
     width:number;
     updateWidth:Function
-    order:Order
+
 }
 
-const OptionColumn:FC<OptionColumnProps> = ({option, maxVotes,optionsAnim,updateWidth, width, order}) => {
+const OptionColumn:FC<OptionColumnProps> = ({option, maxVotes,optionsAnim,updateWidth, width}) => {
   const offset = option.relativePlace?option.relativePlace*width:0;
   return (
     <div className='optionsBar__col' style={{left:`${offset}px`, width:width}}>
-        <OptionBtn option={option} optionsAnim={optionsAnim} updateWidth={updateWidth} order={order}/>
+        <OptionBtn option={option} optionsAnim={optionsAnim} updateWidth={updateWidth} />
         <OptionBar option={option} maxVotes={maxVotes}/>
     </div>
   )

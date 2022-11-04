@@ -1,7 +1,7 @@
 import { FC, useEffect, useState } from "react";
 import { randomizeArray } from "../../../control/helpers";
 import { useAppDispatch, useAppSelector } from "../../../model/hooks";
-import { reorderCouncilOptions } from "../control/optionsSlice";
+import { orderSelector, reorderCouncilOptions, updateOrder } from "../control/optionsSlice";
 import { OptionProps, Order } from "../model/optionModel";
 
 import OptionColumn from "./OptionColumn";
@@ -22,7 +22,6 @@ export interface OptionsAnim {
 const optionsAnim: OptionsAnim = { totalWidth: 0, options: [] };
 const barWidth = 120;
 
-
 const OptionsBars: FC<OptionsBarsProps> = ({
   counsilId,
   handleShowAddOption,
@@ -35,13 +34,13 @@ const OptionsBars: FC<OptionsBarsProps> = ({
   const options = useAppSelector((state) =>
     state.options.options.filter((option) => option.counsilId === counsilId)
   );
+  const order = useAppSelector(orderSelector);
 
   const maxVotes: number = options.reduce((prv, cur) => prv + cur.votes, 0);
 
-
   function handleOrder(order: Order) {
     try {
-      setOrder(order);
+      dispatch(updateOrder(order));
       dispatch(reorderCouncilOptions({ counsilId, sortBy: order }));
     } catch (error) {
       console.error(error);
@@ -71,8 +70,6 @@ const OptionsBars: FC<OptionsBarsProps> = ({
     }
   }
 
-  
-
   return (
     <div className="optionsBar">
       <h3>OptionsBars</h3>
@@ -100,7 +97,7 @@ const OptionsBars: FC<OptionsBarsProps> = ({
               optionsAnim={optionsAnim}
               updateWidth={updateWidth}
               maxVotes={maxVotes}
-              order={orderBy}
+      
             />
           ))}
 
@@ -114,7 +111,7 @@ const OptionsBars: FC<OptionsBarsProps> = ({
       <div className="bottomNav">
         <div
           className={
-            orderBy === Order.NEW
+            order === Order.NEW
               ? "bottomNav__btn bottomNav__btn--selected"
               : "bottomNav__btn"
           }
@@ -123,7 +120,7 @@ const OptionsBars: FC<OptionsBarsProps> = ({
         </div>
         <div
           className={
-            orderBy === Order.VOTED
+            order === Order.VOTED
               ? "bottomNav__btn bottomNav__btn--selected"
               : "bottomNav__btn"
           }
@@ -132,7 +129,7 @@ const OptionsBars: FC<OptionsBarsProps> = ({
         </div>
         <div
           className={
-            orderBy === Order.RANDOM
+            order === Order.RANDOM
               ? "bottomNav__btn bottomNav__btn--selected"
               : "bottomNav__btn"
           }
