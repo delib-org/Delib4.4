@@ -1,4 +1,4 @@
-import { FC, useState } from "react";
+import { FC, useEffect, useState } from "react";
 import { randomizeArray } from "../../../control/helpers";
 import { useAppDispatch, useAppSelector } from "../../../model/hooks";
 import { reorderCouncilOptions } from "../control/optionsSlice";
@@ -21,6 +21,8 @@ export interface OptionsAnim {
 
 const optionsAnim: OptionsAnim = { totalWidth: 0, options: [] };
 const barWidth = 120;
+
+
 const OptionsBars: FC<OptionsBarsProps> = ({
   counsilId,
   handleShowAddOption,
@@ -35,6 +37,7 @@ const OptionsBars: FC<OptionsBarsProps> = ({
   );
 
   const maxVotes: number = options.reduce((prv, cur) => prv + cur.votes, 0);
+
 
   function handleOrder(order: Order) {
     try {
@@ -86,6 +89,7 @@ const OptionsBars: FC<OptionsBarsProps> = ({
         className="optionsBar__wrapper"
         style={{
           gridTemplateColumns: `repeat(${options.length},1fr)`,
+          width:`${barWidth*options.length}px`
         }}>
         {options
           .sort((b, a) => a.created - b.created)

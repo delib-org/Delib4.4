@@ -37,6 +37,7 @@ export const OptionJoi = Joi.object({
   left:Joi.number(),
   order:Joi.number(),
   creationOrder:Joi.number(),
+  relativePlace:Joi.number(),
 })
 
 export enum OptionsView{

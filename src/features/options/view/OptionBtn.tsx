@@ -43,6 +43,10 @@ const OptionBtn: FC<OptionBtnProps> = ({ option,optionsAnim, updateWidth}) => {
   return (
     <div ref={ref} className={option.userVotedOption?"optionsBar__btn optionsBar__btn--select":"optionsBar__btn"} onClick={handleVote} style={{background:option.color||getColor()}}>
       {option.title}
+      <br />
+      R:{option.relativePlace}
+      <br />
+      Cr:{option.creationOrder}
     </div>
   );
 };

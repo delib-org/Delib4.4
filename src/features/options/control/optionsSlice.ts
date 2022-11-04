@@ -114,7 +114,7 @@ export const optionsSlice = createSlice({
           )
             throw new Error(`no order or creation order in ${option.title}`);
 
-          option.relativePlace = option.creationOrder - option.order;
+          option.relativePlace =  option.order -option.creationOrder;
 
           state.options = updateArray(state.options, option, "optionId");
         });
@@ -139,9 +139,9 @@ function sortOptions(options: OptionProps[], sortBy: Order): OptionProps[] {
 
     switch (sortBy) {
       case Order.NEW:
-        return _options.sort((b, a) => b.created - a.created);
+        return _options.sort((b, a) => a.created - b.created);
       case Order.VOTED:
-        return _options.sort((b, a) => b.votes - a.votes);
+        return _options.sort((b, a) => a.votes - b.votes);
       case Order.RANDOM:
         return randomizeArray(_options);
       default:
