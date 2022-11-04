@@ -85,6 +85,18 @@ export const optionsSlice = createSlice({
             state.options = updateArray(state.options, option, "optionId");
           }
         });
+
+        //reoder if order by votes
+        if (state.order === Order.VOTED) {
+          const calculatedCouncilOptions = calculateReorder(
+            counsilsOptions,
+            state.order
+          );
+
+          calculatedCouncilOptions.forEach((option) => {
+            state.options = updateArray(state.options, option, "optionId");
+          });
+        }
       } catch (error) {
         console.error(error);
       }
@@ -126,9 +138,9 @@ export const optionsSlice = createSlice({
         console.error(error);
       }
     },
-    updateOrder:(state, action:PayloadAction<Order>)=>{
+    updateOrder: (state, action: PayloadAction<Order>) => {
       state.order = action.payload;
-    }
+    },
   },
 });
 
@@ -138,10 +150,10 @@ export const {
   updateOption,
   updateVotingOptionsListenrs,
   reorderCouncilOptions,
-  updateOrder
+  updateOrder,
 } = optionsSlice.actions;
 
-export const orderSelector = (state:RootState)=>state.options.order;
+export const orderSelector = (state: RootState) => state.options.order;
 
 function sortOptions(options: OptionProps[], sortBy: Order): OptionProps[] {
   try {
