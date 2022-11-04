@@ -68,69 +68,7 @@ const OptionsBars: FC<OptionsBarsProps> = ({
     }
   }
 
-  // function sortOptions(
-  //   options: Array<OptionProps>,
-  //   order: Order
-  // ): OptionProps[] {
-  //   let tempOptions: OptionProps[] = [];
-  //   options = JSON.parse(JSON.stringify(options));
-  //   options.sort((a, b) => b.created - a.created);
-  //   options = options.map((option, i) => {
-  //     option.creationOrder = i;
-  //     return option;
-  //   });
-  //   switch (orderBy) {
-  //     case Order.NEW:
-  //       tempOptions = [
-  //         ...options.sort(
-  //           (b: OptionProps, a: OptionProps) =>
-  //             (a.created || 0) - (b.created || 0)
-  //         ),
-  //       ];
-  //       tempOptions = setNewOrder(tempOptions);
-  //       break;
-  //     case Order.VOTED:
-  //       tempOptions = [
-  //         ...options.sort(
-  //           (b: OptionProps, a: OptionProps) => a.votes - b.votes
-  //         ),
-  //       ];
-  //       tempOptions = setNewOrder(tempOptions);
-  //       break;
-  //     case Order.RANDOM:
-  //       tempOptions = randomizeArray(options);
-  //       tempOptions = setNewOrder(tempOptions);
-  //       break;
-  //     default:
-  //       tempOptions = [...options];
-  //       tempOptions = setNewOrder(tempOptions);
-  //   }
-
-  //   tempOptions = tempOptions.map((op, i) => {
-  //     const option = Object.assign({}, op);
-  //     option.order = i;
-
-  //     return option;
-  //   });
-
-  //   return tempOptions;
-
-  //   function setNewOrder(options: OptionProps[]): OptionProps[] {
-  //     options.forEach((option, i) => {
-  //       if (
-  //         option.hasOwnProperty("creationOrder") &&
-  //         typeof option.creationOrder === "number"
-  //       ) {
-  //         const difBetweenPlaces = (i - option.creationOrder) * barWidth;
-
-  //         options[i].left = difBetweenPlaces;
-  //       }
-  //     });
-
-  //     return options;
-  //   }
-  //   // eslint-disable-next-line react-hooks/exhaustive-deps
-  // }
+  
 
   return (
     <div className="optionsBar">

@@ -5,9 +5,9 @@ import { useAppDispatch, useAppSelector } from "../../../model/hooks";
 import { Counsil } from "../../council/councilModel";
 import { User } from "../../user/userModel";
 import { selectUser } from "../../user/userSlice";
-import { addOption } from "../control/optionsSlice";
+import { addOption, reorderCouncilOptions } from "../control/optionsSlice";
 import { addOptionToDB } from "../control/setOptions";
-import { OptionProps } from "../model/optionModel";
+import { OptionProps, Order } from "../model/optionModel";
 
 interface AddOptionProps {
   showAddOption: boolean;
@@ -50,6 +50,7 @@ const AddOption: FC<AddOptionProps> = ({
 
       handleShowAddOption(false);
       dispatch(addOption(newOption));
+      dispatch(reorderCouncilOptions({ counsilId:counsil.counsilId, sortBy: Order.NEW }));
       addOptionToDB(newOption);
     } catch (error) {
       console.error(error);
