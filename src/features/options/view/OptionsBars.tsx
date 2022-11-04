@@ -33,7 +33,7 @@ const OptionsBars: FC<OptionsBarsProps> = ({
   const options = useAppSelector((state) =>
     state.options.options.filter((option) => option.counsilId === counsilId)
   );
-console.log(options)
+
   const maxVotes: number = options.reduce((prv, cur) => prv + cur.votes, 0);
 
   function handleOrder(order: Order) {
@@ -150,7 +150,7 @@ console.log(options)
           gridTemplateColumns: `repeat(${options.length},1fr)`,
         }}>
         {options
-          .sort((a, b) => a.created - b.created)
+          .sort((b, a) => a.created - b.created)
           .map((option) => (
             <OptionColumn
               key={`${option.optionId}-col`}

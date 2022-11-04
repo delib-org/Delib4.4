@@ -104,7 +104,7 @@ export const optionsSlice = createSlice({
           });
 
         const counsilsOptionsOrderd = sortOptions(counsilOptions, sortBy);
-       
+
         counsilsOptionsOrderd.forEach((option, i) => {
           option.order = i;
 
@@ -139,9 +139,9 @@ function sortOptions(options: OptionProps[], sortBy: Order): OptionProps[] {
 
     switch (sortBy) {
       case Order.NEW:
-        return _options.sort((a, b) => b.created - a.created);
+        return _options.sort((b, a) => b.created - a.created);
       case Order.VOTED:
-        return _options.sort((a, b) => b.votes - a.votes);
+        return _options.sort((b, a) => b.votes - a.votes);
       case Order.RANDOM:
         return randomizeArray(_options);
       default:
