@@ -42,4 +42,4 @@ At the "functions" directory run `npm i`
 run the `npm start` at the root directory.
 To run the emulators, run at the root `firebase emulators:start`.
 To see the emulators, go to url localhost:4000 
-At the "functions" directory run `npm i`
+
