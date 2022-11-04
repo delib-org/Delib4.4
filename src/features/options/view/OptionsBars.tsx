@@ -1,13 +1,11 @@
 import { FC, useState } from "react";
-import { json } from "stream/consumers";
 import { randomizeArray } from "../../../control/helpers";
 import { useAppDispatch, useAppSelector } from "../../../model/hooks";
 import { reorderCouncilOptions } from "../control/optionsSlice";
 import { OptionProps, Order } from "../model/optionModel";
-import OptionBar from "./OptionBar";
-import OptionBtn from "./OptionBtn";
+
 import OptionColumn from "./OptionColumn";
-import OptionInfo from "./OptionInfo";
+// import OptionInfo from "./OptionInfo";
 interface OptionsBarsProps {
   counsilId: string;
   handleShowAddOption: Function;
@@ -30,12 +28,12 @@ const OptionsBars: FC<OptionsBarsProps> = ({
   const dispatch = useAppDispatch();
   const [orderBy, setOrder] = useState<Order>(Order.RANDOM);
   // const [optionsAnim,setOptionsAnim] = useState<OptionsAnim>({totalWidth:0, options:[]});
-  const [width, setWidth] = useState<number>(0);
+  // const [width, setWidth] = useState<number>(0);
 
   const options = useAppSelector((state) =>
     state.options.options.filter((option) => option.counsilId === counsilId)
   );
-
+console.log(options)
   const maxVotes: number = options.reduce((prv, cur) => prv + cur.votes, 0);
 
   function handleOrder(order: Order) {
@@ -70,69 +68,69 @@ const OptionsBars: FC<OptionsBarsProps> = ({
     }
   }
 
-  function sortOptions(
-    options: Array<OptionProps>,
-    order: Order
-  ): OptionProps[] {
-    let tempOptions: OptionProps[] = [];
-    options = JSON.parse(JSON.stringify(options));
-    options.sort((a, b) => b.created - a.created);
-    options = options.map((option, i) => {
-      option.creationOrder = i;
-      return option;
-    });
-    switch (orderBy) {
-      case Order.NEW:
-        tempOptions = [
-          ...options.sort(
-            (b: OptionProps, a: OptionProps) =>
-              (a.created || 0) - (b.created || 0)
-          ),
-        ];
-        tempOptions = setNewOrder(tempOptions);
-        break;
-      case Order.VOTED:
-        tempOptions = [
-          ...options.sort(
-            (b: OptionProps, a: OptionProps) => a.votes - b.votes
-          ),
-        ];
-        tempOptions = setNewOrder(tempOptions);
-        break;
-      case Order.RANDOM:
-        tempOptions = randomizeArray(options);
-        tempOptions = setNewOrder(tempOptions);
-        break;
-      default:
-        tempOptions = [...options];
-        tempOptions = setNewOrder(tempOptions);
-    }
+  // function sortOptions(
+  //   options: Array<OptionProps>,
+  //   order: Order
+  // ): OptionProps[] {
+  //   let tempOptions: OptionProps[] = [];
+  //   options = JSON.parse(JSON.stringify(options));
+  //   options.sort((a, b) => b.created - a.created);
+  //   options = options.map((option, i) => {
+  //     option.creationOrder = i;
+  //     return option;
+  //   });
+  //   switch (orderBy) {
+  //     case Order.NEW:
+  //       tempOptions = [
+  //         ...options.sort(
+  //           (b: OptionProps, a: OptionProps) =>
+  //             (a.created || 0) - (b.created || 0)
+  //         ),
+  //       ];
+  //       tempOptions = setNewOrder(tempOptions);
+  //       break;
+  //     case Order.VOTED:
+  //       tempOptions = [
+  //         ...options.sort(
+  //           (b: OptionProps, a: OptionProps) => a.votes - b.votes
+  //         ),
+  //       ];
+  //       tempOptions = setNewOrder(tempOptions);
+  //       break;
+  //     case Order.RANDOM:
+  //       tempOptions = randomizeArray(options);
+  //       tempOptions = setNewOrder(tempOptions);
+  //       break;
+  //     default:
+  //       tempOptions = [...options];
+  //       tempOptions = setNewOrder(tempOptions);
+  //   }
 
-    tempOptions = tempOptions.map((op, i) => {
-      const option = Object.assign({}, op);
-      option.order = i;
+  //   tempOptions = tempOptions.map((op, i) => {
+  //     const option = Object.assign({}, op);
+  //     option.order = i;
 
-      return option;
-    });
+  //     return option;
+  //   });
 
-    return tempOptions;
+  //   return tempOptions;
 
-    function setNewOrder(options: OptionProps[]): OptionProps[] {
-      options.forEach((option, i) => {
-        if (
-          option.hasOwnProperty("creationOrder") &&
-          typeof option.creationOrder === "number"
-        ) {
-          const difBetweenPlaces = (i - option.creationOrder) * barWidth;
+  //   function setNewOrder(options: OptionProps[]): OptionProps[] {
+  //     options.forEach((option, i) => {
+  //       if (
+  //         option.hasOwnProperty("creationOrder") &&
+  //         typeof option.creationOrder === "number"
+  //       ) {
+  //         const difBetweenPlaces = (i - option.creationOrder) * barWidth;
 
-          options[i].left = difBetweenPlaces;
-        }
-      });
+  //         options[i].left = difBetweenPlaces;
+  //       }
+  //     });
 
-      return options;
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }
+  //     return options;
+  //   }
+  //   // eslint-disable-next-line react-hooks/exhaustive-deps
+  // }
 
   return (
     <div className="optionsBar">
@@ -152,7 +150,7 @@ const OptionsBars: FC<OptionsBarsProps> = ({
           gridTemplateColumns: `repeat(${options.length},1fr)`,
         }}>
         {options
-          .sort((b, a) => a.created - b.created)
+          .sort((a, b) => a.created - b.created)
           .map((option) => (
             <OptionColumn
               key={`${option.optionId}-col`}

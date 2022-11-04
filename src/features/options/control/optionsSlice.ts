@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import type { PayloadAction } from "@reduxjs/toolkit";
-import { enableMapSet } from "immer";
+import { enableMapSet, current } from "immer";
 
 import { randomizeArray, updateArray } from "../../../control/helpers";
 import {
@@ -8,6 +8,7 @@ import {
   OptionsOfCounsilListener,
   Order,
 } from "../model/optionModel";
+import Joi from "joi";
 
 enableMapSet();
 
@@ -29,6 +30,7 @@ export const optionsSlice = createSlice({
       if (action.payload) {
         const option = action.payload;
         option.creationOrder = 0;
+        option.relativePlace = 0;
         state.options = [...state.options, option];
       }
     },
@@ -87,14 +89,33 @@ export const optionsSlice = createSlice({
         if (!counsilId) throw new Error("no counsil id");
         if (!sortBy) throw new Error("No sort by method");
 
-        const counsilsOptions = state.options.filter(
+        const counsilsOptionsProxy = state.options.filter(
           (opt) => opt.counsilId === counsilId
         );
 
-        const counsilsOptionsOrderd = sortOptions(counsilsOptions, sortBy);
+        const counsilOptions = counsilsOptionsProxy.map((opt) => {
+          return { ...current(opt) };
+        });
+
+        counsilOptions
+          .sort((b, a) => a.created - b.created)
+          .forEach((option, i) => {
+            counsilOptions[i].creationOrder = i;
+          });
+
+        const counsilsOptionsOrderd = sortOptions(counsilOptions, sortBy);
+       
         counsilsOptionsOrderd.forEach((option, i) => {
           option.order = i;
-          console.log(option.title, option.votes, Math.floor(option.created/1000)-1667450000)
+
+          if (
+            !(typeof option.order === "number") ||
+            !(typeof option.creationOrder === "number")
+          )
+            throw new Error(`no order or creation order in ${option.title}`);
+
+          option.relativePlace = option.creationOrder - option.order;
+
           state.options = updateArray(state.options, option, "optionId");
         });
       } catch (error) {
@@ -133,5 +154,3 @@ function sortOptions(options: OptionProps[], sortBy: Order): OptionProps[] {
 }
 
 export default optionsSlice.reducer;
-
-

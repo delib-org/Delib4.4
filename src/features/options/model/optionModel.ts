@@ -18,6 +18,7 @@ export interface OptionProps {
   left?:number;
   order?:number;
   creationOrder?:number;
+  relativePlace?:number;
 }
 
 export const OptionJoi = Joi.object({

@@ -1,11 +1,12 @@
 import { initializeApp } from "firebase/app";
 import { getFirestore } from "firebase/firestore";
+//use this line in dev mode
 import { connectFirestoreEmulator } from "firebase/firestore";
+
 import { getMessaging, onMessage, getToken } from "firebase/messaging";
 import { getAuth } from "firebase/auth";
 import {firebaseConfig} from './configFirebase';
-// Your web app's Firebase configuration
-// firebase deploy --only hosting
+
 
 
 
@@ -16,6 +17,7 @@ export const DB = getFirestore(app);
 export const auth = getAuth(app);
 export const messaging = getMessaging(app);
 
+//use this line in dev mode
 connectFirestoreEmulator(DB, "localhost", 8080);
 
 onMessage(messaging, (payload) => {
