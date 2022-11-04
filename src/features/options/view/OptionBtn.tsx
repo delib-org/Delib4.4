@@ -1,19 +1,22 @@
 import React, { FC, useRef, useEffect} from "react";
 import { getColor } from "../../../control/helpers";
-import { useAppSelector } from "../../../model/hooks";
+import { useAppDispatch, useAppSelector } from "../../../model/hooks";
 import { setVote } from "../../selections/votes/setVote";
 import { selectUser } from "../../user/userSlice";
-import { OptionProps } from "../model/optionModel";
+import { reorderCouncilOptions } from "../control/optionsSlice";
+import { OptionProps, Order } from "../model/optionModel";
 import { OptionsAnim } from "./OptionsBars";
 
 interface OptionBtnProps {
   option: OptionProps;
   optionsAnim:OptionsAnim;
-  updateWidth:Function
+  updateWidth:Function;
+  order:Order
 }
 
-const OptionBtn: FC<OptionBtnProps> = ({ option,optionsAnim, updateWidth}) => {
+const OptionBtn: FC<OptionBtnProps> = ({ option,optionsAnim, updateWidth, order}) => {
 
+  const dispatch = useAppDispatch();
   const user = useAppSelector(selectUser);
   const ref = useRef<any>(null);
  
@@ -34,6 +37,10 @@ const OptionBtn: FC<OptionBtnProps> = ({ option,optionsAnim, updateWidth}) => {
     try {
       if (!user) throw new Error("voting user is missing on vote");
       setVote(option.counsilId, option.optionId, user);
+
+      if(order === Order.VOTED)
+      dispatch(reorderCouncilOptions({counsilId:option.counsilId,sortBy:order}));
+      
       // dispatch(updateUserVote({optionId:option.optionId}))
     } catch (error) {
       console.error(error);
@@ -43,10 +50,6 @@ const OptionBtn: FC<OptionBtnProps> = ({ option,optionsAnim, updateWidth}) => {
   return (
     <div ref={ref} className={option.userVotedOption?"optionsBar__btn optionsBar__btn--select":"optionsBar__btn"} onClick={handleVote} style={{background:option.color||getColor()}}>
       {option.title}
-      <br />
-      R:{option.relativePlace}
-      <br />
-      Cr:{option.creationOrder}
     </div>
   );
 };

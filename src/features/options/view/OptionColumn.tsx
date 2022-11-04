@@ -1,5 +1,5 @@
 import React, { FC } from 'react';
-import { OptionProps } from '../model/optionModel';
+import { OptionProps, Order } from '../model/optionModel';
 import OptionBar from './OptionBar';
 import OptionBtn from './OptionBtn';
 import { OptionsAnim } from './OptionsBars';
@@ -10,13 +10,14 @@ interface OptionColumnProps{
     optionsAnim:OptionsAnim;
     width:number;
     updateWidth:Function
+    order:Order
 }
 
-const OptionColumn:FC<OptionColumnProps> = ({option, maxVotes,optionsAnim,updateWidth, width}) => {
+const OptionColumn:FC<OptionColumnProps> = ({option, maxVotes,optionsAnim,updateWidth, width, order}) => {
   const offset = option.relativePlace?option.relativePlace*width:0;
   return (
     <div className='optionsBar__col' style={{left:`${offset}px`, width:width}}>
-        <OptionBtn option={option} optionsAnim={optionsAnim} updateWidth={updateWidth}/>
+        <OptionBtn option={option} optionsAnim={optionsAnim} updateWidth={updateWidth} order={order}/>
         <OptionBar option={option} maxVotes={maxVotes}/>
     </div>
   )

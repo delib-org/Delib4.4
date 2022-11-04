@@ -12,7 +12,7 @@ const OptionBar: FC<OptionBarProps> = ({ option,maxVotes}) => {
     <div
       className="optionsBar__bar"
       style={{ height: `${(option.votes/maxVotes)*100}%`,background:option.color || getColor() }}>
-      V:{option.votes>0?option.votes:null}    
+      {option.votes>0?option.votes:null}    
     </div>
   );
 };

@@ -89,7 +89,6 @@ const OptionsBars: FC<OptionsBarsProps> = ({
         className="optionsBar__wrapper"
         style={{
           gridTemplateColumns: `repeat(${options.length},1fr)`,
-          width:`${barWidth*options.length}px`
         }}>
         {options
           .sort((b, a) => a.created - b.created)
@@ -101,6 +100,7 @@ const OptionsBars: FC<OptionsBarsProps> = ({
               optionsAnim={optionsAnim}
               updateWidth={updateWidth}
               maxVotes={maxVotes}
+              order={orderBy}
             />
           ))}
 
