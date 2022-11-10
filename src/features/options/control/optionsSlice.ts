@@ -5,10 +5,9 @@ import { enableMapSet, current } from "immer";
 import { randomizeArray, updateArray } from "../../../control/helpers";
 import {
   OptionProps,
-  OptionsOfCounsilListener,
+  OptionsOfCouncilListener,
   Order,
 } from "../model/optionModel";
-import Joi from "joi";
 import { RootState } from "../../../model/store";
 
 enableMapSet();
@@ -45,12 +44,12 @@ export const optionsSlice = createSlice({
         option.creationOrder = 0;
         state.options = updateArray(state.options, option, "optionId");
         if (state.order === Order.VOTED) {
-          const counsilOptions = state.options.filter(
-            (opt) => opt.counsilId === option.counsilId
+          const councilOptions = state.options.filter(
+            (opt) => opt.councilId === option.councilId
           );
 
           const calculatedCounscilOptions = calculateReorder(
-            counsilOptions,
+            councilOptions,
             state.order
           );
           calculatedCounscilOptions.forEach((opt) => {
@@ -63,16 +62,16 @@ export const optionsSlice = createSlice({
     },
     updateUserVote: (
       state,
-      action: PayloadAction<{ optionId: string; counsilId: string }>
+      action: PayloadAction<{ optionId: string; councilId: string }>
     ) => {
       try {
-        const { optionId, counsilId } = action.payload;
+        const { optionId, councilId } = action.payload;
 
-        const counsilsOptions = state.options.filter(
-          (option) => option.counsilId === counsilId
+        const councilsOptions = state.options.filter(
+          (option) => option.councilId === councilId
         );
 
-        counsilsOptions.forEach((option) => {
+        councilsOptions.forEach((option) => {
           if (option.optionId !== optionId && option.userVotedOption) {
             //in case the this was the previous selected option
             option.votes--;
@@ -89,7 +88,7 @@ export const optionsSlice = createSlice({
         //reoder if order by votes
         if (state.order === Order.VOTED) {
           const calculatedCouncilOptions = calculateReorder(
-            counsilsOptions,
+            councilsOptions,
             state.order
           );
 
@@ -103,33 +102,33 @@ export const optionsSlice = createSlice({
     },
     updateVotingOptionsListenrs: (
       state,
-      action: PayloadAction<OptionsOfCounsilListener>
+      action: PayloadAction<OptionsOfCouncilListener>
     ) => {
       if (action.payload.on) {
-        if (!state.optionsVoteListenr.includes(action.payload.counsilId))
-          state.optionsVoteListenr.push(action.payload.counsilId);
+        if (!state.optionsVoteListenr.includes(action.payload.councilId))
+          state.optionsVoteListenr.push(action.payload.councilId);
       } else {
-        state.optionsVoteListenr.filter((e) => e !== action.payload.counsilId);
+        state.optionsVoteListenr.filter((e) => e !== action.payload.councilId);
       }
     },
     reorderCouncilOptions: (
       state,
-      action: PayloadAction<{ counsilId: string; sortBy: Order }>
+      action: PayloadAction<{ councilId: string; sortBy: Order }>
     ) => {
       try {
-        const { counsilId, sortBy } = action.payload;
+        const { councilId, sortBy } = action.payload;
 
-        if (!counsilId) throw new Error("no counsil id");
+        if (!councilId) throw new Error("no council id");
         if (!sortBy) throw new Error("No sort by method");
 
-        const counsilsOptionsProxy = state.options.filter(
-          (opt) => opt.counsilId === counsilId
+        const councilsOptionsProxy = state.options.filter(
+          (opt) => opt.councilId === councilId
         );
-        const counsilOptions = counsilsOptionsProxy.map((opt) => {
+        const councilOptions = councilsOptionsProxy.map((opt) => {
           return { ...current(opt) };
         });
 
-        const claculatedOptions = calculateReorder(counsilOptions, sortBy);
+        const claculatedOptions = calculateReorder(councilOptions, sortBy);
 
         claculatedOptions.forEach((option) => {
           state.options = updateArray(state.options, option, "optionId");

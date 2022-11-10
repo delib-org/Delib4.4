@@ -7,3 +7,28 @@ input, textarea{
     background-color: $inputColor;
     margin: 5px;
 }
+
+.textInput{
+    display: flex;
+    align-items: center;
+    textarea{
+        flex:auto;
+        border:none;
+        padding: 10px;
+        height: 4rem;
+    }
+    button{
+        width: 50px;
+        height: 50px;
+        border-radius: 100px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border: none;
+        background-color: #eeeeee;
+        span{
+            position: relative;
+            left: 3px;
+        }
+    }
+}

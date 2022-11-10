@@ -1,3 +1,9 @@
 .board{
-    flex:auto
+    flex:auto;
+    display: flex;
+    flex-direction: column;
+
+    &__posts{
+        flex:auto;
+    }
 }

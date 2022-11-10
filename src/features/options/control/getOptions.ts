@@ -3,38 +3,34 @@ import { DB } from "../../../control/firebase/config";
 import { Collections } from "../../../control/firebase/dbModel";
 import { OptionJoi } from "../model/optionModel";
 
-export function listenToOptionsOfCounsil(
+export function listenToOptionsOfCouncil(
   councilId: string,
   setState: Function
 ): Function {
   try {
-    const counsilRef = collection(
+    const councilRef = collection(
       DB,
       Collections.COUNSILS,
       councilId,
       Collections.OPTIONS
     );
-    return onSnapshot(counsilRef, (optionsDB) => {
+    return onSnapshot(councilRef, (optionsDB) => {
       optionsDB.docChanges().forEach((change) => {
         try {
-
           const { error } = OptionJoi.validate(change.doc.data());
           if (error) throw error;
 
           if (change.type === "added") {
             // console.log("New city: ", change.doc.data());
             setState(change.doc.data());
-        }
-        if (change.type === "modified") {
+          }
+          if (change.type === "modified") {
             console.log("Modified option: ", change.doc.data().title);
             setState(change.doc.data());
-        }
-        if (change.type === "removed") {
+          }
+          if (change.type === "removed") {
             // console.log("Removed city: ", change.doc.data());
-        }
-       
-          
-         
+          }
         } catch (error) {
           console.error(error);
         }
@@ -47,16 +43,16 @@ export function listenToOptionsOfCounsil(
 }
 
 export function listenToVotedOption(
-  counsilId: string | undefined,
+  councilId: string | undefined,
   userId: string | undefined,
   setState: Function
 ): Function {
   try {
-    if (!userId || !counsilId) throw new Error("No user or no council");
+    if (!userId || !councilId) throw new Error("No user or no council");
     const userVoteRef = doc(
       DB,
       Collections.COUNSILS,
-      counsilId,
+      councilId,
       Collections.VOTES,
       userId
     );

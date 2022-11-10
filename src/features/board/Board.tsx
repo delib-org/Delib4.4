@@ -1,14 +1,26 @@
-import React from 'react'
+import React from "react";
 
 const Board = () => {
-  return (
-    <div className='board'>
-        <form >
-            <textarea name="board_input"></textarea>
-            <button>Send</button>
-        </form>
-    </div>
-  )
-}
+  function handleSendPost(ev: any) {
+    ev.preventDefault();
+    try {
+      const text = ev.target.elements.board_input.value;
 
-export default Board
+      console.log(text);
+      ev.target.reset();
+    } catch (error) {}
+  }
+  return (
+    <div className="board">
+      <div className="board__posts">test</div>
+      <form className="textInput" onSubmit={handleSendPost}>
+        <textarea name="board_input"></textarea>
+        <button type="submit">
+          <span className="material-symbols-outlined">send</span>
+        </button>
+      </form>
+    </div>
+  );
+};
+
+export default Board;

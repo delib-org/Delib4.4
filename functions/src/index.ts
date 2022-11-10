@@ -19,23 +19,23 @@ exports.pushNotificationNewOption = pushNotificationNewOption;
 // });
 
 exports.countVotingOnOptions = functions.firestore
-  .document("/counsils/{counsilId}/votes/{userId}")
+  .document("/councils/{councilId}/votes/{userId}")
   .onWrite(async (change, context) => {
     try {
-      const { counsilId } = context.params;
+      const { councilId } = context.params;
       // console.log("optionId", optionId);
       if (!change.before.exists) {
         // New document Created : add one to count
         console.log("New document Created : add one to count");
-        if(!change.after) throw new Error('no after');
-        const data:any = change.after.data();
-        const {vote} = data;
-        if(!vote) throw new Error('Couldnt find vote with optionId')
+        if (!change.after) throw new Error("no after");
+        const data: any = change.after.data();
+        const { vote } = data;
+        if (!vote) throw new Error("Couldnt find vote with optionId");
         const optionId = vote;
-        console.log('optionId:::',optionId)
+        console.log("optionId:::", optionId);
         await db
-          .collection("counsils")
-          .doc(counsilId)
+          .collection("councils")
+          .doc(councilId)
           .collection("options")
           .doc(optionId)
           .update({ votes: FieldValue.increment(1) });
@@ -43,41 +43,42 @@ exports.countVotingOnOptions = functions.firestore
         // Updating existing document : Do nothing
         const dataBefore = change.before.data();
         const dataAfter = change.after.data();
-        if(!dataAfter || ! dataBefore) throw new Error('couldnt get data before or data after');
+        if (!dataAfter || !dataBefore)
+          throw new Error("couldnt get data before or data after");
         const optionIdBefore = dataBefore.vote;
         const optionIdAfter = dataAfter.vote;
 
         await db
-        .collection("counsils")
-        .doc(counsilId)
-        .collection("options")
-        .doc(optionIdBefore)
-        .update({ votes: FieldValue.increment(-1) });
+          .collection("councils")
+          .doc(councilId)
+          .collection("options")
+          .doc(optionIdBefore)
+          .update({ votes: FieldValue.increment(-1) });
 
         await db
-        .collection("counsils")
-        .doc(counsilId)
-        .collection("options")
-        .doc(optionIdAfter)
-        .update({ votes: FieldValue.increment(1) });
+          .collection("councils")
+          .doc(councilId)
+          .collection("options")
+          .doc(optionIdAfter)
+          .update({ votes: FieldValue.increment(1) });
       } else if (!change.after.exists) {
         // Deleting document : subtract one from count
         const dataBefore = change.before.data();
-        if(!dataBefore) throw new Error('couldnt get data before');
+        if (!dataBefore) throw new Error("couldnt get data before");
         const optionIdBefore = dataBefore.vote;
 
         console.log("Deleting document : subtract one from count");
         await db
-        .collection("counsils")
-        .doc(counsilId)
-        .collection("options")
-        .doc(optionIdBefore)
-        .update({ votes: FieldValue.increment(-1) });
+          .collection("councils")
+          .doc(councilId)
+          .collection("options")
+          .doc(optionIdBefore)
+          .update({ votes: FieldValue.increment(-1) });
       }
 
       return;
 
-      // const votesRef = db.collection('counsils').doc(counsilId).collection('options').doc(optionId).collection('votes');
+      // const votesRef = db.collection('councils').doc(councilId).collection('options').doc(optionId).collection('votes');
       // const count = await getCountFromServer()
     } catch (error) {
       console.error(error);
@@ -85,18 +86,18 @@ exports.countVotingOnOptions = functions.firestore
   });
 
 // exports.updateVoteToOption = functions.firestore
-//   .document("/counsils/{counsilId}/votes/{userUid}")
+//   .document("/councils/{councilId}/votes/{userUid}")
 //   .onUpdate((change, context) => {
 //     try {
-//       const { counsilId } = context.params;
-//       console.log(counsilId);
+//       const { councilId } = context.params;
+//       console.log(councilId);
 //       const beforeOption = change.before.data().vote;
 //       const afterOption = change.after.data().vote;
 //       console.log("vote before:", beforeOption);
 //       console.log("change after:", afterOption);
 
 //       //update last interaction
-//       db.doc(`counsils/${counsilId}`).update({
+//       db.doc(`councils/${councilId}`).update({
 //         lastAction: new Date().getTime(),
 //       });
 
@@ -104,15 +105,15 @@ exports.countVotingOnOptions = functions.firestore
 
 //       if (beforeOption !== "") {
 //         beforeOptionRef = db
-//           .collection("counsils")
-//           .doc(counsilId)
+//           .collection("councils")
+//           .doc(councilId)
 //           .collection("options")
 //           .doc(beforeOption);
 //       }
 //       if (afterOption !== "") {
 //         afterOptionRef = db
-//           .collection("counsils")
-//           .doc(counsilId)
+//           .collection("councils")
+//           .doc(councilId)
 //           .collection("options")
 //           .doc(afterOption);
 //       }
@@ -170,22 +171,22 @@ exports.countVotingOnOptions = functions.firestore
 //   });
 
 // exports.addVoteToOption = functions.firestore
-//   .document("/counsils/{counsilId}/votes/{userUid}")
+//   .document("/councils/{councilId}/votes/{userUid}")
 //   .onCreate((snap: any, context: any) => {
 //     try {
-//       const { counsilId } = context.params;
-//       console.log("counsilId", counsilId);
+//       const { councilId } = context.params;
+//       console.log("councilId", councilId);
 
 //       const userSelectedOption = snap.data().vote;
 
 //       const userSelectedOptionRef = db
-//         .collection("counsils")
-//         .doc(counsilId)
+//         .collection("councils")
+//         .doc(councilId)
 //         .collection("options")
 //         .doc(userSelectedOption);
 
 //       //update last interaction so the user can see the latest updates
-//       db.doc(`counsils/${counsilId}`).update({
+//       db.doc(`councils/${councilId}`).update({
 //         lastAction: new Date().getTime(),
 //       });
 
@@ -207,22 +208,22 @@ exports.countVotingOnOptions = functions.firestore
 //   });
 
 // exports.removeVoteToOption = functions.firestore
-//   .document("/counsils/{counsilId}/votes/{userUid}")
+//   .document("/councils/{councilId}/votes/{userUid}")
 //   .onDelete((snap: any, context: any) => {
 //     try {
-//       const { counsilId } = context.params;
-//       console.log("counsilId", counsilId);
+//       const { councilId } = context.params;
+//       console.log("councilId", councilId);
 
 //       const userOption = snap.data().vote;
 
 //       const beforeDeleteOptionRef = db
-//         .collection("counsils")
-//         .doc(counsilId)
+//         .collection("councils")
+//         .doc(councilId)
 //         .collection("options")
 //         .doc(userOption);
 
 //       //update last interaction so the user can see the latest updates
-//       db.doc(`counsils/${counsilId}`).update({
+//       db.doc(`councils/${councilId}`).update({
 //         lastAction: new Date().getTime(),
 //       });
 

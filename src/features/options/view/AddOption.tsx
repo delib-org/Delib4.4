@@ -2,21 +2,25 @@ import { uuidv4 } from "@firebase/util";
 import { FC } from "react";
 import { getColor } from "../../../control/helpers";
 import { useAppDispatch, useAppSelector } from "../../../model/hooks";
-import { Counsil } from "../../council/councilModel";
+import { Council } from "../../council/councilModel";
 import { User } from "../../user/userModel";
 import { selectUser } from "../../user/userSlice";
-import { addOption, reorderCouncilOptions, updateOrder } from "../control/optionsSlice";
+import {
+  addOption,
+  reorderCouncilOptions,
+  updateOrder,
+} from "../control/optionsSlice";
 import { addOptionToDB } from "../control/setOptions";
 import { OptionProps, Order } from "../model/optionModel";
 
 interface AddOptionProps {
   showAddOption: boolean;
   handleShowAddOption: Function;
-  counsil:Counsil
+  council: Council;
 }
 
 const AddOption: FC<AddOptionProps> = ({
-  counsil,
+  council,
   showAddOption,
   handleShowAddOption,
 }) => {
@@ -28,29 +32,34 @@ const AddOption: FC<AddOptionProps> = ({
       ev.preventDefault();
       let { title, description } = ev.target.elements;
       title = title.value;
-      description = description.value ||'';
+      description = description.value || "";
       if (!title) throw new Error("No title in option");
       const optionId = uuidv4();
       if (!user)
         throw new Error("To create new option, a user must be present");
 
-        console.log(user)
+      console.log(user);
 
       const newOption: OptionProps = {
-        created:new Date().getTime(),
+        created: new Date().getTime(),
         title,
         description,
         optionId,
-        counsilId:counsil.counsilId,
-        counsilTitle:counsil.title,
+        councilId: council.councilId,
+        councilTitle: council.title,
         votes: 0,
         creator: user,
-        color:getColor()
+        color: getColor(),
       };
 
       handleShowAddOption(false);
       dispatch(addOption(newOption));
-      dispatch(reorderCouncilOptions({ counsilId:counsil.counsilId, sortBy: Order.NEW }));
+      dispatch(
+        reorderCouncilOptions({
+          councilId: council.councilId,
+          sortBy: Order.NEW,
+        })
+      );
       dispatch(updateOrder(Order.NEW));
       addOptionToDB(newOption);
     } catch (error) {
@@ -69,7 +78,11 @@ const AddOption: FC<AddOptionProps> = ({
           />
           <textarea name="description" placeholder="Description"></textarea>
           <div className="btns">
-          <div className="btn btn--cancel" onClick={()=>handleShowAddOption(false)}>CANCEL</div>
+            <div
+              className="btn btn--cancel"
+              onClick={() => handleShowAddOption(false)}>
+              CANCEL
+            </div>
             <button>ADD OPTION</button>
           </div>
         </form>

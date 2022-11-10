@@ -3,12 +3,12 @@ import { Link, useParams } from "react-router-dom";
 import { OptionsView } from "../options/model/optionModel";
 
 const CouncilMenu = () => {
-  const { counsilId, section } = useParams();
+  const { councilId, section } = useParams();
   console.log("CouncilMenu", section);
   return (
     <div className="councilMenu">
       <Link
-        to={`/counsil/${counsilId}`}
+        to={`/council/${councilId}`}
         className={
           section === OptionsView.BARS || section === undefined
             ? "councilMenu__btn councilMenu__btn--selected"
@@ -17,7 +17,7 @@ const CouncilMenu = () => {
         VOTES
       </Link>
       <Link
-        to={`/counsil/${counsilId}/board`}
+        to={`/council/${councilId}/board`}
         className={
           section === OptionsView.BOARD
             ? "councilMenu__btn councilMenu__btn--selected"

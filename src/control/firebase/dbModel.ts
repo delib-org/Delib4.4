@@ -1,6 +1,6 @@
-export enum Collections{
-    COUNSILS = 'counsils',
-    OPTIONS = 'options',
-    VOTES = 'votes',
-    MEMBERS = 'members'
+export enum Collections {
+  COUNSILS = "councils",
+  OPTIONS = "options",
+  VOTES = "votes",
+  MEMBERS = "members",
 }
