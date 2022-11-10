@@ -33,7 +33,11 @@ const router = createBrowserRouter([
       },
       {
         path: "/counsil/:counsilId",
-        element: <CounsilPage />,
+        element: <CounsilPage />
+      },
+      {
+        path: "/counsil/:counsilId/:section",
+        element: <CounsilPage />
       },
       {
         path: "",

@@ -41,7 +41,8 @@ export const OptionJoi = Joi.object({
 })
 
 export enum OptionsView{
-  BARS = 'bars'
+  BARS = 'bars',
+  BOARD  = 'board'
 }
 
 export interface OptionsOfCounsilListener{

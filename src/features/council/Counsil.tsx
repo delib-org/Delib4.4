@@ -14,24 +14,27 @@ import {
 } from "../options/control/getOptions";
 import { selectUser } from "../user/userSlice";
 import AddOption from "../options/view/AddOption";
-import { registerToCounsil, setRegisterToPushNotifications } from "./setCounsilsDB";
+import {
+  registerToCounsil,
+  setRegisterToPushNotifications,
+} from "./setCounsilsDB";
 import { MessagingIntensity } from "../messages/messagingModel";
+import Board from "../board/Board";
+import CouncilMenu from "./CouncilMenu";
 
 let unsubscribeCounsil: Function = () => {};
 let unsubscribeOptions: Function = () => {};
 let unsubscribeVote: Function = () => {};
-let token = sessionStorage.getItem('token')||'';
+let token = sessionStorage.getItem("token") || "";
 
 const CounsilPage = () => {
-
   const [showAddOption, setShowAddOption] = useState<boolean>(false);
   const user = useAppSelector(selectUser);
   const dispatch = useAppDispatch();
-  const { counsilId } = useParams();
+  const { counsilId, section } = useParams();
   const counsil = useAppSelector((state) =>
     state.councils.councils.find((cnsl) => cnsl.counsilId === counsilId)
   );
-
 
   // const isListentingToVote: boolean =
   //   useAppSelector((state) =>
@@ -58,19 +61,18 @@ const CounsilPage = () => {
     setShowAddOption(showModal);
   }
 
-  function handleShare(){
+  function handleShare() {
     const shareData = {
-      title: 'Delib',
+      title: "Delib",
       text: `Please join me on voting on the question "${counsil?.title}"`,
-      url: window.location.href
-    }
-    navigator.share(shareData)
+      url: window.location.href,
+    };
+    navigator.share(shareData);
   }
 
   useEffect(() => {
     if (counsilId && user) {
-   
-      registerToCounsil({user, counsilId});
+      registerToCounsil({ user, counsilId });
       unsubscribeCounsil = listenToCounsil(counsilId, handleupdateCounsil);
       unsubscribeOptions = listenToOptionsOfCounsil(
         counsilId,
@@ -82,16 +84,17 @@ const CounsilPage = () => {
         handleUpdateOptionVote
       );
 
-      if(token.length>0){
-        setRegisterToPushNotifications(counsilId,user.uid, MessagingIntensity.HIGH, token)
-
+      if (token.length > 0) {
+        setRegisterToPushNotifications(
+          counsilId,
+          user.uid,
+          MessagingIntensity.HIGH,
+          token
+        );
       }
     }
 
-   
-
     return () => {
-  
       unsubscribeCounsil();
       unsubscribeOptions();
       unsubscribeVote();
@@ -115,7 +118,8 @@ const CounsilPage = () => {
       <article>{counsil?.description}</article>
       <main>
         <div className="wrapper">
-          {counsilId ? switchType(OptionsView.BARS) : null}
+          <CouncilMenu />
+          {counsilId ? switchType(section) : null}
         </div>
       </main>
       {counsil ? (
@@ -129,20 +133,30 @@ const CounsilPage = () => {
     </div>
   );
 
-  function switchType(type: OptionsView) {
+  function switchType(section: string|undefined) {
+    console.log('section:',section);
     try {
-      switch (type) {
-        case OptionsView.BARS:
-          if (counsilId)
+      if (counsilId) {
+        switch (section) {
+          case OptionsView.BARS:
             return (
               <OptionsBars
                 counsilId={counsilId}
                 handleShowAddOption={handleShowAddOption}
               />
             );
-          else return null;
-        default:
-          return null;
+          case OptionsView.BOARD:
+            return <Board />;
+          default:
+            return (
+              <OptionsBars
+                counsilId={counsilId}
+                handleShowAddOption={handleShowAddOption}
+              />
+            );
+        }
+      } else {
+        return null;
       }
     } catch (error) {
       console.error(error);
