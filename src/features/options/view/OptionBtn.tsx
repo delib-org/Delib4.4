@@ -1,22 +1,24 @@
 import React, { FC, useRef, useEffect} from "react";
 import { getColor } from "../../../control/helpers";
-import { useAppSelector } from "../../../model/hooks";
+import { useAppDispatch, useAppSelector } from "../../../model/hooks";
 import { setVote } from "../../selections/votes/setVote";
 import { selectUser } from "../../user/userSlice";
-import { OptionProps } from "../model/optionModel";
+import { orderSelector, reorderCouncilOptions } from "../control/optionsSlice";
+import { OptionProps, Order } from "../model/optionModel";
 import { OptionsAnim } from "./OptionsBars";
 
 interface OptionBtnProps {
   option: OptionProps;
   optionsAnim:OptionsAnim;
-  updateWidth:Function
+  updateWidth:Function;
+ 
 }
 
 const OptionBtn: FC<OptionBtnProps> = ({ option,optionsAnim, updateWidth}) => {
 
   const user = useAppSelector(selectUser);
   const ref = useRef<any>(null);
- 
+
 
   useEffect(() => {
     
@@ -34,6 +36,9 @@ const OptionBtn: FC<OptionBtnProps> = ({ option,optionsAnim, updateWidth}) => {
     try {
       if (!user) throw new Error("voting user is missing on vote");
       setVote(option.counsilId, option.optionId, user);
+
+  
+      
       // dispatch(updateUserVote({optionId:option.optionId}))
     } catch (error) {
       console.error(error);
