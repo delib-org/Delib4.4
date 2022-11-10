@@ -16,17 +16,7 @@ export const boardsSlice = createSlice({
   name: "boards",
   initialState,
   reducers: {
-    addPost: (state, action: PayloadAction<any>) => {
-      try {
-        const { error } = PostJoi.validate(action.payload);
-        if (error) throw error;
-
-        state.posts = updateArray(state.posts, action.payload, "postId");
-      } catch (error) {
-        console.error(error);
-      }
-    },
-    updatePost: (state, action: PayloadAction<Post>) => {
+    setPost: (state, action: PayloadAction<any>) => {
       try {
         const { error } = PostJoi.validate(action.payload);
         if (error) throw error;
@@ -39,7 +29,7 @@ export const boardsSlice = createSlice({
   },
 });
 
-export const { addPost, updatePost } = boardsSlice.actions;
+export const { setPost } = boardsSlice.actions;
 
 
 

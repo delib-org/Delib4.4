@@ -1,7 +1,7 @@
 import { collection, doc, limit, onSnapshot, orderBy, query, serverTimestamp, setDoc,where } from "firebase/firestore";
 import { DB } from "../../../control/firebase/config";
 import { Post, PostJoi } from "../model/postModel";
-import { addPost } from "./boardSlice";
+
 
 export async function addPostToDB(post:Post){
     try {
@@ -30,11 +30,12 @@ export function listenToPosts(councilId:string,addPostAsync:Function){
                 if (change.type === "added") {
                     const post:any =change.doc.data();
                     post.time = post.time.seconds*1000;
-                    console.log(post)
                     addPostAsync(post);
                 }
                 if (change.type === "modified") {
-                    console.log("Modified city: ", change.doc.data());
+                    const post:any =change.doc.data();
+                    post.time = post.time.seconds*1000;
+                    addPostAsync(post);
                 }
                 if (change.type === "removed") {
                     console.log("Removed city: ", change.doc.data());

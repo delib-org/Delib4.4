@@ -2,8 +2,10 @@
     flex:auto;
     display: flex;
     flex-direction: column;
+    contain: size;
 
     &__posts{
         flex:auto;
+        overflow-y: auto;
     }
 }

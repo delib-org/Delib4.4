@@ -1,13 +1,12 @@
 import { uuidv4 } from "@firebase/util";
-import { useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../../../model/hooks";
 import { selectUser } from "../../user/userSlice";
-import { addPost } from "../control/boardSlice";
+import { setPost } from "../control/boardSlice";
 import { addPostToDB } from "../control/postsDB";
 import { Post } from "../model/postModel";
 
-let unsub = () => {};
+
 
 const Board = () => {
   const { councilId } = useParams();
@@ -36,7 +35,7 @@ const Board = () => {
         councilId: councilId,
       };
       console.log(post);
-      dispatch(addPost(post));
+      dispatch(setPost(post));
       addPostToDB(post);
       ev.target.reset();
     } catch (error) {}

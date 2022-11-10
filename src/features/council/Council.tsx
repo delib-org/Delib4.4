@@ -22,7 +22,7 @@ import { MessagingIntensity } from "../messages/messagingModel";
 import Board from "../board/view/Board";
 import CouncilMenu from "./CouncilMenu";
 import { Post } from "../board/model/postModel";
-import { addPost } from "../board/control/boardSlice";
+import { setPost } from "../board/control/boardSlice";
 import { listenToPosts } from "../board/control/postsDB";
 
 let unsubscribePosts = ()=>{};
@@ -47,7 +47,7 @@ const CouncilPage = () => {
   //     )
   //   ) !== -1;
   function addPostAsync(post:Post){
-    dispatch(addPost(post))
+    dispatch(setPost(post))
       }
   function handleupdateCouncil(cnsl: Council) {
     dispatch(updateCouncil(cnsl));
