@@ -3,11 +3,18 @@
     width: 100%;
     background-color: tomato;
 
-    &__btn, a{
+    a, &__btn{
         flex:1;
         display: flex;
         align-items: center;
         justify-content: center;
         padding: 10px;
+
+        text-decoration: none;
+
+        &--selected{
+            background-color: red;
+            color: white;
+        }
     }
 }
