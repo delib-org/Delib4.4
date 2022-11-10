@@ -19,7 +19,7 @@ import {
   setRegisterToPushNotifications,
 } from "./setCouncilsDB";
 import { MessagingIntensity } from "../messages/messagingModel";
-import Board from "../board/Board";
+import Board from "../board/view/Board";
 import CouncilMenu from "./CouncilMenu";
 
 let unsubscribeCouncil: Function = () => {};
