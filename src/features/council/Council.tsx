@@ -21,7 +21,11 @@ import {
 import { MessagingIntensity } from "../messages/messagingModel";
 import Board from "../board/view/Board";
 import CouncilMenu from "./CouncilMenu";
+import { Post } from "../board/model/postModel";
+import { addPost } from "../board/control/boardSlice";
+import { listenToPosts } from "../board/control/postsDB";
 
+let unsubscribePosts = ()=>{};
 let unsubscribeCouncil: Function = () => {};
 let unsubscribeOptions: Function = () => {};
 let unsubscribeVote: Function = () => {};
@@ -42,7 +46,9 @@ const CouncilPage = () => {
   //       (el: string) => el === councilId
   //     )
   //   ) !== -1;
-
+  function addPostAsync(post:Post){
+    dispatch(addPost(post))
+      }
   function handleupdateCouncil(cnsl: Council) {
     dispatch(updateCouncil(cnsl));
   }
@@ -73,6 +79,7 @@ const CouncilPage = () => {
   useEffect(() => {
     if (councilId && user) {
       registerToCouncil({ user, councilId });
+      unsubscribePosts = listenToPosts(councilId,addPostAsync)
       unsubscribeCouncil = listenToCouncil(councilId, handleupdateCouncil);
       unsubscribeOptions = listenToOptionsOfCouncil(
         councilId,
@@ -95,6 +102,7 @@ const CouncilPage = () => {
     }
 
     return () => {
+      unsubscribePosts();
       unsubscribeCouncil();
       unsubscribeOptions();
       unsubscribeVote();

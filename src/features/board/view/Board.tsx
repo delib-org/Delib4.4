@@ -1,16 +1,24 @@
 import { uuidv4 } from "@firebase/util";
-import React from "react";
+import { useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../../../model/hooks";
 import { selectUser } from "../../user/userSlice";
 import { addPost } from "../control/boardSlice";
+import { addPostToDB } from "../control/postsDB";
 import { Post } from "../model/postModel";
+
+let unsub = () => {};
 
 const Board = () => {
   const { councilId } = useParams();
   const user = useAppSelector(selectUser);
   const dispatch = useAppDispatch();
-  const posts = useAppSelector(state=>state.boards.posts.filter(post=>post.councilId === councilId))
+  const posts = useAppSelector((state) =>
+    state.boards.posts.filter((post) => post.councilId === councilId)
+  );
+
+ 
+
 
   function handleSendPost(ev: any) {
     ev.preventDefault();
@@ -29,14 +37,16 @@ const Board = () => {
       };
       console.log(post);
       dispatch(addPost(post));
-
+      addPostToDB(post);
       ev.target.reset();
     } catch (error) {}
   }
   return (
     <div className="board">
       <div className="board__posts">
-        {posts.map(post=><p key={post.postId}>{post.text}</p>)}
+        {posts.map((post) => (
+          <p key={post.postId}>{post.text}</p>
+        ))}
       </div>
       <form className="textInput" onSubmit={handleSendPost}>
         <textarea required name="board_input"></textarea>

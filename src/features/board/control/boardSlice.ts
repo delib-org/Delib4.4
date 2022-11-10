@@ -16,7 +16,7 @@ export const boardsSlice = createSlice({
   name: "boards",
   initialState,
   reducers: {
-    addPost: (state, action: PayloadAction<Post>) => {
+    addPost: (state, action: PayloadAction<any>) => {
       try {
         const { error } = PostJoi.validate(action.payload);
         if (error) throw error;
