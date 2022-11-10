@@ -2,6 +2,8 @@
     display: flex;
     width: 100%;
     background-color: tomato;
+    border-radius: 20px;
+   
 
     a, &__btn{
         flex:1;
@@ -9,12 +11,14 @@
         align-items: center;
         justify-content: center;
         padding: 10px;
-
+        color: white;
         text-decoration: none;
+        transition: all 200ms;
 
         &--selected{
             background-color: red;
-            color: white;
+            
+            border-radius: 20px;
         }
     }
 }
