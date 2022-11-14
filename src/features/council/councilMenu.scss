@@ -1,7 +1,7 @@
 .councilMenu{
     display: flex;
     width: 100%;
-    background-color: tomato;
+    background-color: #f3eeff;
     border-radius: 20px;
    
 
@@ -11,12 +11,12 @@
         align-items: center;
         justify-content: center;
         padding: 10px;
-        color: white;
+        color: rgb(77, 77, 77);
         text-decoration: none;
         transition: all 200ms;
 
         &--selected{
-            background-color: red;
+            background-color: #e8e1fb;
             
             border-radius: 20px;
         }

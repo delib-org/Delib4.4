@@ -1,7 +1,7 @@
 import { configureStore } from "@reduxjs/toolkit";
 
 import userReducer from "../features/user/userSlice";
-import councilsReducer from "../features/councils/control/councilsSlice";
+import councilsReducer from '../features/councils/control/councilsSlice'
 import optionsReducer from "../features/options/control/optionsSlice";
 import  boardsSlice  from "../features/board/control/boardSlice";
 
