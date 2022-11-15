@@ -1,37 +1,43 @@
-.board{
-    flex:auto;
+.board {
+  flex: auto;
+  display: flex;
+  flex-direction: column;
+  contain: size;
+
+  &__posts {
+    flex: auto;
+    overflow-y: auto;
+  }
+  .select {
+    &--support {
+      background-color: #a4ffa4;
+    }
+    &--oppose {
+      background-color: #ffbfbf;
+    }
+  }
+
+  &__support {
     display: flex;
-    flex-direction: column;
-    contain: size;
+    justify-content: center;
+    select {
+      margin: 5px;
+    }
+  }
 
-    &__posts{
-        flex:auto;
-        overflow-y: auto;
-    }
-    .select{
-        &--support{
-            background-color: #a4ffa4;
-        }
-        &--oppose{
-            background-color: #ffbfbf;
-        }
-    }
+  form {
+    box-shadow: 0px 0px 3px #0000002e;
+    border-radius: 10px 10px 0px 0px;
+    padding: 5px;
+  }
+  &__input {
+    display: flex;
 
-    &__support{
-        display: flex;
-        justify-content: center;
-        select{
-            margin: 5px;
-        }
+    textarea {
+      flex: auto;
     }
-
-    &__input{
-        display: flex;
-        textarea{
-            flex:auto;
-        }
-        button{
-            border:none;
-        }
+    button {
+      border: none;
     }
+  }
 }
