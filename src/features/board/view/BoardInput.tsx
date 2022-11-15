@@ -5,7 +5,7 @@ import { useAppDispatch, useAppSelector } from "../../../model/hooks";
 import { selectUser } from "../../user/userSlice";
 import { addPostToDB } from "../control/postsDB";
 import { setPost } from "../control/boardSlice";
-import { Post } from "../model/postModel";
+import { Post, Support } from "../model/postModel";
 
 enum SupportClass {
   NEUTRAL = "select--neutral",
@@ -24,7 +24,6 @@ const BoardInput = () => {
   const [support, setSupport] = useState<SupportClass>(SupportClass.NEUTRAL);
 
   function handleSendPost(ev: any) {
-   
     ev.preventDefault();
     try {
       if (!user) throw new Error("No user");
@@ -32,19 +31,37 @@ const BoardInput = () => {
 
       const text = ev.target.elements.board_input.value;
       const support = ev.target.elements.support.value;
-      const option = ev.target.elements.option.value;
-      console.log(text, option, support);
-      const post: Post = {
-        text,
-        creator: user,
-        time: new Date().getTime(),
-        postId: uuidv4(),
-        councilId: councilId,
-      };
-      console.log(post);
+      const optionId = ev.target.elements.option.value;
+      const optionTitle =
+        options.find((option) => option.optionId === optionId)?.title || "";
+      
+    
+      const post: Post =
+      !support || support === Support.NEUTRAL || optionId === 'intro' || optionId === 'None'
+          ? {
+              text,
+              creator: user,
+              time: new Date().getTime(),
+              postId: uuidv4(),
+              councilId: councilId,
+            }
+          : {
+              text,
+              creator: user,
+              time: new Date().getTime(),
+              postId: uuidv4(),
+              councilId: councilId,
+              option: {
+                optionId,
+                title: optionTitle,
+                support,
+              },
+            };
+
+
       dispatch(setPost(post));
       addPostToDB(post);
-      setSupport(SupportClass.NEUTRAL)
+      setSupport(SupportClass.NEUTRAL);
       ev.target.reset();
     } catch (error) {
       console.error(error);
@@ -56,13 +73,13 @@ const BoardInput = () => {
       const supportClass = ev.target.value;
       console.log(supportClass);
       switch (supportClass) {
-        case SupportClass.NEUTRAL:
+        case Support.NEUTRAL:
           setSupport(SupportClass.NEUTRAL);
           break;
-        case SupportClass.SUPPORT:
+        case Support.SUPPORT:
           setSupport(SupportClass.SUPPORT);
           break;
-        case SupportClass.OPPOSE:
+        case Support.OPPOSE:
           setSupport(SupportClass.OPPOSE);
           break;
         default:
@@ -87,14 +104,17 @@ const BoardInput = () => {
             </option>
           ))}
         </select>
-        <select name="support" onChange={handleSupportClass} className={support}>
-          <option value={SupportClass.NEUTRAL}>Neutral</option>
-          <option value={SupportClass.SUPPORT}>Support</option>
-          <option value={SupportClass.OPPOSE}>Oppose</option>
+        <select
+          name="support"
+          onChange={handleSupportClass}
+          className={support}>
+          <option value={Support.NEUTRAL}>Neutral</option>
+          <option value={Support.SUPPORT}>Support</option>
+          <option value={Support.OPPOSE}>Oppose</option>
         </select>
       </div>
       <div className="board__input">
-        <textarea required name="board_input"></textarea>
+        <textarea required name="board_input" className={support}></textarea>
         <button>
           <span className="material-symbols-outlined">send</span>
         </button>

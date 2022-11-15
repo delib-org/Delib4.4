@@ -3,7 +3,8 @@ import { User, UserJoi } from "../../user/userModel";
 
 export enum Support{
     SUPPORT = 'support',
-    AGAINST = 'against'
+    OPPOSE = 'oppose',
+    NEUTRAL = 'neutral'
 }
 
 export interface Post{
