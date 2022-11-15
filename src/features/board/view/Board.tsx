@@ -1,6 +1,7 @@
 import { uuidv4 } from "@firebase/util";
 import { useParams } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../../../model/hooks";
+import PostCard from "../../postCard/PostCard";
 import { selectUser } from "../../user/userSlice";
 import { setPost } from "../control/boardSlice";
 import { addPostToDB } from "../control/postsDB";
@@ -44,7 +45,7 @@ const Board = () => {
     <div className="board">
       <div className="board__posts">
         {posts.map((post) => (
-          <p key={post.postId}>{post.text}</p>
+          <PostCard key={post.postId} post={post} />
         ))}
       </div>
       <form className="textInput" onSubmit={handleSendPost}>

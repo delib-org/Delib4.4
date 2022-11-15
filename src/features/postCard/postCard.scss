@@ -1,0 +1,14 @@
+.postCard{
+    padding: $padding;
+    background-color: white;
+    box-shadow: 1px 1px 3px #0000001c;
+    border-radius: $border-radius;
+    margin: 3px 3px 7px 3px;
+&__text{
+    text-align: right;
+}
+
+    &__time{
+        font-size: .6rem;
+    }
+}
