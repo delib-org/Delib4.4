@@ -8,6 +8,13 @@ input, textarea{
     margin: 5px;
 }
 
+select, .select{
+    padding: 5px;
+    border-radius: 100px;
+    border: none;
+    background-color: #eeeeee;
+}
+
 .textInput{
     display: flex;
     align-items: center;

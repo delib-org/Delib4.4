@@ -8,4 +8,30 @@
         flex:auto;
         overflow-y: auto;
     }
+    .select{
+        &--support{
+            background-color: #a4ffa4;
+        }
+        &--oppose{
+            background-color: #ffbfbf;
+        }
+    }
+
+    &__support{
+        display: flex;
+        justify-content: center;
+        select{
+            margin: 5px;
+        }
+    }
+
+    &__input{
+        display: flex;
+        textarea{
+            flex:auto;
+        }
+        button{
+            border:none;
+        }
+    }
 }
