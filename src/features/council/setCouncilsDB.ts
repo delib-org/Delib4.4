@@ -31,7 +31,7 @@ export async function setRegisterToPushNotifications(
     );
 
     await setDoc(councilNotificationRef, { token, messagingIntensity });
-    console.log("set token for push notifications");
+   
   } catch (error) {
     console.error(error);
   }
@@ -51,7 +51,7 @@ export async function registerToCouncil({
     });
     const { error } = registerToCouncilJoi.validate({ user, councilId });
     if (error) throw error;
-    console.log("council", councilId, "members", user.uid);
+   
     const membershipRef = doc(DB, "councils", councilId, "members", user.uid);
     await setDoc(membershipRef, user);
   } catch (error: any) {

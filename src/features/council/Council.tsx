@@ -142,7 +142,7 @@ const CouncilPage = () => {
   );
 
   function switchType(section: string | undefined) {
-    console.log("section:", section);
+   
     try {
       if (councilId) {
         switch (section) {

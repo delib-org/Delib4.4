@@ -19,9 +19,7 @@ export async function addPostToDB(post: Post) {
 
     const postRef = doc(DB, "posts", post.postId);
 
-    const some = await setDoc(postRef, { ...post, time: serverTimestamp() });
-    console.log(some);
-    console.log(new Date().getTime());
+    await setDoc(postRef, { ...post, time: serverTimestamp() });
   } catch (error) {
     console.error(error);
   }
@@ -29,21 +27,19 @@ export async function addPostToDB(post: Post) {
 
 export function listenToPosts(councilId: string, addPostAsync: Function) {
   try {
-
     const postsRef = collection(DB, "posts");
     const q = query(
       postsRef,
       where("councilId", "==", councilId),
-      orderBy("time", "asc"),
+      orderBy("time", "desc"),
       limit(20)
     );
     return onSnapshot(q, (postsDB) => {
       try {
         postsDB.docChanges().forEach((change) => {
-          console.log(change.type);
           if (change.type === "added") {
             const post: any = change.doc.data();
-            console.log(post)
+
             post.time = post.time.seconds * 1000;
             addPostAsync(post);
           }
@@ -53,7 +49,7 @@ export function listenToPosts(councilId: string, addPostAsync: Function) {
             addPostAsync(post);
           }
           if (change.type === "removed") {
-            console.log("Removed city: ", change.doc.data());
+         
           }
         });
       } catch (error) {

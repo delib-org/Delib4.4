@@ -7,17 +7,19 @@ export enum Support{
     NEUTRAL = 'neutral'
 }
 
+export interface PostOption{
+    optionId:string,
+    title:string,
+    support:Support
+}
+
 export interface Post{
     text:string;
     time:number;
     creator:User;
     postId:string;
     councilId:string;
-    option?:{
-        optionId:string,
-        title:string,
-        support:Support
-    }
+    option?:PostOption
 }
 
 export const PostJoi = Joi.object({

@@ -13,7 +13,7 @@ const Board = () => {
   return (
     <div className="board">
       <div className="board__posts">
-        {posts.map((post) => (
+        {posts.sort((a,b)=>a.time - b.time).map((post) => (
           <PostCard key={post.postId} post={post} />
         ))}
       </div>

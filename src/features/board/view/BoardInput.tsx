@@ -7,7 +7,7 @@ import { addPostToDB } from "../control/postsDB";
 import { setPost } from "../control/boardSlice";
 import { Post, Support } from "../model/postModel";
 
-enum SupportClass {
+export enum SupportClass {
   NEUTRAL = "select--neutral",
   SUPPORT = "select--support",
   OPPOSE = "select--oppose",

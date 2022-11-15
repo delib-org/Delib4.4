@@ -4,7 +4,7 @@ import { OptionsView } from "../options/model/optionModel";
 
 const CouncilMenu = () => {
   const { councilId, section } = useParams();
-  console.log("CouncilMenu", section);
+ 
   return (
     <div className="councilMenu">
       <Link
