@@ -1,17 +1,41 @@
-.postCard{
-    padding: $padding;
-    background-color: white;
-    box-shadow: 1px 1px 3px #0000001c;
-    border-radius: $border-radius;
-    margin: 3px 3px 7px 3px;
-&__text{
+.postCard {
+  padding: $padding;
+  background-color: white;
+  box-shadow: 1px 1px 3px #0000001c;
+  border-radius: $border-radius;
+  margin: 3px 3px 7px 3px;
+
+  &__support{
+    display: flex;
+    align-items: center;
+    gap:10px;
+    padding: 5px;
+    &__span{
+        padding: 5px;
+        border-radius: calc($border-radius/2);
+    }
+    &__btn{
+        background-color: olive;
+        border:none !important;
+        padding: 5px !important;
+        user-select: none;
+        cursor: pointer;
+
+        &--voted{
+            box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.556);
+        }
+    }
+  }
+
+
+  &__text {
     text-align: left;
-    background-color: rgb(239, 239, 239);
+    background-color: #fafafa;
     padding: 10px;
     border-radius: calc($border-radius/2);
-}
+  }
 
-    &__time{
-        font-size: .6rem;
-    }
+  &__time {
+    font-size: 0.6rem;
+  }
 }
