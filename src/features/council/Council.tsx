@@ -25,7 +25,7 @@ import { Post } from "../board/model/postModel";
 import { setPost } from "../board/control/boardSlice";
 import { listenToPosts } from "../board/control/postsDB";
 
-let unsubscribePosts = ()=>{};
+let unsubscribePosts = () => {};
 let unsubscribeCouncil: Function = () => {};
 let unsubscribeOptions: Function = () => {};
 let unsubscribeVote: Function = () => {};
@@ -46,9 +46,9 @@ const CouncilPage = () => {
   //       (el: string) => el === councilId
   //     )
   //   ) !== -1;
-  function addPostAsync(post:Post){
-    dispatch(setPost(post))
-      }
+  function addPostAsync(post: Post) {
+    dispatch(setPost(post));
+  }
   function handleupdateCouncil(cnsl: Council) {
     dispatch(updateCouncil(cnsl));
   }
@@ -79,7 +79,7 @@ const CouncilPage = () => {
   useEffect(() => {
     if (councilId && user) {
       registerToCouncil({ user, councilId });
-      unsubscribePosts = listenToPosts(councilId,addPostAsync)
+      unsubscribePosts = listenToPosts(councilId, addPostAsync);
       unsubscribeCouncil = listenToCouncil(councilId, handleupdateCouncil);
       unsubscribeOptions = listenToOptionsOfCouncil(
         councilId,
@@ -112,23 +112,23 @@ const CouncilPage = () => {
 
   return (
     <div className="page council">
-      <header>
-        <Link to="/main">
-          <div className="headerBtn">
-            <span className="material-symbols-outlined">arrow_back</span>
+      <div className="head">
+        <header>
+          <Link to="/main">
+            <div className="headerBtn">
+              <span className="material-symbols-outlined">arrow_back</span>
+            </div>
+          </Link>
+          <h1>{council?.title}</h1>
+          <div className="headerBtn--circle" onClick={handleShare}>
+            <span className="material-symbols-outlined">share</span>
           </div>
-        </Link>
-        <h1>{council?.title}</h1>
-        <div className="headerBtn--circle" onClick={handleShare}>
-          <span className="material-symbols-outlined">share</span>
-        </div>
-      </header>
-      <article>{council?.description}</article>
+        </header>
+        <article>{council?.description}</article>
+        <CouncilMenu />
+      </div>
       <main>
-        <div className="wrapper">
-          <CouncilMenu />
-          {councilId ? switchType(section) : null}
-        </div>
+        <div className="wrapper">{councilId ? switchType(section) : null}</div>
       </main>
       {council ? (
         <AddOption
@@ -142,7 +142,6 @@ const CouncilPage = () => {
   );
 
   function switchType(section: string | undefined) {
-   
     try {
       if (councilId) {
         switch (section) {

@@ -7,6 +7,10 @@
   &__posts {
     flex: auto;
     overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+   
   }
   .select {
     &--support {
@@ -29,6 +33,7 @@
     box-shadow: 0px 0px 3px #0000002e;
     border-radius: 10px 10px 0px 0px;
     padding: 5px;
+    background-color: $background;
   }
   &__input {
     display: flex;
