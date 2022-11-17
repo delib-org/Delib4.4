@@ -16,7 +16,7 @@ const Board: FC = () => {
   );
 
   useEffect(()=>{
-   console.log(isFirstScroll)
+  
     
     if(isFirstScroll && posts.length>0){
       postsBoard.current.scrollTo({ top: postsBoard.current.scrollHeight });
@@ -25,6 +25,7 @@ const Board: FC = () => {
 
       postsBoard.current.scrollTo({ top: postsBoard.current.scrollHeight,behavior: "smooth" })
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   },[posts])
 
   return (

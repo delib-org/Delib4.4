@@ -1,9 +1,7 @@
 .postCard {
-  padding: $padding;
+  
   background-color: white;
-  box-shadow: 1px 1px 3px #0000001c;
-  border-radius: $border-radius;
-  margin: 3px 3px 7px 3px;
+  border-bottom: 1px solid #e1e1e1;
 
   &__support{
     display: flex;
@@ -30,12 +28,12 @@
 
   &__text {
     text-align: left;
-    background-color: #fafafa;
-    padding: 10px;
-    border-radius: calc($border-radius/2);
   }
 
   &__time {
-    font-size: 0.6rem;
+    font-size: 0.7rem;
+    padding-bottom: 5px;
+    padding-right: 5px;
+    text-align: right;
   }
 }

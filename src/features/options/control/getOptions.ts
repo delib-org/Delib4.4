@@ -25,7 +25,7 @@ export function listenToOptionsOfCouncil(
             setState(change.doc.data());
           }
           if (change.type === "modified") {
-            console.log("Modified option: ", change.doc.data().title);
+         
             setState(change.doc.data());
           }
           if (change.type === "removed") {

@@ -1,9 +1,8 @@
 import { FC } from "react";
 import { Post, PostOption, Support } from "../board/model/postModel";
 import moment from "moment";
-import { useAppDispatch, useAppSelector } from "../../model/hooks";
+import { useAppSelector } from "../../model/hooks";
 import { SupportClass } from "../board/view/BoardInput";
-import { updateUserVote } from "../options/control/optionsSlice";
 import { setVote } from "../selections/votes/setVote";
 import { selectUser } from "../user/userSlice";
 import { fromTextToArray } from "../../control/helpers";
@@ -14,7 +13,7 @@ interface PostCardProps {
 }
 
 const PostCard: FC<PostCardProps> = ({ post }) => {
-  const dispatch = useAppDispatch();
+
   const user = useAppSelector(selectUser);
   const option = useAppSelector((state) =>
     state.options.options.find(

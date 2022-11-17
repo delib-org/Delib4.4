@@ -37,19 +37,25 @@ export function listenToPosts(councilId: string, addPostAsync: Function) {
     return onSnapshot(q, (postsDB) => {
       try {
         postsDB.docChanges().forEach((change) => {
-          if (change.type === "added") {
-            const post: any = change.doc.data();
+          try {
+            if (change.type === "added") {
+              const post: any = change.doc.data();
 
-            post.time = post.time.seconds * 1000;
-            addPostAsync(post);
-          }
-          if (change.type === "modified") {
-            const post: any = change.doc.data();
-            post.time = post.time.seconds * 1000;
-            addPostAsync(post);
-          }
-          if (change.type === "removed") {
-         
+              if (post.time !== null) {
+                post.time = post.time.seconds * 1000;
+                addPostAsync(post);
+              }
+            }
+            if (change.type === "modified") {
+              const post: any = change.doc.data();
+              post.time = post.time.seconds * 1000;
+           
+              addPostAsync(post);
+            }
+            if (change.type === "removed") {
+            }
+          } catch (error) {
+            console.error(error);
           }
         });
       } catch (error) {
