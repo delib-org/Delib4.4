@@ -10,6 +10,7 @@ import { User } from "../../user/userModel";
 import { useNavigate } from "react-router-dom";
 import { OptionsView } from "../../options/model/optionModel";
 import { getColor } from "../../../control/helpers";
+import { requestPermission } from "../../messages/messaging";
 
 const AddCouncil = () => {
   const dispatch = useDispatch();
@@ -43,6 +44,7 @@ const AddCouncil = () => {
       };
       dispatch(addCouncil(council));
       addCouncilToDB(council);
+      requestPermission();
 
       navigate(`/council/${councilId}`);
 

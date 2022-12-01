@@ -3,6 +3,7 @@ import { FC } from "react";
 import { getColor } from "../../../control/helpers";
 import { useAppDispatch, useAppSelector } from "../../../model/hooks";
 import { Council } from "../../council/councilModel";
+import { requestPermission } from "../../messages/messaging";
 import { User } from "../../user/userModel";
 import { selectUser } from "../../user/userSlice";
 import {
@@ -54,6 +55,7 @@ const AddOption: FC<AddOptionProps> = ({
 
       handleShowAddOption(false);
       dispatch(addOption(newOption));
+      requestPermission();
       dispatch(
         reorderCouncilOptions({
           councilId: council.councilId,

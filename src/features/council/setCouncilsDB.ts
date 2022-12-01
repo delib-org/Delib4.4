@@ -15,27 +15,7 @@ export async function addCouncilToDB(council: Council): Promise<void> {
   }
 }
 
-export async function setRegisterToPushNotifications(
-  councilId: string,
-  userId: string,
-  messagingIntensity: MessagingIntensity,
-  token: string
-): Promise<void> {
-  try {
-    const councilNotificationRef = doc(
-      DB,
-      Collections.COUNSILS,
-      councilId,
-      "members",
-      userId
-    );
 
-    await setDoc(councilNotificationRef, { token, messagingIntensity });
-   
-  } catch (error) {
-    console.error(error);
-  }
-}
 
 export async function registerToCouncil({
   user,

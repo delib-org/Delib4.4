@@ -104,12 +104,6 @@ const OptionsBars: FC<OptionsBarsProps> = ({
             />
           ))}
 
-        {/* {options.map((option) => (
-          <OptionInfo key={`${option.optionId}-info`} option={option} />
-        ))} */}
-        {/* {options.map((option: OptionProps) => (
-          <OptionBtn key={`${option.optionId}-btn`} option={option} />
-        ))} */}
       </div>
       <div className="bottomNav">
         <div

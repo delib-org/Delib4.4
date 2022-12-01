@@ -14,16 +14,14 @@ import {
 } from "../options/control/getOptions";
 import { selectUser } from "../user/userSlice";
 import AddOption from "../options/view/AddOption";
-import {
-  registerToCouncil,
-  setRegisterToPushNotifications,
-} from "./setCouncilsDB";
+import { registerToCouncil } from "./setCouncilsDB";
 import { MessagingIntensity } from "../messages/messagingModel";
 import Board from "../board/view/Board";
 import CouncilMenu from "./CouncilMenu";
 import { Post } from "../board/model/postModel";
 import { setPost } from "../board/control/boardSlice";
 import { listenToPosts } from "../board/control/postsDB";
+import { setRegisterToPushNotifications } from "../messages/messaging";
 
 let unsubscribePosts = () => {};
 let unsubscribeCouncil: Function = () => {};
@@ -40,12 +38,6 @@ const CouncilPage = () => {
     state.councils.councils.find((cnsl) => cnsl.councilId === councilId)
   );
 
-  // const isListentingToVote: boolean =
-  //   useAppSelector((state) =>
-  //     state.options.optionsVoteListenr.findIndex(
-  //       (el: string) => el === councilId
-  //     )
-  //   ) !== -1;
   function addPostAsync(post: Post) {
     dispatch(setPost(post));
   }

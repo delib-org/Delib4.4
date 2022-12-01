@@ -53,3 +53,4 @@ export const pushNotificationNewOption = functions.firestore
 
     return admin.messaging().sendToDevice(tokens, payload);
   });
+

@@ -1,6 +1,7 @@
 import React, { FC, useRef, useEffect } from "react";
 import { getColor } from "../../../control/helpers";
 import { useAppSelector } from "../../../model/hooks";
+import { requestPermission } from "../../messages/messaging";
 import { setVote } from "../../selections/votes/setVote";
 import { selectUser } from "../../user/userSlice";
 import { OptionProps } from "../model/optionModel";
@@ -32,7 +33,7 @@ const OptionBtn: FC<OptionBtnProps> = ({
     try {
       if (!user) throw new Error("voting user is missing on vote");
       setVote(option.councilId, option.optionId, user);
-
+      requestPermission();
       // dispatch(updateUserVote({optionId:option.optionId}))
     } catch (error) {
       console.error(error);
