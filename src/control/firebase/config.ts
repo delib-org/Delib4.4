@@ -1,5 +1,5 @@
 import { initializeApp } from "firebase/app";
-import { getFirestore } from "firebase/firestore";
+import {  getFirestore } from "firebase/firestore";
 //use this line in dev mode
 // import { connectFirestoreEmulator } from "firebase/firestore";
 

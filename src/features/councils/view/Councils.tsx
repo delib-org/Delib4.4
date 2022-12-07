@@ -1,4 +1,4 @@
-import  { useEffect } from "react";
+import { useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../../../model/hooks";
 import { selectCouncils, updateCouncil } from "../control/councilsSlice";
@@ -20,18 +20,22 @@ const Councils = () => {
     return () => {
       unsubscribeFromCouncils();
     };
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
-    <div>
+    <div className="main">
+       <div className="fav--main">+</div>
+      <h1>Main</h1>
       <div className="wrapper">
+    
         {councils.map((council) => (
           <CouncilCard key={council.councilId} council={council} />
         ))}
         <Link to="/main/add-council">
           <button>ADD Consultation</button>
         </Link>
+        <Link to="/main/add-council"></Link>
       </div>
     </div>
   );

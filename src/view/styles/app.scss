@@ -12,6 +12,7 @@ $h1: rgba(0, 0, 0, 0.8);
 $h2: rgba(0, 0, 0, 0.75);
 $text: rgba(0, 0, 0, 0.7);
 
+@import '../../features/councils/view/councils.scss';
 @import "../../features/options/view/optionsBar.scss";
 @import "../../features/councils/view/councilCard.scss";
 @import "../../features/council/council.scss";

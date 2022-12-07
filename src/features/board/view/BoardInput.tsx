@@ -34,10 +34,12 @@ const BoardInput = () => {
       const optionId = ev.target.elements.option.value;
       const optionTitle =
         options.find((option) => option.optionId === optionId)?.title || "";
-      
-    
+
       const post: Post =
-      !support || support === Support.NEUTRAL || optionId === 'intro' || optionId === 'None'
+        !support ||
+        support === Support.NEUTRAL ||
+        optionId === "intro" ||
+        optionId === "None"
           ? {
               text,
               creator: user,
@@ -57,7 +59,6 @@ const BoardInput = () => {
                 support,
               },
             };
-
 
       dispatch(setPost(post));
       addPostToDB(post);
@@ -91,35 +92,37 @@ const BoardInput = () => {
   }
 
   return (
-    <form onSubmit={handleSendPost}>
-      <div className="board__support">
-        <select name="option" defaultValue={"intro"} className={support}>
-          <option disabled value="intro">
-            Which option do you support or oppose?
-          </option>
-          <option>None</option>
-          {options.map((option) => (
-            <option key={option.optionId} value={option.optionId}>
-              {option.title}
+    <div className="chat">
+      <form onSubmit={handleSendPost}>
+        <div className="board__support">
+          <select name="option" defaultValue={"intro"} className={support}>
+            <option disabled value="intro">
+              Which option do you support or oppose?
             </option>
-          ))}
-        </select>
-        <select
-          name="support"
-          onChange={handleSupportClass}
-          className={support}>
-          <option value={Support.NEUTRAL}>Neutral</option>
-          <option value={Support.SUPPORT}>Support</option>
-          <option value={Support.OPPOSE}>Oppose</option>
-        </select>
-      </div>
-      <div className="board__input">
-        <textarea required name="board_input" className={support}></textarea>
-        <button>
-          <span className="material-symbols-outlined">send</span>
-        </button>
-      </div>
-    </form>
+            <option>None</option>
+            {options.map((option) => (
+              <option key={option.optionId} value={option.optionId}>
+                {option.title}
+              </option>
+            ))}
+          </select>
+          <select
+            name="support"
+            onChange={handleSupportClass}
+            className={support}>
+            <option value={Support.NEUTRAL}>Neutral</option>
+            <option value={Support.SUPPORT}>Support</option>
+            <option value={Support.OPPOSE}>Oppose</option>
+          </select>
+        </div>
+        <div className="inputBox">
+          <textarea required name="board_input" className={support}></textarea>
+          <button>
+            <span className="material-symbols-outlined">send</span>
+          </button>
+        </div>
+      </form>
+    </div>
   );
 };
 

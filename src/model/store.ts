@@ -4,13 +4,15 @@ import userReducer from "../features/user/userSlice";
 import councilsReducer from '../features/councils/control/councilsSlice'
 import optionsReducer from "../features/options/control/optionsSlice";
 import  boardsSlice  from "../features/board/control/boardSlice";
+import chatsReducer from '../features/chat/control/chatSlice'
 
 export const store = configureStore({
   reducer: {
     user: userReducer,
     councils: councilsReducer,
     options: optionsReducer,
-    boards:boardsSlice
+    boards:boardsSlice,
+    chats:chatsReducer
   },
 });
 

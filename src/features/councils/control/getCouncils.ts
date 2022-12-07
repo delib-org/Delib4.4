@@ -1,11 +1,11 @@
-import { collection, onSnapshot, orderBy, query } from "firebase/firestore";
+import { collection, onSnapshot, orderBy, query, limit } from "firebase/firestore";
 import { DB } from "../../../control/firebase/config";
 import { Collections } from "../../../control/firebase/dbModel";
 
 export function listenToCouncils(setState: Function): Function {
   try {
     const councilsRef = collection(DB, Collections.COUNSILS);
-    const q = query(councilsRef, orderBy("lastAction"));
+    const q = query(councilsRef, orderBy("lastAction"), limit(20));
     return onSnapshot(q, (councilsDB) => {
       councilsDB.forEach((councilDB) => {
         if (councilDB.exists()) {

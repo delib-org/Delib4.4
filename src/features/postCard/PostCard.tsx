@@ -7,6 +7,7 @@ import { setVote } from "../selections/votes/setVote";
 import { selectUser } from "../user/userSlice";
 import { fromTextToArray } from "../../control/helpers";
 import Bold from "../../view/components/Bold";
+import { Link } from "react-router-dom";
 
 interface PostCardProps {
   post: Post;
@@ -57,8 +58,10 @@ const PostCard: FC<PostCardProps> = ({ post }) => {
             }
             style={{ background: `${option.color}` }}
             onClick={handleSetVote}>
-            {option.title}
+            {option.title}----aaaaaaaaa
           </div>
+          xjfkghskdjgjskgjklsj lks djglskjgd
+          <Link to={`/council/${post.councilId}/chat/${post.postId}`}><div className="more">Read more...</div></Link>
         </div>
       ) : null}
       <div className="postCard__time">{moment(post.time).fromNow()}</div>

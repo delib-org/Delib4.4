@@ -29,20 +29,5 @@
     }
   }
 
-  form {
-    box-shadow: 0px 0px 3px #0000002e;
-    border-radius: 10px 10px 0px 0px;
-    padding: 5px;
-    background-color: $background;
-  }
-  &__input {
-    display: flex;
-
-    textarea {
-      flex: auto;
-    }
-    button {
-      border: none;
-    }
-  }
+  
 }

@@ -1,41 +1,65 @@
-input, textarea{
-    padding: $padding;
-    font-family: Arial, Helvetica, sans-serif;
-    border-radius: 10px;
-    border:none;
-    border-bottom: 1px solid gray;
-    background-color: $inputColor;
-    margin: 5px;
+input,
+textarea {
+  padding: $padding;
+  font-family: Arial, Helvetica, sans-serif;
+  border-radius: 10px;
+  border: none;
+  border-bottom: 1px solid gray;
+  background-color: $inputColor;
+  margin: 5px;
 }
 
-select, .select{
-    padding: 5px;
+select,
+.select {
+  padding: 5px;
+  border-radius: 100px;
+  border: none;
+  background-color: #eeeeee;
+}
+
+.textInput {
+  display: flex;
+  align-items: center;
+  textarea {
+    flex: auto;
+    border: none;
+    padding: 10px;
+    height: 4rem;
+  }
+  button {
+    width: 50px;
+    height: 50px;
     border-radius: 100px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     border: none;
     background-color: #eeeeee;
+    span {
+      position: relative;
+      left: 3px;
+    }
+  }
 }
 
-.textInput{
+.chat {
+  form {
+    box-shadow: 0px 0px 3px #0000002e;
+    border-radius: 10px 10px 0px 0px;
+    padding: 5px;
+    background-color: $background;
+  }
+
+  .inputBox {
     display: flex;
+    width: 100%;
     align-items: center;
-    textarea{
-        flex:auto;
-        border:none;
-        padding: 10px;
-        height: 4rem;
+
+    textarea {
+      flex: auto;
     }
-    button{
-        width: 50px;
-        height: 50px;
-        border-radius: 100px;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        border: none;
-        background-color: #eeeeee;
-        span{
-            position: relative;
-            left: 3px;
-        }
+    button {
+      border: none;
     }
+  }
 }
