@@ -40,7 +40,7 @@ const router = createBrowserRouter([
         path: "/council/:councilId/:section",
         element: <CouncilPage />,
       },
-      {path: "/council/:councilId/chat/:boardMessageId", element: <Chat />},
+      {path: "/council/:councilId/chat/:postId", element: <Chat />},
       {
         path: "",
         element: <Login />,

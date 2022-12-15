@@ -14,7 +14,6 @@ interface PostCardProps {
 }
 
 const PostCard: FC<PostCardProps> = ({ post }) => {
-
   const user = useAppSelector(selectUser);
   const option = useAppSelector((state) =>
     state.options.options.find(
@@ -43,7 +42,9 @@ const PostCard: FC<PostCardProps> = ({ post }) => {
           </p>
         ))}
       </div>
-
+      <Link to={`/council/${post.councilId}/chat/${post.postId}`}>
+        <div className="more">Read more...</div>
+      </Link>
       {option && post.option ? (
         <div className="postCard__support">
           <span className={`postCard__support__span ${supportClass}`}>
@@ -58,10 +59,8 @@ const PostCard: FC<PostCardProps> = ({ post }) => {
             }
             style={{ background: `${option.color}` }}
             onClick={handleSetVote}>
-            {option.title}----aaaaaaaaa
+            {option.title}
           </div>
-          xjfkghskdjgjskgjklsj lks djglskjgd
-          <Link to={`/council/${post.councilId}/chat/${post.postId}`}><div className="more">Read more...</div></Link>
         </div>
       ) : null}
       <div className="postCard__time">{moment(post.time).fromNow()}</div>

@@ -5,7 +5,7 @@ import { User, UserJoi } from "../../user/userModel";
 export interface ChatMessage{
     chatMessageId?:string,
     councilId:string,
-    boardMessageId:string,
+    postId:string,
     text:string,
     creator:User,
     time?:number,
@@ -15,7 +15,7 @@ export interface ChatMessage{
 export const chatMessageJoi = Joi.object({
     chatMessageId:Joi.string().required(),
     councilId:Joi.string().required(),
-    boardMessageId:Joi.string().required(),
+    postId:Joi.string().required(),
     text:Joi.string().required(),
     creator:UserJoi,
     time:Joi.number().required(),
