@@ -2,7 +2,6 @@ import Joi from "joi";
 import { setDoc, doc } from "firebase/firestore";
 import { DB } from "../../control/firebase/config";
 import { Collections } from "../../control/firebase/dbModel";
-import { MessagingIntensity } from "../messages/messagingModel";
 import { Council } from "./councilModel";
 import { User, UserJoi } from "../user/userModel";
 

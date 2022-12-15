@@ -1,5 +1,3 @@
-import { func } from "joi";
-import { FC } from "react";
 
 export function updateArray(
   currentArray: Array<any>,

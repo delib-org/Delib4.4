@@ -22,6 +22,7 @@ import { Post } from "../board/model/postModel";
 import { setPost } from "../board/control/boardSlice";
 import { listenToPosts } from "../board/control/postsDB";
 import { setRegisterToPushNotifications } from "../messages/messaging";
+import Header from "../../view/components/Header";
 
 let unsubscribePosts = () => {};
 let unsubscribeCouncil: Function = () => {};
@@ -59,14 +60,7 @@ const CouncilPage = () => {
     setShowAddOption(showModal);
   }
 
-  function handleShare() {
-    const shareData = {
-      title: "Delib",
-      text: `Please join me on voting on the question "${council?.title}"`,
-      url: window.location.href,
-    };
-    navigator.share(shareData);
-  }
+  
 
   useEffect(() => {
     if (councilId && user) {
@@ -105,17 +99,7 @@ const CouncilPage = () => {
   return (
     <div className="page council">
       <div className="head">
-        <header>
-          <Link to="/main">
-            <div className="headerBtn">
-              <span className="material-symbols-outlined">arrow_back</span>
-            </div>
-          </Link>
-          <h1>{council?.title}</h1>
-          <div className="headerBtn--circle" onClick={handleShare}>
-            <span className="material-symbols-outlined">share</span>
-          </div>
-        </header>
+      <Header title={council?.title} back={'main'} />
         <article>{council?.description}</article>
         <CouncilMenu />
       </div>

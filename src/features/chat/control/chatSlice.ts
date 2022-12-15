@@ -29,7 +29,13 @@ export const chatSlice = createSlice({
 export const { setChatMessage } = chatSlice.actions;
 
 export const selectChats = (state: RootState) => state.chats.chats;
-export const selectChatsByPostId = (postId: string|undefined) => (state: RootState) =>
-  state.chats.chats.filter((msg) => msg.postId === postId);
+export const selectChatsByPostId =
+  (postId: string | undefined) => (state: RootState) =>
+    state.chats.chats
+      .filter((msg) => msg.postId === postId)
+      .sort((a, b) => {
+        if (a.time && b.time) return a.time - b.time
+        else return 0
+      });
 
 export default chatSlice.reducer;

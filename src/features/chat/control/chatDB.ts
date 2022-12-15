@@ -5,7 +5,10 @@ import {
   query,
   setDoc,
   where,
+  orderBy,
+  limit,
 } from "firebase/firestore";
+import { sortBy } from "lodash";
 import { DB } from "../../../control/firebase/config";
 import { ChatMessage, chatMessageJoi } from "../model/chatModel";
 import { chatEmitter, ChatEvents } from "./chatEmitter";
@@ -30,8 +33,14 @@ export function listenToChatMessages(postId: string | undefined): Function {
   try {
     if (!postId) return () => {};
 
-    const postRef = collection(DB, "chatMessages");
-    const q = query(postRef, where("postId", "==", postId));
+    const chatMessagesRef = collection(DB, "chatMessages");
+    const q = query(
+      chatMessagesRef,
+      where("postId", "==", postId),
+      orderBy("time", "desc"),
+      limit(20)
+    );
+
     return onSnapshot(q, (postsDB) => {
       postsDB.docChanges().forEach((change) => {
         try {

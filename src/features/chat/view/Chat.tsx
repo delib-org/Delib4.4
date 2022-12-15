@@ -7,11 +7,14 @@ import { addChatMessageToDB, listenToChatMessages } from "../control/chatDB";
 import { selectChatsByPostId, setChatMessage } from "../control/chatSlice";
 import { ChatMessage } from "../model/chatModel";
 import ChatMessageCard from "./ChatMessageCard";
+import Header from "../../../view/components/Header";
+import { selectPost } from "../../board/control/boardSlice";
 
 const Chat = () => {
   const dispatch = useAppDispatch();
   const user = useAppSelector(selectUser);
   const { councilId, postId } = useParams();
+  const post = useAppSelector(selectPost(postId));
   const messages = useAppSelector(selectChatsByPostId(postId));
   console.log(messages);
 
@@ -47,6 +50,7 @@ const Chat = () => {
 
   return (
     <div className="chat">
+      <Header back={`council/${post?.councilId}/board`}title={post?.text} />
       <div className="wrapper">
         <div className="chatMessages">
           {messages.map(msg=><ChatMessageCard key={msg.chatMessageId} message={msg}/>)}

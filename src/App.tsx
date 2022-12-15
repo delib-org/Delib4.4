@@ -2,7 +2,6 @@ import { useEffect } from "react";
 
 import "./App.css";
 import { Outlet, useLocation } from "react-router-dom";
-import { useDispatch } from "react-redux";
 import { setLastNavigation, setUser } from "./features/user/userSlice";
 import { listenToAuth, signInAnonym } from "./features/signin/signin";
 import {

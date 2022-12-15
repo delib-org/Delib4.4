@@ -3,6 +3,7 @@ import type { PayloadAction } from "@reduxjs/toolkit";
 
 import { updateArray } from "../../../control/helpers";
 import { Post, PostJoi } from "../model/postModel";
+import { RootState } from "../../../model/store";
 
 export interface BoardsState {
   posts: Array<Post>;
@@ -31,6 +32,6 @@ export const boardsSlice = createSlice({
 
 export const { setPost } = boardsSlice.actions;
 
-
+export const selectPost = (postId:string|undefined)=>(state:RootState)=>state.boards.posts.find(post=>post.postId === postId);
 
 export default boardsSlice.reducer;
