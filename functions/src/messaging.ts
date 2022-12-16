@@ -5,11 +5,10 @@ import { db } from "./index";
 export const pushNotificationNewOption = functions.firestore
   .document("councils/{councilId}/options/{optionId}")
   .onCreate(async (snap, context) => {
-    console.log("A new option was created");
+  
 
     const { councilId } = context.params;
-    // console.log(councilId, optionId);
-    // console.log(snap.data())
+ 
     const { councilTitle, title } = snap.data();
 
     //get all registerd high and medium;

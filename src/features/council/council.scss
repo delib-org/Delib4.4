@@ -1,16 +1,6 @@
 .council {
   min-height: 100vh;
-  header {
-    .description {
-      overflow: hidden;
-      text-overflow: ellipsis;
-      display: -webkit-box;
-      -webkit-line-clamp: 2; /* number of lines to show */
-      line-clamp: 2;
-      -webkit-box-orient: vertical;
-      padding: $padding;
-    }
-  }
+
   article {
     max-height: 100px;
     overflow-y: auto;

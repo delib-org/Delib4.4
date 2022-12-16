@@ -7,7 +7,7 @@ interface HeaderProps {
 }
 
 const Header: FC<HeaderProps> = ({ title, back }) => {
-    console.log('back',back)
+    
   function handleShare() {
     const shareData = {
       title: "Delib",

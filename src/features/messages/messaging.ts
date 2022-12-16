@@ -11,9 +11,9 @@ export enum PermmisionAction {
 }
 
 export function listenToPushNotifications() {
-  console.log("listening to messages");
+
   onMessage(messaging, (payload) => {
-    console.log("Message received. ", payload);
+   
     // ...
   });
 }
@@ -24,7 +24,7 @@ export function saveTokenToSessionStorage() {
       "BOXKnicJW5Cu3xwRG7buXf-JU8tS-AErJX_Ax7CsUwqZQvBvo2E-ECnE-uGvUKcgeL-1nT-cJw8qGo4dH-zrfGA",
   })
     .then((token: string) => {
-      console.log("token:", token);
+    
       sessionStorage.setItem("token", token);
     })
     .catch((e) => console.error(e));
@@ -32,7 +32,7 @@ export function saveTokenToSessionStorage() {
 
 export async function requestPermission() {
   try {
-    console.log("Requesting permission...");
+  
     if (!("Notification" in window)) {
       alert(
         "To use this app, please use a different browser which support push-notifications"

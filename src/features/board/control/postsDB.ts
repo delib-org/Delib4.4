@@ -27,6 +27,7 @@ export async function addPostToDB(post: Post) {
 
 export function listenToPosts(councilId: string, addPostAsync: Function) {
   try {
+   
     const postsRef = collection(DB, "posts");
     const q = query(
       postsRef,

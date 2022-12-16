@@ -22,10 +22,9 @@ const AddCouncil = () => {
       ev.preventDefault();
       let { title, description } = ev.target.elements;
       title = title.value;
-      description = description.value;
+      description = description.value ||'';
 
-      if (!title || !description)
-        throw new Error("Some data is missing in add council form");
+     
       const councilId = uuidv4();
       const defaultOptionsView: OptionsView = OptionsView.BARS;
 
@@ -56,7 +55,7 @@ const AddCouncil = () => {
   return (
     <div>
       <form onSubmit={handleAddCouncil}>
-        <input type="text" name="title" placeholder="Council title" />
+        <input type="text" name="title" placeholder="Council title" required />
         <textarea name="description" placeholder="Add description" />
         <button>ADD</button>
       </form>

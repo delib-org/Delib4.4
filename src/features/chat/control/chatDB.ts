@@ -48,7 +48,6 @@ export function listenToChatMessages(postId: string | undefined): Function {
           if (error) throw error;
 
           if (change.type === "added") {
-            console.log("New city: ", change.doc.data());
             chatEmitter.emit(
               ChatEvents.CHAT_CHANGE_MESSEGE,
               "added",
@@ -56,11 +55,9 @@ export function listenToChatMessages(postId: string | undefined): Function {
             );
           }
           if (change.type === "modified") {
-            console.log("Modified city: ", change.doc.data());
             chatEmitter.emit(ChatEvents.CHAT_CHANGE_MESSEGE, "modified");
           }
           if (change.type === "removed") {
-            console.log("Removed city: ", change.doc.data());
             chatEmitter.emit(ChatEvents.CHAT_CHANGE_MESSEGE, "removed");
           }
         } catch (error) {

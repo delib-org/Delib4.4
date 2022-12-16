@@ -1,23 +1,25 @@
-.chatMessages {
-    display: flex;
-    flex-direction: column;
-    gap:15px;
-  .chatMessage {
-    background-color: beige;
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-    border-radius: 10px;
-    &__name{
-       text-align: left;
-       padding: 5px;
-    }
-    &__text{
-        text-align: left;
-        font-weight: 600;
-    }
-    &__time{
-        text-align: right;
-    }
+.chatMessage {
+  background-color: beige;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  border-radius: 10px;
+  padding: 20px;
+  position: relative;
+  &__name {
+    text-align: left;
+   margin-bottom: 5px;
+   position: relative;
+   top:-5px;
+  }
+  &__text {
+    text-align: left;
+    font-weight: 600;
+  }
+  &__time {
+    text-align: right;
+  }
+  &--creator{
+    background-color: aliceblue;
   }
 }

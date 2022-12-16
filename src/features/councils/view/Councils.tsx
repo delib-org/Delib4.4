@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../../../model/hooks";
+import Scrollable from "../../../view/components/scrolable/Scrolable";
 import { selectCouncils, updateCouncil } from "../control/councilsSlice";
 import { listenToCouncils } from "../control/getCouncils";
 import CouncilCard from "./CouncilCard";
@@ -24,18 +25,21 @@ const Councils = () => {
   }, []);
 
   return (
-    <div className="main">
-       <div className="fav--main">+</div>
+    <div className="page main">
       <h1>Main</h1>
-      <div className="wrapper">
-    
-        {councils.map((council) => (
-          <CouncilCard key={council.councilId} council={council} />
-        ))}
+
+      <main>
+        <div className="wrapper">
+          {councils.map((council) => (
+            <CouncilCard key={council.councilId} council={council} />
+          ))}
+        </div>
+      </main>
+
+      <div className="bottomNav">
         <Link to="/main/add-council">
           <button>ADD Consultation</button>
         </Link>
-        <Link to="/main/add-council"></Link>
       </div>
     </div>
   );
