@@ -6,9 +6,10 @@ import { ChatMessage } from "../model/chatModel";
 
 interface ChatMessageCardProps {
   message: ChatMessage;
+  isTheSameCreaotr:boolean
 }
 
-const ChatMessageCard: FC<ChatMessageCardProps> = ({ message }) => {
+const ChatMessageCard: FC<ChatMessageCardProps> = ({ message,isTheSameCreaotr }) => {
   const user = useAppSelector(selectUser);
   const [isCreator, setIsCreator] = useState<boolean>(false);
 
@@ -20,8 +21,9 @@ const ChatMessageCard: FC<ChatMessageCardProps> = ({ message }) => {
 
   return (
     <div
+    style={isTheSameCreaotr?{marginBottom:'0px'}:{marginBottom:'10px'}}
       className={
-        isCreator ? "chatMessage chatMessage--creator" : "chatMessage"
+        isCreator ? "chatMessage chatMessage--creator" : "chatMessage chatMessage--others"
       }>
       <div className="chatMessage__name">
         {message.creator.displayName || "Anonymus"}

@@ -6,11 +6,14 @@
   border-radius: 10px;
   padding: 20px;
   position: relative;
+  width: 90%;
+  min-width: 300px;
+
   &__name {
     text-align: left;
-   margin-bottom: 5px;
-   position: relative;
-   top:-5px;
+    margin-bottom: 5px;
+    position: relative;
+    top: -5px;
   }
   &__text {
     text-align: left;
@@ -19,7 +22,44 @@
   &__time {
     text-align: right;
   }
-  &--creator{
+  &--creator {
+    background: #f6f5dc;
+
+    align-self: flex-end;
+    @media only screen and (max-width: 500px) {
+      right: 25px;
+    }
+    &::before {
+      content: "";
+      display: inline-block;
+      width: 3rem;
+      height: 2rem;
+      background: #f6f5dc;
+      position: absolute;
+      right: 8rem;
+      right: calc(-5% - 0.5rem);
+      clip-path: polygon(0 0, 0 100%, 60% 0%);
+      @media only screen and (max-width: 500px) {
+        right: calc(-9% - 0.5rem);
+      }
+    }
+  }
+  &--others {
     background-color: aliceblue;
+
+    @media only screen and (max-width: 500px) {
+      left: 15px;
+    }
+    &::after {
+      content: "";
+      display: inline-block;
+      width: 3rem;
+      height: 2rem;
+      background: #f0f8ff;
+      position: absolute;
+      right: 8rem;
+      left: calc(-2% - 0.5rem);
+      clip-path: polygon(0 0, 50% 0, 50% 100%);
+    }
   }
 }

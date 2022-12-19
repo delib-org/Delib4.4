@@ -12,6 +12,7 @@ import { selectPost, setPost } from "../../board/control/boardSlice";
 import { listenToPosts } from "../../board/control/postsDB";
 import { Post } from "../../board/model/postModel";
 import Scrollable from "../../../view/components/scrolable/Scrolable";
+import { User } from "../../user/userModel";
 
 const Chat = () => {
   const [isFirstScroll, setIsFirstScroll] = useState<boolean>(true);
@@ -80,15 +81,17 @@ const Chat = () => {
     addChatMessageToDB(message);
     ev.target.reset();
   }
-
+let prevoiusCtreator:User|null;
   return (
     <div className="page chat">
       <Header back={`council/${post?.councilId}/board`} title={post?.text} />
       <Scrollable numberOfChildren={messages.length}>
         <>
-          {messages.map((msg) => (
-            <ChatMessageCard key={msg.chatMessageId} message={msg} />
-          ))}
+          {messages.map((msg) => {
+            let isTheSameCreaotr:boolean = false;
+            if(prevoiusCtreator && prevoiusCtreator.uid === msg.creator.uid) isTheSameCreaotr = true;
+            return <ChatMessageCard key={msg.chatMessageId} message={msg} isTheSameCreaotr={isTheSameCreaotr} />;
+          })}
         </>
       </Scrollable>
 
