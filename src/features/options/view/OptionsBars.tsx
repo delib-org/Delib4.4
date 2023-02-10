@@ -76,7 +76,6 @@ const OptionsBars: FC<OptionsBarsProps> = ({
 
   return (
     <div className="optionsBar">
-      <h3>OptionsBars</h3>
       <p>Total Votes:{maxVotes}</p>
       <div className="fav" onClick={() => handleShowAddOption(true)}>
         +
