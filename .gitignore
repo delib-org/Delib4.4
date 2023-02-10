@@ -13,3 +13,4 @@ build/
 
 
 configFirebase.ts
+.DS_Store
