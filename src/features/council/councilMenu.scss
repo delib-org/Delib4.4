@@ -21,4 +21,16 @@
            
         }
     }
+    &__text{
+        display: flex;
+        align-items: center;
+        &__text{
+            padding: 2px;
+
+        }
+        &__icon{
+            padding: 2px;
+            opacity: .6;
+        }
+    }
 }
