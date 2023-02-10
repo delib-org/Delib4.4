@@ -38,6 +38,7 @@ html {
   margin: 0px;
   //   font-family: "Assistant", sans-serif;
   font-family: "Quicksand", sans-serif;
+  // direction: rtl;
 }
 h1 {
   color: $h1;
@@ -88,7 +89,7 @@ div {
   }
   .head {
     background-color: $background;
-    border-radius: 0px 0px 20px 20px;
+   
     box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.516);
     margin-bottom: 7px;
   }

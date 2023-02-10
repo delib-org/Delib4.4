@@ -23,7 +23,7 @@ const CouncilMenu = () => {
             ? "councilMenu__btn councilMenu__btn--selected"
             : "councilMenu__btn"
         }>
-        BOARD
+        DISCUSSION
       </Link>
     </div>
   );
