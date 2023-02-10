@@ -2,7 +2,7 @@ import { FC } from "react";
 import { Post, PostOption, Support } from "../board/model/postModel";
 import moment from "moment";
 import { useAppSelector } from "../../model/hooks";
-import { SupportClass } from "../board/view/BoardInput";
+import { SupportClass } from "../board/view/AddOpinion";
 import { setVote } from "../selections/votes/setVote";
 import { selectUser } from "../user/userSlice";
 import { fromTextToArray } from "../../control/helpers";
@@ -35,6 +35,25 @@ const PostCard: FC<PostCardProps> = ({ post }) => {
 
   return (
     <div className="postCard">
+      {option && post.option ? (
+        <div className="postCard__support">
+          <span>מכתב זה</span>
+          <span className={`postCard__support__span ${supportClass}`}>
+            {translateSupport(post.option.support).word}
+          </span>
+          <span>{translateSupport(post.option.support).prefix}- </span>
+          <div
+            className={
+              option.userVotedOption
+                ? `postCard__support__btn postCard__support__btn--voted btn`
+                : `postCard__support__btn btn`
+            }
+            style={{ background: `${option.color}` }}
+            onClick={handleSetVote}>
+            <span>{option.title}</span>
+          </div>
+        </div>
+      ) : null}
       <div className={`postCard__text`}>
         {fromTextToArray(post.text).map((prg, i) => (
           <p key={`${post.postId}-${i}`}>
@@ -45,24 +64,7 @@ const PostCard: FC<PostCardProps> = ({ post }) => {
       <Link to={`/council/${post.councilId}/chat/${post.postId}`}>
         <div className="more">Read more...</div>
       </Link>
-      {option && post.option ? (
-        <div className="postCard__support">
-          <span className={`postCard__support__span ${supportClass}`}>
-            {" "}
-            {post.option.support}
-          </span>
-          <div
-            className={
-              option.userVotedOption
-                ? `postCard__support__btn postCard__support__btn--voted btn`
-                : `postCard__support__btn btn`
-            }
-            style={{ background: `${option.color}` }}
-            onClick={handleSetVote}>
-            {option.title}
-          </div>
-        </div>
-      ) : null}
+
       <div className="postCard__time">{moment(post.time).fromNow()}</div>
     </div>
   );
@@ -86,5 +88,23 @@ function getSupportClass(option: PostOption | undefined) {
   } catch (error) {
     console.error(error);
     return SupportClass.NEUTRAL;
+  }
+}
+
+function translateSupport(support: Support): { word: string; prefix: string } {
+  try {
+    switch (support) {
+      case Support.OPPOSE:
+        return { word: "מתנגד", prefix: "ל" };
+      case Support.SUPPORT:
+        return { word: "תומך", prefix: "ב" };
+      case Support.NEUTRAL:
+        return { word: "נמנע", prefix: "ב" };
+      default:
+        return { word: "", prefix: "" };
+    }
+  } catch (error) {
+    console.error(error);
+    return { word: "", prefix: "" };
   }
 }

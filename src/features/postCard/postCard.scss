@@ -1,13 +1,20 @@
 .postCard {
-  
+  direction: $direction;
   background-color: white;
-  border-bottom: 1px solid #e1e1e1;
+  border: 1px solid #e1e1e1;
+  border-radius: 5px;
+  padding: $padding;
+  box-sizing: border-box;
 
   &__support{
     display: flex;
     align-items: center;
     gap:10px;
     padding: 5px;
+   
+    span{
+      color:#ababab;
+    }
     &__span{
         padding: 5px;
         border-radius: calc($border-radius/2);
@@ -25,9 +32,12 @@
     }
   }
 
-
-  &__text {
+  .more{
     text-align: left;
+  }
+
+  &__text{
+text-align: right;
   }
 
   &__time {

@@ -7,10 +7,12 @@ import { RootState } from "../../../model/store";
 
 export interface BoardsState {
   posts: Array<Post>;
+  showAddPost:boolean;
 }
 
 const initialState: BoardsState = {
   posts: [],
+  showAddPost:false
 };
 
 export const boardsSlice = createSlice({
@@ -27,11 +29,19 @@ export const boardsSlice = createSlice({
         console.error(error);
       }
     },
+    showAddPost:(state,action:PayloadAction<boolean>)=>{
+      try {
+        state.showAddPost = action.payload
+      } catch (error) {
+        console.error(error);
+      }
+    }
   },
 });
 
-export const { setPost } = boardsSlice.actions;
+export const { setPost,showAddPost} = boardsSlice.actions;
 
 export const selectPost = (postId:string|undefined)=>(state:RootState)=>state.boards.posts.find(post=>post.postId === postId);
+export const selectShowAddPost = (state:RootState)=>state.boards.showAddPost;
 
 export default boardsSlice.reducer;

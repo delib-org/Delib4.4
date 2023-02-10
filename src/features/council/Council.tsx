@@ -16,13 +16,14 @@ import { selectUser } from "../user/userSlice";
 import AddOption from "../options/view/AddOption";
 import { registerToCouncil } from "./setCouncilsDB";
 import { MessagingIntensity } from "../messages/messagingModel";
-import Board from "../board/view/Board";
+import Board from "../board/view/Discussion";
 import CouncilMenu from "./CouncilMenu";
 import { Post } from "../board/model/postModel";
-import { setPost } from "../board/control/boardSlice";
+import { selectShowAddPost, setPost } from "../board/control/boardSlice";
 import { listenToPosts } from "../board/control/postsDB";
 import { setRegisterToPushNotifications } from "../messages/messaging";
 import Header from "../../view/components/Header";
+import AddOpinion from "../board/view/AddOpinion";
 
 let unsubscribePosts = () => {};
 let unsubscribeCouncil: Function = () => {};
@@ -33,6 +34,7 @@ let token = sessionStorage.getItem("token") || "";
 const CouncilPage = () => {
   const [showAddOption, setShowAddOption] = useState<boolean>(false);
   const user = useAppSelector(selectUser);
+  const showAddPost = useAppSelector(selectShowAddPost);
   const dispatch = useAppDispatch();
   const { councilId, section } = useParams();
   const council = useAppSelector((state) =>
@@ -114,6 +116,7 @@ const CouncilPage = () => {
         />
       ) : null}
       <footer></footer>
+      {showAddPost?<AddOpinion />:null}
     </div>
   );
 
