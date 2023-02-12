@@ -38,9 +38,11 @@ const PostCard: FC<PostCardProps> = ({ post }) => {
       {option && post.option ? (
         <div className="postCard__support">
           <span>מכתב זה</span>
+          <div className={`postCard__support--${post.option.support}`}>
           <span className={`postCard__support__span ${supportClass}`}>
             {translateSupport(post.option.support).word}
           </span>
+          </div>
           <span>{translateSupport(post.option.support).prefix}- </span>
           <div
             className={
@@ -51,6 +53,10 @@ const PostCard: FC<PostCardProps> = ({ post }) => {
             style={{ background: `${option.color}` }}
             onClick={handleSetVote}>
             <span>{option.title}</span>
+            <span>{option.userVotedOption ? "✓" : ""}</span>
+          </div>
+          <div className="postCard__count" style={{ background: `${option.color}` }}>
+          {option.votes} {option.votes === 1 ? "בעד" : "בעד"}
           </div>
         </div>
       ) : null}

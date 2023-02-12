@@ -4,7 +4,7 @@ import { useParams } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../../../model/hooks";
 import { selectUser } from "../../user/userSlice";
 import { addPostToDB } from "../control/postsDB";
-import { setPost } from "../control/boardSlice";
+import { setPost, showAddPost } from "../control/boardSlice";
 import { Post, Support } from "../model/postModel";
 
 export enum SupportClass {
@@ -65,6 +65,7 @@ const AddOpinion = () => {
       dispatch(setPost(post));
       addPostToDB(post);
       setSupport(SupportClass.NEUTRAL);
+      dispatch(showAddPost(false));
       ev.target.reset();
     } catch (error) {
       console.error(error);
