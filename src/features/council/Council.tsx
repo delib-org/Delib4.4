@@ -31,6 +31,9 @@ let unsubscribeOptions: Function = () => {};
 let unsubscribeVote: Function = () => {};
 let token = sessionStorage.getItem("token") || "";
 
+
+
+
 const CouncilPage = () => {
   const [showAddOption, setShowAddOption] = useState<boolean>(false);
   const user = useAppSelector(selectUser);
@@ -62,7 +65,12 @@ const CouncilPage = () => {
     setShowAddOption(showModal);
   }
 
-  
+  useEffect(()=>{
+    console.log(window.innerWidth, 'first')
+    window.onresize = ()=>{
+      console.log(window.innerWidth)
+    }
+  },[])
 
   useEffect(() => {
     if (councilId && user) {
@@ -106,7 +114,11 @@ const CouncilPage = () => {
         <CouncilMenu />
       </div>
       <main>
-        <div className="wrapper">{councilId ? switchType(section) : null}</div>
+        <div className="wrappe">{councilId ?
+        <div className="council__panels"> 
+          {switchType(section)}
+          <div className="council__panels__board"> <Board /></div>
+          </div> : null}</div>
       </main>
       {council ? (
         <AddOption

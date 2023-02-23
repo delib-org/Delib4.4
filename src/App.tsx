@@ -34,13 +34,13 @@ function App() {
     );
 
     // Navigator.setAppBadge(12);
-    if ("setAppBadge" in navigator) {
-      console.log("a badge in app");
-      //@ts-ignore
-      // navigator.setAppBadge(12);
-    } else {
-      console.log("no badge in app");
-    }
+    // if ("setAppBadge" in navigator) {
+    //   console.info("a badge in app");
+    //   //@ts-ignore
+    //   // navigator.setAppBadge(12);
+    // } else {
+    //   console.info("no badge in app");
+    // }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   return (
