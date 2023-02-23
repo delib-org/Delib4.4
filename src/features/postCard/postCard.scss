@@ -1,0 +1,56 @@
+.postCard {
+  direction: $direction;
+  background-color: white;
+  border: 1px solid #e1e1e1;
+  border-radius: 5px;
+  padding: $padding;
+  box-sizing: border-box;
+
+  &__support{
+    display: flex;
+    align-items: center;
+    gap:10px;
+    padding: 5px;
+   &--support{
+    background-color: #a4ffa4;
+   }
+
+   &--oppose{
+    background-color: #ffbfbf;
+   }
+
+    span{
+      color:#ababab;
+    }
+    &__span{
+        padding: 5px;
+        border-radius: calc($border-radius/2);
+    }
+    &__btn{
+        background-color: olive;
+        border:none !important;
+        padding: 5px !important;
+        user-select: none;
+        cursor: pointer;
+
+        &--voted{
+            box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.556);
+        }
+    }
+  }
+
+  .more{
+    text-align: left;
+  }
+
+  &__text{
+text-align: right;
+  }
+
+  &__time {
+    font-size: 0.7rem;
+    padding-bottom: 5px;
+    padding-right: 5px;
+    text-align: right;
+  }
+}

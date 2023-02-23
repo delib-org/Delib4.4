@@ -1,13 +1,17 @@
-import { FC, useEffect, useState } from "react";
-import { randomizeArray } from "../../../control/helpers";
+import { FC } from "react";
+
 import { useAppDispatch, useAppSelector } from "../../../model/hooks";
-import { orderSelector, reorderCouncilOptions, updateOrder } from "../control/optionsSlice";
-import { OptionProps, Order } from "../model/optionModel";
+import {
+  orderSelector,
+  reorderCouncilOptions,
+  updateOrder,
+} from "../control/optionsSlice";
+import { Order } from "../model/optionModel";
 
 import OptionColumn from "./OptionColumn";
 // import OptionInfo from "./OptionInfo";
 interface OptionsBarsProps {
-  counsilId: string;
+  councilId: string;
   handleShowAddOption: Function;
 }
 
@@ -23,16 +27,15 @@ const optionsAnim: OptionsAnim = { totalWidth: 0, options: [] };
 const barWidth = 120;
 
 const OptionsBars: FC<OptionsBarsProps> = ({
-  counsilId,
+  councilId,
   handleShowAddOption,
 }) => {
   const dispatch = useAppDispatch();
-  const [orderBy, setOrder] = useState<Order>(Order.RANDOM);
   // const [optionsAnim,setOptionsAnim] = useState<OptionsAnim>({totalWidth:0, options:[]});
   // const [width, setWidth] = useState<number>(0);
 
   const options = useAppSelector((state) =>
-    state.options.options.filter((option) => option.counsilId === counsilId)
+    state.options.options.filter((option) => option.councilId === councilId)
   );
   const order = useAppSelector(orderSelector);
 
@@ -41,10 +44,11 @@ const OptionsBars: FC<OptionsBarsProps> = ({
   function handleOrder(order: Order) {
     try {
       dispatch(updateOrder(order));
-      dispatch(reorderCouncilOptions({ counsilId, sortBy: order }));
+      dispatch(reorderCouncilOptions({ councilId, sortBy: order }));
     } catch (error) {
       console.error(error);
-      setOrder(Order.RANDOM);
+    
+      dispatch(updateOrder(Order.RANDOM));
     }
   }
 
@@ -72,7 +76,6 @@ const OptionsBars: FC<OptionsBarsProps> = ({
 
   return (
     <div className="optionsBar">
-      <h3>OptionsBars</h3>
       <p>Total Votes:{maxVotes}</p>
       <div className="fav" onClick={() => handleShowAddOption(true)}>
         +
@@ -97,16 +100,9 @@ const OptionsBars: FC<OptionsBarsProps> = ({
               optionsAnim={optionsAnim}
               updateWidth={updateWidth}
               maxVotes={maxVotes}
-      
             />
           ))}
 
-        {/* {options.map((option) => (
-          <OptionInfo key={`${option.optionId}-info`} option={option} />
-        ))} */}
-        {/* {options.map((option: OptionProps) => (
-          <OptionBtn key={`${option.optionId}-btn`} option={option} />
-        ))} */}
       </div>
       <div className="bottomNav">
         <div

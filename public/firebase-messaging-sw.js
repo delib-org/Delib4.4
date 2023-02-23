@@ -13,6 +13,8 @@ firebase.initializeApp({
     measurementId: "G-TTDLRSW34L",
 });
 
+navigator.setAppBadge(23);
+
 const isSupported = firebase.messaging.isSupported();
 if (isSupported) {
   const messaging = firebase.messaging();

@@ -2,11 +2,11 @@ import { createSlice } from "@reduxjs/toolkit";
 import type { PayloadAction } from "@reduxjs/toolkit";
 
 import { RootState } from "../../../model/store";
-import { Counsil } from "../../council/councilModel";
+import { Council } from "../../council/councilModel";
 import { updateArray } from "../../../control/helpers";
 
 export interface UserState {
-  councils: Array<Counsil>;
+  councils: Array<Council>;
 }
 
 const initialState: UserState = {
@@ -17,28 +17,28 @@ export const councilsSlice = createSlice({
   name: "councils",
   initialState,
   reducers: {
-    addCouncil: (state, action: PayloadAction<Counsil>) => {
+    addCouncil: (state, action: PayloadAction<Council>) => {
       if (action.payload) {
-        state.councils = [...state.councils, action.payload];
+        state.councils = updateArray(state.councils, action.payload,'councilId');
       }
     },
-    updateCounsil: (state, action: PayloadAction<Counsil>) => {
+    updateCouncil: (state, action: PayloadAction<Council>) => {
       if (action.payload) {
         state.councils = updateArray(
           state.councils,
           action.payload,
-          "counsilId"
+          "councilId"
         );
       }
     },
   },
 });
 
-export const { addCouncil, updateCounsil } = councilsSlice.actions;
+export const { addCouncil, updateCouncil } = councilsSlice.actions;
 
 export const selectCouncils = (state: RootState) => {
-  const counsils = [...state.councils.councils]
-  return counsils.sort((a,b)=> b.lastAction - a.lastAction);
-}
+  const councils = [...state.councils.councils];
+  return councils.sort((a, b) => b.lastAction - a.lastAction);
+};
 
 export default councilsSlice.reducer;

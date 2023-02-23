@@ -1,5 +1,5 @@
 import React, { FC } from 'react';
-import { OptionProps, Order } from '../model/optionModel';
+import { OptionProps } from '../model/optionModel';
 import OptionBar from './OptionBar';
 import OptionBtn from './OptionBtn';
 import { OptionsAnim } from './OptionsBars';

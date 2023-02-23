@@ -1,12 +1,20 @@
 import { OptionsView } from "../options/model/optionModel";
 import { User } from "../user/userModel";
 
-export interface Counsil {
+export interface Council {
   title: string;
-  counsilId:string;
-  description:string;
-  defaultOptionsView:OptionsView;
-  creator:User;
-  color:string;
-  lastAction:number;
+  councilId: string;
+  description: string;
+  defaultOptionsView: OptionsView;
+  creator: User;
+  color: string;
+  lastAction: number;
+  positionA?:Postion;
+  positionB?:Postion;
+  positionMiddle?:Postion
+}
+
+export interface Postion{
+  text:string,
+    result:string
 }

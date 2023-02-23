@@ -1,0 +1,44 @@
+.addOpinion {
+  height: 100vh;
+  width: 100vh;
+  position: fixed;
+  background-color: rgba(128, 128, 128, 0.521);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  &--support {
+    background-color: #7cc67c !important;
+  }
+  &--oppose {
+    background-color: #e4a057 !important;
+  }
+  &__box {
+    background-color: white;
+    border-radius: $border-radius;
+    height: 80%;
+    width: 80%;
+  }
+
+  &__option {
+    direction: $direction;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
+  &__input {
+    display: flex;
+    height: 300px;
+    margin: 10px;
+    padding: 10px;
+    font-size: 1.2rem;
+    text-align: $text-align;
+    outline: none;
+
+    &__textarea{
+        flex:auto;
+        direction: $direction;
+    }
+  }
+}

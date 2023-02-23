@@ -1,4 +1,4 @@
-export interface UserOptionVote{
-    counsilId:string,
-    optionId:string
+export interface UserOptionVote {
+  councilId: string;
+  optionId: string;
 }

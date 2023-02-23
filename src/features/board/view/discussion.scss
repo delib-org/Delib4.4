@@ -1,0 +1,33 @@
+.board {
+  flex: auto;
+  display: flex;
+  flex-direction: column;
+  contain: size;
+
+  &__posts {
+    flex: auto;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+   
+  }
+  .select {
+    &--support {
+      background-color: #a4ffa4;
+    }
+    &--oppose {
+      background-color: #ffbfbf;
+    }
+  }
+
+  &__support {
+    display: flex;
+    justify-content: center;
+    select {
+      margin: 5px;
+    }
+  }
+
+  
+}

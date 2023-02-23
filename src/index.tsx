@@ -13,9 +13,11 @@ import Page404 from "./view/pages/Page404";
 import Login from "./view/pages/login/Login";
 import Main from "./features/main/Main";
 import App from "./App";
-import AddCouncil from "./features/counsils/view/AddCounsil";
-import CounsilPage from "./features/council/Counsil";
-import Counsils from "./features/counsils/view/Counsils";
+import AddCouncil from "./features/councils/view/AddCouncil";
+import CouncilPage from "./features/council/Council";
+import Councils from "./features/councils/view/Councils";
+import Chat from "./features/chat/view/Chat";
+import CouncilWelcome from "./features/councilWelcome/CouncilWelcome";
 
 const router = createBrowserRouter([
   {
@@ -27,14 +29,23 @@ const router = createBrowserRouter([
         path: "/main",
         element: <Main />,
         children: [
-          { path: "", element: <Counsils /> },
-          { path: "add-counsil", element: <AddCouncil /> },
+          { path: "", element: <Councils /> },
+          { path: "add-council", element: <AddCouncil /> },
         ],
       },
       {
-        path: "/counsil/:counsilId",
-        element: <CounsilPage />,
+        path: "/council/:councilId",
+        element: <CouncilPage />,
       },
+      {
+        path: "/council/:councilId/welcome",
+        element: <CouncilWelcome />,
+      },
+      {
+        path: "/council/:councilId/:section",
+        element: <CouncilPage />,
+      },
+      { path: "/council/:councilId/chat/:postId", element: <Chat /> },
       {
         path: "",
         element: <Login />,
