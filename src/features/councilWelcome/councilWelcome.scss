@@ -1,0 +1,30 @@
+.getPosition {
+  direction: $direction;
+  display: flex;
+  flex-direction: column;
+  margin: auto;
+  justify-content: center;
+
+  &__positions {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  &__position {
+    cursor: pointer;
+    user-select: none;
+    padding: 10px;
+    margin: 5px 20px;
+    &--a {
+      background-color: red;
+    }
+
+    &--b {
+      background-color: green;
+    }
+
+    &--m {
+      background-color: yellow;
+    }
+  }
+}

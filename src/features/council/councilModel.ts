@@ -9,4 +9,12 @@ export interface Council {
   creator: User;
   color: string;
   lastAction: number;
+  positionA?:Postion;
+  positionB?:Postion;
+  positionMiddle?:Postion
+}
+
+export interface Postion{
+  text:string,
+    result:string
 }

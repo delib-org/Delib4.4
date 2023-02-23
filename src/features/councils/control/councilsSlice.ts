@@ -19,7 +19,7 @@ export const councilsSlice = createSlice({
   reducers: {
     addCouncil: (state, action: PayloadAction<Council>) => {
       if (action.payload) {
-        state.councils = [...state.councils, action.payload];
+        state.councils = updateArray(state.councils, action.payload,'councilId');
       }
     },
     updateCouncil: (state, action: PayloadAction<Council>) => {

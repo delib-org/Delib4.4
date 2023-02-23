@@ -17,6 +17,7 @@ import AddCouncil from "./features/councils/view/AddCouncil";
 import CouncilPage from "./features/council/Council";
 import Councils from "./features/councils/view/Councils";
 import Chat from "./features/chat/view/Chat";
+import CouncilWelcome from "./features/councilWelcome/CouncilWelcome";
 
 const router = createBrowserRouter([
   {
@@ -34,13 +35,17 @@ const router = createBrowserRouter([
       },
       {
         path: "/council/:councilId",
-        element: <CouncilPage />
+        element: <CouncilPage />,
+      },
+      {
+        path: "/council/:councilId/welcome",
+        element: <CouncilWelcome />,
       },
       {
         path: "/council/:councilId/:section",
         element: <CouncilPage />,
       },
-      {path: "/council/:councilId/chat/:postId", element: <Chat />},
+      { path: "/council/:councilId/chat/:postId", element: <Chat /> },
       {
         path: "",
         element: <Login />,
