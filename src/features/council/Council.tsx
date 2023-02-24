@@ -137,7 +137,7 @@ const CouncilPage = () => {
       if (!councilId) throw new Error("Missing councilId");
 
       if (screenWidth >1024) {
-        console.log("screenWidth", screenWidth);
+      
         return (
           <OptionsBars
             councilId={councilId}

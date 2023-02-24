@@ -47,7 +47,7 @@ const OptionsBars: FC<OptionsBarsProps> = ({
       dispatch(reorderCouncilOptions({ councilId, sortBy: order }));
     } catch (error) {
       console.error(error);
-    
+
       dispatch(updateOrder(Order.RANDOM));
     }
   }
@@ -77,9 +77,7 @@ const OptionsBars: FC<OptionsBarsProps> = ({
   return (
     <div className="optionsBar">
       <p>Total Votes:{maxVotes}</p>
-      <div className="fav" onClick={() => handleShowAddOption(true)}>
-        +
-      </div>
+
       {options.length === 0 ? (
         <div className="btns">
           <button onClick={() => handleShowAddOption(true)}>ADD OPTION</button>
@@ -102,9 +100,9 @@ const OptionsBars: FC<OptionsBarsProps> = ({
               maxVotes={maxVotes}
             />
           ))}
-
       </div>
       <div className="bottomNav">
+        
         <div
           className={
             order === Order.NEW
@@ -133,6 +131,9 @@ const OptionsBars: FC<OptionsBarsProps> = ({
             handleOrder(Order.RANDOM);
           }}>
           Random
+        </div>
+        <div className="bottomNav__btn bottomNav__btn--add" onClick={() => handleShowAddOption(true)}>
+          הוספת אפשרות
         </div>
       </div>
     </div>

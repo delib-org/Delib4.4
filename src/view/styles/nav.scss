@@ -2,6 +2,7 @@
   display: flex;
   width: 100%;
   background-color: rgb(255, 255, 255);
+  
   &__btn {
     flex: 1;
     padding: $padding;
@@ -11,6 +12,14 @@
     &--selected {
       color: $selected;
       font-weight: 700;
+    }
+    &--add{
+      background-color: cadetblue;
+      border-radius: $border-radius;
+      color: white;
+      display: flex;
+      justify-content: center;
+      align-items: center;
     }
   }
 }
