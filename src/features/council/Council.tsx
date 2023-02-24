@@ -31,11 +31,9 @@ let unsubscribeOptions: Function = () => {};
 let unsubscribeVote: Function = () => {};
 let token = sessionStorage.getItem("token") || "";
 
-
-
-
 const CouncilPage = () => {
   const [showAddOption, setShowAddOption] = useState<boolean>(false);
+  const [screenWidth, setScreenWidth] = useState<number>(window.innerWidth);
   const user = useAppSelector(selectUser);
   const showAddPost = useAppSelector(selectShowAddPost);
   const dispatch = useAppDispatch();
@@ -65,12 +63,11 @@ const CouncilPage = () => {
     setShowAddOption(showModal);
   }
 
-  useEffect(()=>{
-    console.log(window.innerWidth, 'first')
-    window.onresize = ()=>{
-      console.log(window.innerWidth)
-    }
-  },[])
+  useEffect(() => {
+    window.onresize = () => {
+      setScreenWidth(window.innerWidth);
+    };
+  }, []);
 
   useEffect(() => {
     if (councilId && user) {
@@ -109,16 +106,19 @@ const CouncilPage = () => {
   return (
     <div className="page council">
       <div className="head">
-      <Header title={council?.title} back={'main'} />
+        <Header title={council?.title} back={"main"} />
         <article>{council?.description}</article>
         <CouncilMenu />
       </div>
       <main>
-        <div className="wrappe">{councilId ?
-        <div className="council__panels"> 
-          {switchType(section)}
-          <div className="council__panels__board"> <Board /></div>
-          </div> : null}</div>
+        {councilId ? (
+          <div className="council__panels">
+            {switchType(section)}
+            <div className="council__panels__board">
+              <Board />
+            </div>
+          </div>
+        ) : null}
       </main>
       {council ? (
         <AddOption
@@ -128,13 +128,24 @@ const CouncilPage = () => {
         />
       ) : null}
       <footer></footer>
-      {showAddPost?<AddOpinion />:null}
+      {showAddPost ? <AddOpinion /> : null}
     </div>
   );
 
   function switchType(section: string | undefined) {
     try {
-      if (councilId) {
+      if (!councilId) throw new Error("Missing councilId");
+
+      if (screenWidth >1024) {
+        console.log("screenWidth", screenWidth);
+        return (
+          <OptionsBars
+            councilId={councilId}
+            handleShowAddOption={handleShowAddOption}
+          />
+        );
+      }
+      else  {
         switch (section) {
           case OptionsView.BARS:
             return (
@@ -153,8 +164,6 @@ const CouncilPage = () => {
               />
             );
         }
-      } else {
-        return null;
       }
     } catch (error) {
       console.error(error);
