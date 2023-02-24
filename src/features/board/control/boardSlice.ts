@@ -42,6 +42,7 @@ export const boardsSlice = createSlice({
 export const { setPost,showAddPost} = boardsSlice.actions;
 
 export const selectPost = (postId:string|undefined)=>(state:RootState)=>state.boards.posts.find(post=>post.postId === postId);
+export const selectPosts = (optionId:string|undefined)=>(state:RootState)=>state.boards.posts.filter(post=>post.option?.optionId === optionId);
 export const selectShowAddPost = (state:RootState)=>state.boards.showAddPost;
 
 export default boardsSlice.reducer;

@@ -76,7 +76,7 @@ const OptionsBars: FC<OptionsBarsProps> = ({
 
   return (
     <div className="optionsBar">
-      <p>Total Votes:{maxVotes}</p>
+      <h3>Total Votes:{maxVotes}</h3>
 
       {options.length === 0 ? (
         <div className="btns">

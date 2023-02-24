@@ -16,7 +16,7 @@ import { selectUser } from "../user/userSlice";
 import AddOption from "../options/view/AddOption";
 import { registerToCouncil } from "./setCouncilsDB";
 import { MessagingIntensity } from "../messages/messagingModel";
-import Board from "../board/view/Discussion";
+import Discussion from "../board/view/Discussion";
 import CouncilMenu from "./CouncilMenu";
 import { Post } from "../board/model/postModel";
 import { selectShowAddPost, setPost } from "../board/control/boardSlice";
@@ -115,7 +115,7 @@ const CouncilPage = () => {
           <div className="council__panels">
             {switchType(section)}
             <div className="council__panels__board">
-              <Board />
+              <Discussion />
             </div>
           </div>
         ) : null}
@@ -155,7 +155,7 @@ const CouncilPage = () => {
               />
             );
           case OptionsView.BOARD:
-            return <Board />;
+            return <Discussion />;
           default:
             return (
               <OptionsBars

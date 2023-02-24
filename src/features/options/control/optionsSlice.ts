@@ -153,6 +153,7 @@ export const {
 } = optionsSlice.actions;
 
 export const orderSelector = (state: RootState) => state.options.order;
+export const optionsSelector = (state: RootState) => state.options.options;
 
 function sortOptions(options: OptionProps[], sortBy: Order): OptionProps[] {
   try {
