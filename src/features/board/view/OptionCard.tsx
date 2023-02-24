@@ -20,15 +20,14 @@ const OptionCard: FC<OptionCardProps> = ({ option }) => {
   );
 
   return (
-    <Accordion TransitionProps={{ unmountOnExit: true }}>
+    <Accordion TransitionProps={{ unmountOnExit: true }} dir="rtl">
       <AccordionSummary
         expandIcon={<ExpandMoreIcon />}
         aria-controls="panel1a-content"
         id={option.optionId}>
-        <Typography>{option.title}</Typography>
+        <Typography className="optionCard__title">{option.title}</Typography>
       </AccordionSummary>
       <div className="optionCard">
-        <div className="optionCard__title">{option.title}</div>
         <div className="optionCard__description">{option.description}</div>
         <Accordion TransitionProps={{ unmountOnExit: true }}>
           <AccordionSummary
@@ -36,6 +35,11 @@ const OptionCard: FC<OptionCardProps> = ({ option }) => {
             aria-controls="panel1a-content"
             id={option.optionId}>
             <Typography>דעות בעד ונגד</Typography>
+            <div className="optionCard__add">
+                <div className="optionCard__add__btn optionCard__add__btn--pro">בעד</div>
+                <div className="optionCard__add__btn optionCard__add__btn--neutral">ניטרלי</div>
+                <div className="optionCard__add__btn optionCard__add__btn--against">נגד</div>
+            </div>
           </AccordionSummary>
           <div className="optionCard__posts">
             {posts
@@ -43,7 +47,6 @@ const OptionCard: FC<OptionCardProps> = ({ option }) => {
                   <PostCard key={post.postId} post={post} />
                 ))
               : null}
-            test
           </div>
         </Accordion>
       </div>
