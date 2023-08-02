@@ -45,11 +45,11 @@
     "workbox-streams": "^6.5.4"
   },
   "scripts": {
-    "start": "react-scripts start",
+    "dev": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "eml": "firebase emulators:start",
+    "deve": "firebase emulators:start",
     "fun": "cd functions && npm run build:watch",
     "deploy": "npm run build && firebase deploy --only hosting"
   },

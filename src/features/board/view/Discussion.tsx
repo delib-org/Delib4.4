@@ -39,7 +39,7 @@ const Discussion: FC = () => {
       <div className="board__options">
         {options.map((option) =><OptionCard key={`board-${option.optionId}`} option={option}/>)}
       </div>
-      <div className="fav" onClick={()=>dispatch(showAddPost(true))}>
+      <div className="fav fav--comments" onClick={()=>dispatch(showAddPost(true))}>
         <AddCommentIcon />
       </div>
      

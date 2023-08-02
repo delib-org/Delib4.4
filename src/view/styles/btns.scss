@@ -18,11 +18,28 @@
   &:hover {
     background-color: #6a1e1ead;
   }
-
-  @media only screen and (min-width: 600px) {
-    right: -60px;
-    bottom: 25px;
+  &--comments{
+    @media only screen and (max-width: 1000px) {
+      right: 10vw;
+      bottom: 150px;
+    }
   }
+  &--options{
+    right: 60vw;
+    @media only screen and (max-width: 1000px) {
+      right: 10vw;
+      
+      bottom: 150px;
+    }
+  }
+  &--consultation{
+    right: 30vw;
+    @media only screen and (max-width: 1000px) {
+      right: 20vw;
+      bottom: 180px;
+    }
+  }
+ 
 }
 
 .btns {

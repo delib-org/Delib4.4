@@ -54,10 +54,15 @@ const AddCouncil = () => {
   }
   return (
     <div>
-      <form onSubmit={handleAddCouncil}>
+      <h1>Add Council</h1>
+      <form onSubmit={handleAddCouncil} className="form addForm">
         <input type="text" name="title" placeholder="Council title" required />
         <textarea name="description" placeholder="Add description" />
+        <br />
+        <div className="btns">
+          
         <button>ADD</button>
+        </div>
       </form>
     </div>
   );

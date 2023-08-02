@@ -38,7 +38,9 @@ const Councils = () => {
 
       <div className="bottomNav">
         <Link to="/main/add-council">
-          <button>ADD Consultation</button>
+          <div className="fav fav--consultation">
+          +
+          </div>
         </Link>
       </div>
     </div>

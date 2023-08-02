@@ -120,3 +120,11 @@ div {
   gap: 10px;
   padding: 5px;
 }
+
+// forms
+form{
+  display: flex;
+  flex-direction: column;
+  max-width: 75ch;
+  margin: auto;
+}

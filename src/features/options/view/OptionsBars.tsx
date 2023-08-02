@@ -101,6 +101,12 @@ const OptionsBars: FC<OptionsBarsProps> = ({
             />
           ))}
       </div>
+      <div className="fav fav--options" onClick={() => handleShowAddOption(true)}>
+          <div>
+            +
+          </div>
+        
+        </div>
       <div className="bottomNav">
         
         <div
@@ -132,9 +138,7 @@ const OptionsBars: FC<OptionsBarsProps> = ({
           }}>
           Random
         </div>
-        <div className="bottomNav__btn bottomNav__btn--add" onClick={() => handleShowAddOption(true)}>
-          הוספת אפשרות
-        </div>
+        
       </div>
     </div>
   );
